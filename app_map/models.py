@@ -5,6 +5,6 @@ class Store( models.Model ):
     name = models.CharField( max_lenght=100 )
     
     # address data
-    street = models.CharField( max_lenght=50 )
-    city = models.CharField( max_lenght=50 )
-    zip_code = models.CharField( max_lenght=5)
+    street = models.CharField( max_length=50 )
+    city = models.CharField( max_length=50 )
+    zip_code = models.CharField( max_length=5)
