@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <title>OpenEcoMaps</title>
+
+        <link href="static/css/style.css" rel="stylesheet" type="text/css">
+<!--
+        <script type="text/javascript" src="static/js/function.js"></script>
+        <script type="text/javascript" src="static/js/jquery-1.4.4.min.js"></script>
+-->
+        <script type="text/javascript" src="static/js/oem_mini.js"></script>
+        <script type="text/javascript" src="static/js/utility.js"></script>
+<!--
+        <script type="text/javascript" src="static/js/OpenLayers.js"></script>
+-->
+        <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
+        <link rel="stylesheet" type="text/css" href="static/css/oem_style.css">
+        <link rel="stylesheet" type="text/css" href="static/css/oem_accordion_style.css">
+
+        <script type="text/javascript">
+            function init() {
+                initMap( {{ city.coord_lon }}, {{ city.coord_lat }}, {{ city.coord_zoom }});
+                updateLocation();
+                map.events.register("moveend", map, updateLocation);
+                map.events.register("changelayer", map, updateLocation);
+            }
+            
+            
+            var http = new XMLHttpRequest();
+            function getLogoInfo(logo_category)
+            {
+                http.open('get', '/logo_pages/'+logo_category);
+                http.onreadystatechange = handleResponse;
+                http.send(null);
+            }
+            function getLogoDetails(logo_category, logo)
+            {
+                http.open('get', '/logo_pages/'+logo_category+'/'+logo);
+                http.onreadystatechange = handleResponse;
+                http.send(null);
+            }
+            
+            function handleResponse()
+            {
+                if( http.readyState == 4 )
+                {
+                    var response = http.responseText;
+                    document.getElementById('main_content').innerHTML = response;
+                }
+            }
+            
+            
+        </script>
+    </head>
+    
+    <body onload="init()">
+        <header> 
+            <img src="static/img/greenpeace.png" id="gp-logo">
+            <ul id="menu">
+                <li class="mainmenu"><span>Infos zu Siegeln:</span></li>
+                <li class="mainmenu"><a href="javascript:getLogoInfo('nutrition')">Ernährung</a></li>
+                <li class="mainmenu"><a href="javascript:getLogoInfo('textiles')">Textilien</a></li>
+                <li class="mainmenu"><a href="javascript:getLogoInfo('cosmetics')">Kosmetik</a></li>
+                <li class="mainmenu"><a href="javascript:getLogoInfo('paper')">Papier</a></li>
+                <li class="mainmenu"><a href="javascript:getLogoInfo('misc')">Sonstiges</a></li>
+                <li class="submenu"><a href="impressum">Impressum</a></li>
+                <li class="submenu"><a href="copyrights">Copyright</a></li>
+                <li class="submenu"><a href="about">Über das Projekt</a></li>
+            </ul>
+            
+            <form>
+                <input id="search-text" type="text" name="search-text" value="Stadt/Siegelname eingeben" autocomplete="off">
+                <input class="lupe" type="submit" value="">
+            </form>
+        </header>
+        
+        <div id="main_content">
+            <div id="map">
+                {% block main %}
+                
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>
