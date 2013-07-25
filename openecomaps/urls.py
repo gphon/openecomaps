@@ -6,7 +6,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'openecomaps.views.home', name='home'),
+    url(r'^$', 'app_map.views.index', name='index'),
+    
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve'),
     # url(r'^openecomaps/', include('openecomaps.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

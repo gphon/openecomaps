@@ -1,13 +1,22 @@
 # Django settings for openecomaps project.
 
+import os
+cwd = os.getcwd()
+
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+
+
 ADMINS = (
+    ('Stefan Bunde', 'greenpeace.stefanbunde@gmail.com'),
     # ('Your Name', 'your_email@example.com'),
 )
 
+
 MANAGERS = ADMINS
+
 
 DATABASES = {
     'default': {
@@ -19,6 +28,7 @@ DATABASES = {
         'PORT': '',
     }
 }
+
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -71,6 +81,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+#    os.path.join( cwd, 'static_files' ),
 )
 
 # List of finder classes that know how to find static files in
@@ -110,7 +121,9 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join( cwd, 'templates' ),
 )
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -123,7 +136,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-#    'blabla',
+    'app_map',
 )
 
 # A sample logging configuration. The only tangible logging
