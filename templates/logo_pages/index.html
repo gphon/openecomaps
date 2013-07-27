@@ -1,0 +1,25 @@
+<div id="tabs">
+    <h1>Siegel {% block menu %}Menü{% endblock %}</h1>
+    <ul>
+        {% for tab in tabs %}
+            <li>
+                {% ifequal selected_tab tab %}
+                    <a href="javascript:getLogoDetails('{{ selected_menu }}', '{{ tab }}')" class="active">
+                        {{ tab }}
+                    </a>
+                {% else %}
+                    <a href="javascript:getLogoDetails('{{ selected_menu }}', '{{ tab }}')">
+                        {{ tab }}
+                    </a>
+                {% endifequal %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="content">
+    <h1>{% block logo_title %}logo title{% endblock %}</h1>
+    {% block logo_content %}
+        logo content
+    {% endblock %}
+</div>

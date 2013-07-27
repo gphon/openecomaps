@@ -1,0 +1,42 @@
+{% extends "logo_pages/index.html" %}
+
+
+{% block menu %}Papier{% endblock %}
+
+
+{% block logo_title %}
+    {% ifequal selected_tab 'blauer_engel' %}
+        Der blaue Engel
+    {% endifequal %}
+    
+    {% ifequal selected_tab 'fsc_recycling' %}
+        FSC Recycling
+    {% endifequal %}
+    
+    {% ifequal selected_tab 'oekopaplus' %}
+        ÖKOPAplus
+    {% endifequal %}
+{% endblock %}
+
+
+
+{% block logo_content %}
+    {% ifequal selected_tab 'blauer_engel' %}
+        <img src="static/img/blauerengel.png" alt="Blauer Engel">
+        <p>
+            Das bekannteste und häufigste Siegel auf Recyclingprodukten ist der Blaue Engel. Er wird von einer unabhängigen Jury vergeben und garantiert u.a., dass das Produkt aus 100% Altpapier besteht und bei der Produktion auf bedenkliche chemische Stoffe wie Chlor oder Quecksilberverbindungen verzichtet wird. 
+        </p>
+    {% endifequal %}
+    
+    {% ifequal selected_tab 'fsc_recycling' %}
+        <p>
+             Papierprodukte mit dem FSC Recycling Siegel bestehen mindestens aus 85% recycleten Holzfasern. Die anderen Holzfasern stammen aus Restholz, es wird also kein Frischholz verwendet.
+        </p>
+    {% endifequal %}
+    
+    {% ifequal selected_tab 'oekopaplus' %}
+        <p>
+             Das ÖKOPAplus-Logo ist eine Eigenmarke der Firma “Venceremos” und beruht auf den Kriterien des Blauen Engels. Zusätzlich wird garantiert, dass das Papier nur mit Naturstoffen geweißt wird und Färbemittel ausschließlich aus pflanzlichen Stoffen bestehen.
+        </p>
+    {% endifequal %}
+{% endblock %}

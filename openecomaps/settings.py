@@ -19,14 +19,23 @@ MANAGERS = ADMINS
 
 
 DATABASES = {
+#    'default': {
+#        'ENGINE':   'django.db.backends.postgresql_psycopg2',
+#        'NAME':     'openecomaps',
+#        'USER':     'openecomaps',
+#        'PASSWORD': 'oem',
+#        'HOST':     '127.0.0.1',
+#        'PORT':     '',
+#    },
+    
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'openecomaps',
-        'USER': 'openecomaps',
-        'PASSWORD': 'oem',
-        'HOST': '127.0.0.1',
-        'PORT': '',
-    }
+        'ENGINE':   'django.db.backends.sqlite3',
+        'NAME':     os.path.join( cwd, 'sqlite.db' ),
+        'USER':     '',
+        'PASSWORD': '',
+        'HOST':     '',
+        'PORT':     '',
+    },
 }
 
 
@@ -81,7 +90,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-#    os.path.join( cwd, 'static_files' ),
+    os.path.join( cwd, 'static_files' ),
 )
 
 # List of finder classes that know how to find static files in
@@ -137,6 +146,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'app_map',
+    'app_logos',
 )
 
 # A sample logging configuration. The only tangible logging

@@ -1,0 +1,55 @@
+{% extends "logo_pages/index.html" %}
+
+
+{% block menu %}Ernährung{% endblock %}
+
+
+{% block logo_title %}
+    {% ifequal selected_tab 'bio' %}
+        EU-Bio-Siegel
+    {% endifequal %}
+{% endblock %}
+
+
+{% block logo_content %}
+    {% ifequal selected_tab 'bio' %}
+        <p>
+            Das EU-Bio-Siegel kennzeichnet Lebensmittel, deren Herstellung nach EU-weiten Richtlinien [Verordnung (EG) Nr. 834/2007] erfolgt. Auf verpackten Lebensmitteln ist es Pflicht, auf unverpackten Erzeugnissen kann es freiwillig benutzt werden. Neben dem EU-Bio-Siegel können zusätzlich auch andere, wie nationale Logos oder Logos von Anbauverbänden verwendet werden. 
+        </p>
+        <p>
+            <b>Kriterien:</b>
+            <br>
+            Die Betriebe sollen wenn möglich in einem hofeigenen Kreislauf wirtschaften, also eigene Futtermittel anbauen oder Dünger aus eigenem Kompost verwenden. Zukäufe müssen aus ökologischem Landbau kommen und müssen dokumentiert werden. In Ausnahmefällen kann aber auch konventionelles Saatgut, Pflanzensetzlinge, Futtermittel und Tiere zugekauft werden. Der Pflanzenschutz sollte durch vorbeugende Maßnahmen, z.B. Nützlinge, Fruchtwechsel oder robustere Arten geschehen. Als letzte Lösung dürfen aber bestimmte Pflanzenschutzmittel oder chemisch-synthetische Dünger eingesetzt werden.
+            <br>
+            Mindestens 95% der Futtermittel sowie der Zutaten verarbeiteter Produkte müssen aus ökologischer Landwirtschaft stammen. Dagegen dürfen keine gentechnisch veränderten Organismen (GVO) im Landbau oder der Verarbeitung verwendet werden. Zusatzstoffe, die mit Hilfe von GVO hergestellt wurden dürfen allerdings verwendet werden, wenn sie anders nicht verfügbar sind.
+            <br>
+            Die Verwendung von Zusatzstoffen ist beschränkt und entspricht etwa einem Zehntel derer konventioneller Produkte.
+        </p>
+        <p>
+            <b>Kontrolle:</b>
+            <br>
+            Um die Einhaltung der Standards zu gewährleisten, werden die Erzeuger- und Verarbeitungsbetriebe einmal im Jahr kontrolliert. Zusätzlich können stichprobenartig unangemeldete Kontrollen stattfinden. Dabei werden von unabhängigen, anerkannten Kontrollstellen die Tiere und Pflanzen, Betriebsunterlagen, Produktionsstätten und Erzeugnisse überprüft und ein Bericht angefertigt. Da diese Kontrollen über den ganzen Prozess von der Herstellung über die Verarbeitung bis teilweise zu den Verkaufsstellen erfolgen, wird die durchgängige Überprüfung der Produktherstellung sichergestellt.
+            <br>
+            Die Kontrollstelle muss allen Produkt mit einer Codenummer angegeben werden, wodurch eine Rückverfolgbarkeit gewährleistet ist.
+            <br>
+            <br>
+            Bei Verstößen gegen die Richtlinien drohen den Betrieben Geldstrafen, Auflagen oder sogar die Aberkennung des Siegels.
+        </p>
+        <br>
+        <p>
+            <b>Links:</b>
+            <br>
+            <ul>
+                <li>
+                    Generelle Infos des Bundesministerium für Ernährung, Landwirtschaft und Verbraucherschutz: www.bio-siegel.de
+                </li>
+                <li>
+                    Infoseite der Europäischen Kommission: www.organic-farming.eu
+                </li>
+                <li>
+                    umfangreiches Informationsportal der Bundesanstalt für Landwirtschaft und Ernährung: http://www.oekolandbau.de
+                </li>
+            </ul>
+        </p>
+    {% endifequal %}
+{% endblock %}
