@@ -62,20 +62,19 @@
             <a href="home">
                 <img src="static/img/greenpeace.png" id="gp-logo">
             </a>
+            
             <ul id="menu">
-                <li class="mainmenu"><span>Infos zu Siegeln:</span></li>
-                <li class="mainmenu"><a href="javascript:getLogoInfo('nutrition')">Ernährung</a></li>
-                <li class="mainmenu"><a href="javascript:getLogoInfo('textiles')">Textilien</a></li>
-                <li class="mainmenu"><a href="javascript:getLogoInfo('cosmetics')">Kosmetik</a></li>
-                <li class="mainmenu"><a href="javascript:getLogoInfo('paper')">Papier</a></li>
-                <li class="mainmenu"><a href="javascript:getLogoInfo('misc')">Sonstiges</a></li>
+                {% block menu %}
+                
+                {% endblock %}
                 <li class="submenu"><a href="impressum">Impressum</a></li>
                 <li class="submenu"><a href="copyrights">Copyright</a></li>
                 <li class="submenu"><a href="about">Über das Projekt</a></li>
+                <li class="submenu"><a href="login">Login</a></li>
             </ul>
             
             <form>
-                <input id="search-text" type="text" name="search-text" value="Stadt/Siegelname eingeben" autocomplete="off">
+                <input id="search-text" type="text" name="search-text" value="Stadt eingeben" autocomplete="off">
                 <input class="lupe" type="submit" value="">
             </form>
         </header>

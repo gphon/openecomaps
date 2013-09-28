@@ -9,6 +9,16 @@
 {% endblock %}
 
 
+{% block menu %}
+    <li class="mainmenu"><span>Informationen zu:</span></li>
+    <li class="mainmenu"><a href="javascript:getLogoInfo('nutrition')">Ernährung</a></li>
+    <li class="mainmenu"><a href="javascript:getLogoInfo('textiles')">Textilien</a></li>
+    <li class="mainmenu"><a href="javascript:getLogoInfo('cosmetics')">Kosmetik</a></li>
+    <li class="mainmenu"><a href="javascript:getLogoInfo('paper')">Papier</a></li>
+    <li class="mainmenu"><a href="javascript:getLogoInfo('misc')">Sonstiges</a></li>
+{% endblock %}
+
+
 {% block main %}
     <script type="text/javascript">
     	var _gaq = _gaq || [];
