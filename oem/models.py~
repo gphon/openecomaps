@@ -68,7 +68,7 @@ class POI( models.Model ):
     verified = models.BooleanField()
     verification_date = models.DateField()
     
-    categories = models.ManyToManyField( Category )
+    categories = models.ManyToManyField( POICategory )
     seals = models.ManyToManyField( Seal )
     
     def __str__( self ):
