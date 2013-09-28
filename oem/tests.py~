@@ -8,7 +8,7 @@ from oem.models import POICategory
 from oem.models import Seal
 
 import datetime
-import md5
+import hashlib
 
 
 
@@ -33,17 +33,17 @@ def create_dummy_data_view( request ):
     ###########################################################################
     
     g1 = GPGroup(   name = 'Duesseldorf',
-                    password = md5.new('321').hexdigest(),
+                    password = hashlib.md5('321').hexdigest(),
                     email = 'info@duesseldorf.greenpeace.de' )
     g1.save()
     
     g2 = GPGroup(   name = 'Potsdam',
-                    password = md5.new('123').hexdigest(),
+                    password = hashlib.md5('123').hexdigest(),
                     email = 'info@potsdam.greenpeace.de' )
     g2.save()
     
     g3 = GPGroup(   name = 'Stuttgart',
-                    password = md5.new('abc').hexdigest(),
+                    password = hashlib.md5('abc').hexdigest(),
                     email = 'info@stuttgart.greenpeace.de' )
     g3.save()
     

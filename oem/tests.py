@@ -33,17 +33,17 @@ def create_dummy_data_view( request ):
     ###########################################################################
     
     g1 = GPGroup(   name = 'Duesseldorf',
-                    password = hashlib.md5('321').hexdigest(),
+                    password = hashlib.md5(b'321').hexdigest(),
                     email = 'info@duesseldorf.greenpeace.de' )
     g1.save()
     
     g2 = GPGroup(   name = 'Potsdam',
-                    password = hashlib.md5('123').hexdigest(),
+                    password = hashlib.md5(b'123').hexdigest(),
                     email = 'info@potsdam.greenpeace.de' )
     g2.save()
     
     g3 = GPGroup(   name = 'Stuttgart',
-                    password = hashlib.md5('abc').hexdigest(),
+                    password = hashlib.md5(b'abc').hexdigest(),
                     email = 'info@stuttgart.greenpeace.de' )
     g3.save()
     
