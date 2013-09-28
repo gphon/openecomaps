@@ -1,11 +1,11 @@
 from django.http import HttpResponse
 from django.test import TestCase
 
-from models import Area
-from models import GPGroup
-from models import POI
-from models import POICategory
-from models import Seal
+from oem.models import Area
+from oem.models import GPGroup
+from oem.models import POI
+from oem.models import POICategory
+from oem.models import Seal
 
 import datetime
 import md5

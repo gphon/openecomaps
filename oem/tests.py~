@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.test import TestCase
 
-from models import Area
+from oem.models import Area
 from models import GPGroup
 from models import POI
 from models import POICategory
@@ -134,8 +134,10 @@ def create_dummy_data_view( request ):
     p2.seals.add( s1, s3 )
     p3.seals.add( s3 )
     
-    ###########################################################################
     return HttpResponse('success')
+
+
+
 
 
 def show_dummy_data_view( request ):
