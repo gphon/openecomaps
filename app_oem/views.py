@@ -37,9 +37,9 @@ def login( request ):
                 pass
             
             if request.user.is_authenticated():
-                print 'authenticated'
+                pass
             else:
-                print 'not logged in'
+                pass
         #endif
     else:
         form = LoginForm()
