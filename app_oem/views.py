@@ -1,6 +1,13 @@
+import hashlib
+
+from django.core.context_processors import csrf
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 
+from app_oem.forms import LoginForm
+
+from app_oem.models import GPGroup
 from app_oem.models import POI
 
 
@@ -12,9 +19,49 @@ def home( request ):
     return render_to_response( 'home.html' )
 
 
+
+def login( request ):
+    context = {}
+    context.update( csrf(request) )
+    
+    if request.method == 'POST':
+        form = LoginForm( request.POST )
+        if form.is_valid():
+            groupname = form.cleaned_data['groupname']
+            password = hashlib.md5( form.cleaned_data['password'] ).hexdigest()
+            
+            try:
+                group = GPGroup.objects.get( name__iexact=groupname, password=password )
+                request.session['group_id'] = group.id
+            except GPGroup.DoesNotExist:
+                pass
+            
+            if request.user.is_authenticated():
+                print 'authenticated'
+            else:
+                print 'not logged in'
+        #endif
+    else:
+        form = LoginForm()
+    #endif
+    
+    context['form'] = form
+    if request.session['group_id']:
+        context['login'] = True
+    return render_to_response( 'login.html', context,
+                                    context_instance=RequestContext(request) )
+
+
+def logout( request ):
+    try:
+        del request.session['group_id']
+    except KeyError:
+        pass
+    return render_to_response( 'home.html' )
+
+
 def info_view( request, template_name ):
-    template_path = 'submenu/' + template_name
-    return render_to_response( template_path )
+    return render_to_response( template_name )
 
 
 def search_view( request, search_term ):
@@ -53,15 +100,15 @@ def fetch_pois( request, lon_left, lon_right, lat_top, lat_bottom ):
     return HttpResponse( out[:-1] )
 
 
-def add_poi( request, data ):
+def add_poi( request ):
+    text = str( request )
+    return render_to_response( text )
+
+def del_poi( request ):
     #:TODO
     return render_to_response( 'home.html' )
 
-def del_poi( request, data ):
-    #:TODO
-    return render_to_response( 'home.html' )
-
-def update_poi_view( request, data ):
+def update_poi( request ):
     #:TODO
     return render_to_response( 'home.html' )
 
