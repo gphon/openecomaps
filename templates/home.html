@@ -1,37 +1,94 @@
 {% extends "base.html" %}
 
 
-{% block initMap %}
-    initMap( {{ city.coord_lon }}, {{ city.coord_lat }}, {{ city.coord_zoom }});
-    updateLocation();
-    map.events.register("moveend", map, updateLocation);
-    map.events.register("changelayer", map, updateLocation);
+{% block java_script %}
+    var map;
+
+    function init(){
+        map = new OpenLayers.Map('map');
+
+        map.addLayer( new OpenLayers.Layer.OSM() );
+        
+        var layerAerial = new OpenLayers.Layer.Bing(
+                {
+                    name: "Bing Map",
+                    key: 'AoGQ41xJtaeTYW-5bGSuE7e589v03uKnxXeXmtFEsWMH1UoZMyhBydLItxE7Qua_',
+                    type: 'Aerial'
+                }
+            );
+        
+        
+        var papier = new OpenLayers.Layer.Vector("Papier", {
+            strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1.1})],
+            protocol: new OpenLayers.Protocol.HTTP({
+                url: "poi.php?layer=papier",
+                format: new OpenLayers.Format.Text()
+            })
+        });
+        
+        var lebensmittel = new OpenLayers.Layer.Vector("Lebensmittel", {
+            strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1.1})],
+            protocol: new OpenLayers.Protocol.HTTP({
+                url: "poi.php?layer=lebensmittel",
+                format: new OpenLayers.Format.Text()
+            })
+        });
+        
+        
+        map.addLayers( [papier,lebensmittel, layerAerial] );
+        
+        map.addControl(new OpenLayers.Control.LayerSwitcher());
+        map.addControl(new OpenLayers.Control.PanZoomBar());
+        map.addControl(new OpenLayers.Control.Navigation());
+
+        map.zoomToMaxExtent();
+
+        selectControl = new OpenLayers.Control.SelectFeature([lebensmittel, papier], {onSelect: onFeatureSelect, onUnselect: onFeatureUnselect});
+        map.addControl(selectControl);
+        selectControl.activate();
+        
+        var lonLat = new OpenLayers.LonLat( 9.946344,49.783903 )
+        .transform(
+            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+            map.getProjectionObject() // to Spherical Mercator Projection
+        );
+        var zoom=11;
+        map.setCenter (lonLat, zoom);
+    }
+     
+     function onPopupClose(evt) {
+         onFeatureUnselect(selectedFeature);
+     }
+     function onFeatureSelect(feature) {
+         selectedFeature = feature;
+         popup = new OpenLayers.Popup.FramedCloud("chicken", 
+           feature.geometry.getBounds().getCenterLonLat(),
+           new OpenLayers.Size(100,100),
+           "<div><h3>"+feature.attributes.title+"</h3>"+feature.attributes.description+"</div>",
+           null, true, onPopupClose);
+         feature.popup = popup;
+         map.addPopup(popup);
+     }
+     function onFeatureUnselect(feature) {
+         if (feature.popup) {
+             map.removePopup(feature.popup);
+             feature.popup.destroy();
+             feature.popup = null;
+         }
+     }   
 {% endblock %}
 
 
-{% block menu %}
+{% block mainmenu %}
     <li class="mainmenu"><span>Informationen zu:</span></li>
-    <li class="mainmenu"><a href="javascript:getLogoInfo('nutrition')">Ernährung</a></li>
-    <li class="mainmenu"><a href="javascript:getLogoInfo('textiles')">Textilien</a></li>
-    <li class="mainmenu"><a href="javascript:getLogoInfo('cosmetics')">Kosmetik</a></li>
-    <li class="mainmenu"><a href="javascript:getLogoInfo('paper')">Papier</a></li>
-    <li class="mainmenu"><a href="javascript:getLogoInfo('misc')">Sonstiges</a></li>
+    <li class="mainmenu"><a href="category/fish">Fisch</a></li>
+    <li class="mainmenu"><a href="category/gmo">Gentechnik</a></li>
+    <li class="mainmenu"><a href="category/paper">Papier</a></li>
+    <li class="mainmenu"><a href="category/textiles">Textilien</a></li>
+    <li class="mainmenu"><a href="category/misc">Sonstiges</a></li>
 {% endblock %}
 
 
-{% block main %}
-    <script type="text/javascript">
-    	var _gaq = _gaq || [];
-      	_gaq.push(['_setAccount', 'UA-1365122-6']);
-      	_gaq.push(['_trackPageview']);
-    	
-      	(function() {
-        	var ga = document.createElement('script');
-        	ga.type = 'text/javascript';
-        	ga.async = true;
-        	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        	var s = document.getElementsByTagName('script')[0];
-        	s.parentNode.insertBefore(ga, s);
-      	})();
-    </script>
+{% block main_content %}
+    <div id="map" class="smallmap"></div>
 {% endblock %}

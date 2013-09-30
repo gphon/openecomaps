@@ -1,4 +1,4 @@
 $(document).ready(function(){
 	var browserhoehe = $(window).height();
-	$('#map, #tabs').css({'height': browserhoehe-170});
+	$('#main_content, #tabs').css({'height': browserhoehe-170});
 });

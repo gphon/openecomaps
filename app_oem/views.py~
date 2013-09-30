@@ -1,6 +1,14 @@
-from django.http import HttpResponse
-from django.shortcuts import render_to_response
+import hashlib
 
+from django.core.context_processors import csrf
+from django.http import HttpResponse
+from django.contrib import auth
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
+from app_oem.forms import LoginForm
+
+from app_oem.models import GPGroup
 from app_oem.models import POI
 
 
@@ -12,9 +20,38 @@ def home( request ):
     return render_to_response( 'home.html' )
 
 
+
+def login( request ):
+    
+    if request.method == 'POST':
+        form = LoginForm( request.POST )
+        if form.is_valid():
+            groupname = form.cleaned_data['groupname'].lower()
+            password = form.cleaned_data['password']
+            
+            user = auth.authenticate( username=groupname, password=password )
+            if user is not None and user.is_active:
+                auth.login( request, user )
+                pass #TODO: redirect to groups page
+        #endif
+    else:
+        form = LoginForm()
+    #endif
+    
+    context = {}
+    context.update( csrf(request) )
+    context['form'] = form
+    return render_to_response( 'login.html', context,
+                                    context_instance=RequestContext(request) )
+
+
+def logout( request ):
+    auth.logout( request )
+    return render_to_response( 'home.html' )
+
+
 def info_view( request, template_name ):
-    template_path = 'submenu/' + template_name
-    return render_to_response( template_path )
+    return render_to_response( template_name )
 
 
 def search_view( request, search_term ):
@@ -40,7 +77,7 @@ def category_city( request, category, city ):
 def fetch_pois( request, lon_left, lon_right, lat_top, lat_bottom ):
     out = ''
     # fetch all POI's where lon_right > poi.lon > lon_left and where
-    #                       lat_top > poi.lat > lat_bottom
+    #                                           lat_top > poi.lat > lat_bottom
     for poi in POI.objects.filter( lon__gt=lon_left ).filter( lon__lt=lon_right ) \
                             .filter( lat__lt=lat_top ).filter( lat__gt=lat_bottom ):
         out += '%s\t' % poi.lat         # lat
@@ -53,15 +90,15 @@ def fetch_pois( request, lon_left, lon_right, lat_top, lat_bottom ):
     return HttpResponse( out[:-1] )
 
 
-def add_poi( request, data ):
+def add_poi( request ):
+    text = str( request )
+    return render_to_response( text )
+
+def del_poi( request ):
     #:TODO
     return render_to_response( 'home.html' )
 
-def del_poi( request, data ):
-    #:TODO
-    return render_to_response( 'home.html' )
-
-def update_poi_view( request, data ):
+def update_poi( request ):
     #:TODO
     return render_to_response( 'home.html' )
 
@@ -72,3 +109,9 @@ def verify_store( request ):
 def falsify_store( request ):
     #:TODO
     pass
+
+
+def ip_address_processor(request):
+    return {'ip_address': request.META['REMOTE_ADDR']}
+
+

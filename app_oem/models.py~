@@ -21,7 +21,7 @@ class Area( models.Model ):
 
 class GPGroup( models.Model ):
     name     = models.CharField( max_length=100 )
-    password = models.PasswordField( max_length=32 )  # stored as md5 hashdigets
+    password = models.CharField( max_length=32 )  # stored as md5 hashdigets
     email    = models.EmailField()
     
     areas = models.ManyToManyField( Area )

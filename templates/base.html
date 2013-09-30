@@ -3,57 +3,28 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+        
         <title>OpenEcoMaps</title>
-
-        <link href="static/css/style.css" rel="stylesheet" type="text/css">
+        
+        <link href="static/css/styles.css" rel="stylesheet" type="text/css">
+        <link href="static/css/header.css" rel="stylesheet" type="text/css">
+        
         <script type="text/javascript" src="static/js/function.js"></script>
+        <script type="text/javascript" src="http://www.openlayers.org/dev/OpenLayers.js"></script>
 <!--
         <script type="text/javascript" src="static/js/jquery-1.4.4.min.js"></script>
--->
         <script type="text/javascript" src="static/js/oem_mini.js"></script>
         <script type="text/javascript" src="static/js/utility.js"></script>
-<!--
         <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
--->
         <script type="text/javascript" src="static/js/OpenLayers.js"></script>
         <link rel="stylesheet" type="text/css" href="static/css/oem_style.css">
         <link rel="stylesheet" type="text/css" href="static/css/oem_style2.css">
         <link rel="stylesheet" type="text/css" href="static/css/oem_accordion_style.css">
-
+-->
         <script type="text/javascript">
-            function init() {
-                initMap( {{ city.coord_lon }}, {{ city.coord_lat }}, {{ city.coord_zoom }});
-                updateLocation();
-                map.events.register("moveend", map, updateLocation);
-                map.events.register("changelayer", map, updateLocation);
-            }
+            {% block java_script %}
             
-            
-            var http = new XMLHttpRequest();
-            function getLogoInfo(logo_category)
-            {
-                http.open('get', '/logo_pages/'+logo_category);
-                http.onreadystatechange = handleResponse;
-                http.send(null);
-            }
-            function getLogoDetails(logo_category, logo)
-            {
-                http.open('get', '/logo_pages/'+logo_category+'/'+logo);
-                http.onreadystatechange = handleResponse;
-                http.send(null);
-            }
-            
-            function handleResponse()
-            {
-                if( http.readyState == 4 )
-                {
-                    var response = http.responseText;
-                    document.getElementById('main_content').innerHTML = response;
-                }
-            }
-            
-            
+            {% endblock %}
         </script>
     </head>
     
@@ -64,27 +35,18 @@
             </a>
             
             <ul id="menu">
-                {% block menu %}
-                
-                {% endblock %}
-                <li class="submenu"><a href="impressum">Impressum</a></li>
-                <li class="submenu"><a href="copyrights">Copyright</a></li>
-                <li class="submenu"><a href="about">Über das Projekt</a></li>
-                <li class="submenu"><a href="login">Login</a></li>
+                {% block mainmenu %} {% endblock %}
+                {% include 'submenu.html' %}
             </ul>
             
-            <form>
+            <div class="ui-widget">
                 <input id="search-text" type="text" name="search-text" value="Stadt eingeben" autocomplete="off">
                 <input class="lupe" type="submit" value="">
-            </form>
+            </div>
         </header>
         
         <div id="main_content">
-            <div id="map">
-                {% block main %}
-                
-                {% endblock %}
-            </div>
+            {% block main_content %} {% endblock %}
         </div>
     </body>
 </html>

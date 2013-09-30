@@ -2,6 +2,7 @@ import hashlib
 
 from django.core.context_processors import csrf
 from django.http import HttpResponse
+from django.contrib import auth
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -21,42 +22,31 @@ def home( request ):
 
 
 def login( request ):
-    context = {}
-    context.update( csrf(request) )
     
     if request.method == 'POST':
         form = LoginForm( request.POST )
         if form.is_valid():
-            groupname = form.cleaned_data['groupname']
-            password = hashlib.md5( form.cleaned_data['password'] ).hexdigest()
+            groupname = form.cleaned_data['groupname'].lower()
+            password = form.cleaned_data['password']
             
-            try:
-                group = GPGroup.objects.get( name__iexact=groupname, password=password )
-                request.session['group_id'] = group.id
-            except GPGroup.DoesNotExist:
-                pass
-            
-            if request.user.is_authenticated():
-                pass
-            else:
-                pass
+            user = auth.authenticate( username=groupname, password=password )
+            if user is not None and user.is_active:
+                auth.login( request, user )
+                pass #TODO: redirect to groups page
         #endif
     else:
         form = LoginForm()
     #endif
     
+    context = {}
+    context.update( csrf(request) )
     context['form'] = form
-    if request.session['group_id']:
-        context['login'] = True
     return render_to_response( 'login.html', context,
                                     context_instance=RequestContext(request) )
 
 
 def logout( request ):
-    try:
-        del request.session['group_id']
-    except KeyError:
-        pass
+    auth.logout( request )
     return render_to_response( 'home.html' )
 
 
@@ -119,3 +109,9 @@ def verify_store( request ):
 def falsify_store( request ):
     #:TODO
     pass
+
+
+def ip_address_processor(request):
+    return {'ip_address': request.META['REMOTE_ADDR']}
+
+

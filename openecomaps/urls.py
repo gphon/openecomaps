@@ -14,6 +14,8 @@ urlpatterns = patterns( '',
     
     # ex: /login/
     url( r'^login$',      'app_oem.views.login' ),
+    # ex: /logout/
+    url( r'^logout$',     'app_oem.views.logout' ),
     # ex: /about/
     url( r'^about$',      'app_oem.views.info_view', {'template_name' : 'about.html'} ),
     # ex: /copyrights/
