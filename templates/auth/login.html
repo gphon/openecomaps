@@ -8,9 +8,14 @@
 
 {% block main_content %}
     {% if user.is_authenticated %}
-        {% include 'auth/tabs.html' %}
-        <div id="content">
-            text
+        <div id="tabs">
+            <h1>{{ user.username }}</h1>
+            <ul>
+                <li><a href="">Eigene Seiten</a></li>
+                <li><a href="">POI Übersicht</a></li>
+                <li><a href="">Settings</a></li>
+            </ul>
+            <a href="/" class="button">&larr;zurück zur Karte</a>
         </div>
     {% else %}
         <center>

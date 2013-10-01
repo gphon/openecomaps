@@ -6,6 +6,10 @@ admin.autodiscover()
 
 
 urlpatterns = patterns( '',
+    
+    url( r'^poi/', include('apps.map.urls') ),
+    
+    
     # ex: /
     url( r'^$',           'app_oem.views.home' ),
     # ex: /home/
@@ -13,15 +17,17 @@ urlpatterns = patterns( '',
     
     
     # ex: /login/
-    url( r'^login$',      'app_oem.views.login' ),
+    url( r'^login$',      'apps.auth.views.login' ),
     # ex: /logout/
-    url( r'^logout$',     'app_oem.views.logout' ),
+    url( r'^logout$',     'apps.auth.views.logout' ),
+    # ex: /logout/
+    url( r'^overview$',   'apps.auth.views.overview' ),
     # ex: /about/
-    url( r'^about$',      'app_oem.views.info_view', {'template_name' : 'about.html'} ),
+    url( r'^about$',      'apps.info_pages.views.info', {'template_name' : 'about'} ),
     # ex: /copyrights/
-    url( r'^copyrights$', 'app_oem.views.info_view', {'template_name' : 'copyrights.html'} ),
+    url( r'^copyright$',  'apps.info_pages.views.info', {'template_name' : 'copyright'} ),
     # ex: /impressum/
-    url( r'^impressum$',  'app_oem.views.info_view', {'template_name' : 'impressum.html'} ),
+    url( r'^impressum$',  'apps.info_pages.views.info', {'template_name' : 'impressum'} ),
     
     
     # ex: /search/berlin
@@ -34,16 +40,6 @@ urlpatterns = patterns( '',
     url( r'^category/(?P<category>.*)/city/(?P<city>.*)$', 'app_oem.views.category_city' ),
     
     
-    # ex: /add/poi/
-    url( r'^add/poi$',      'app_oem.views.add_poi' ),
-    # ex: /del/poi/
-    url( r'^del/poi$',      'app_oem.views.del_poi' ),
-    # ex: /update/poi/
-    url( r'^update/poi$',   'app_oem.views.update_poi' ),
-
-    
-    # ex: /fetch/pois/12.885879,13.167087,52.512878,52.342996
-    url( r'^fetch/pois/(?P<lon_left>.*),(?P<lat_bottom>.*),(?P<lon_right>.*),(?P<lat_top>.*)$', 'app_oem.views.fetch_pois'),
     
     
     # ex: 

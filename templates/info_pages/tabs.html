@@ -1,0 +1,16 @@
+<div id="tabs">
+    <h1>
+        &nbsp;
+    </h1>
+    
+    <ul>
+    {% for link, link_name in links %}
+        <li>
+            <a href="/{{ link }}" {% ifequal link selected %}class="active"{% endifequal %}>
+                {{ link_name }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="/" class="button">&larr;zurück zur Karte</a>
+</div>

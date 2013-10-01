@@ -8,6 +8,8 @@
         
         <link href="static/css/styles.css" rel="stylesheet" type="text/css">
         <link href="static/css/header.css" rel="stylesheet" type="text/css">
+        <link href="static/css/tabs.css" rel="stylesheet" type="text/css">
+        <link href="static/css/content.css" rel="stylesheet" type="text/css">
         
         <script type="text/javascript" src="static/js/function.js"></script>
         <script type="text/javascript" src="http://www.openlayers.org/dev/OpenLayers.js"></script>
@@ -36,7 +38,7 @@
             
             <ul id="menu">
                 {% block mainmenu %} {% endblock %}
-                {% include 'submenu.html' %}
+                {% include 'includes/submenu.html' %}
             </ul>
             
             <div class="ui-widget">

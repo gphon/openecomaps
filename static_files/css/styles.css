@@ -28,18 +28,13 @@ body {
 
 
 
+a {
+	color:#66CC00;
+	text-decoration:none;
+}
 
-
-
-#tabs {
-	width:250px;
-	height:100%;
-	border-right:1px solid #66CC00;
-	background:#efefef;
-	float:left;
-	display:block;
-	position:fixed;
-	border-radius: 5px 0 0 5px
+a:hover {
+	text-decoration:underline;
 }
 
 

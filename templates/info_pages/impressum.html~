@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block main_content %}
+    {% include 'info_pages/tabs.html' %}
+
+    <div id="content">
+        <h3>Verantwortlich im Sinne des Pressegesetzes</h3>
+        <h4>Stefan Bunde</h4>
+        <p>
+            Greenpeace Potsdam<br>
+            Hermann-Elflein-Straße 32<br>
+            14467 Potsdam
+        </p>
+        <p>E-Mail: openecomaps(at)gmail(Punkt)com</p>
+    </div>
+{% endblock %}
