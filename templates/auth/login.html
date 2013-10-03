@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
 
-{% block mainmenu %}
-    
-{% endblock %}
-
-
 {% block main_content %}
     {% if user.is_authenticated %}
         <div id="tabs">
             <h1>{{ user.username }}</h1>
             <ul>
-                <li><a href="">Eigene Seiten</a></li>
-                <li><a href="">POI Übersicht</a></li>
+                <li><a href="overview/pages">Eigene Seiten</a></li>
+                <li><a href="overview">POI Übersicht</a></li>
                 <li><a href="">Settings</a></li>
             </ul>
             <a href="/" class="button">&larr;zurück zur Karte</a>
+            <div id="content">
+            {% block content %}
+                here comes the content
+            {% endblock %}
+            </div>
         </div>
     {% else %}
         <center>
@@ -38,4 +38,3 @@
         </center>
     {% endif %}
 {% endblock %}
-

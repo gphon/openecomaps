@@ -20,8 +20,13 @@ urlpatterns = patterns( '',
     url( r'^login$',      'apps.auth.views.login' ),
     # ex: /logout/
     url( r'^logout$',     'apps.auth.views.logout' ),
-    # ex: /logout/
+    
+    # ex: /overview/
     url( r'^overview$',   'apps.auth.views.overview' ),
+    # ex: /overview/
+    url( r'^overview/poi$',   'apps.auth.views.overview' ),
+    # ex: /pages/
+    url( r'^overview/pages$', 'apps.auth.views.pages' ),
     # ex: /about/
     url( r'^about$',      'apps.info_pages.views.info', {'template_name' : 'about'} ),
     # ex: /copyrights/
