@@ -1,3 +1,6 @@
+{% load show_mainmenu_categories %}
+
+
 <!DOCTYPE HTML>
 
 <html>
@@ -6,22 +9,20 @@
         
         <title>OpenEcoMaps</title>
         
-        <link href="static/css/styles.css" rel="stylesheet" type="text/css">
-        <link href="static/css/header.css" rel="stylesheet" type="text/css">
-        <link href="static/css/tabs.css" rel="stylesheet" type="text/css">
-        <link href="static/css/content.css" rel="stylesheet" type="text/css">
+        <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+        <link href="/static/css/header.css" rel="stylesheet" type="text/css">
+        <link href="/static/css/tabs.css" rel="stylesheet" type="text/css">
+        <link href="/static/css/content.css" rel="stylesheet" type="text/css">
+        <link href="/static/css/flyer_overview.css" rel="stylesheet" type="text/css">
         
-        <script type="text/javascript" src="static/js/function.js"></script>
+        
+        <script type="text/javascript" src="/static/js/function.js"></script>
         <script type="text/javascript" src="http://www.openlayers.org/dev/OpenLayers.js"></script>
 <!--
         <script type="text/javascript" src="static/js/jquery-1.4.4.min.js"></script>
         <script type="text/javascript" src="static/js/oem_mini.js"></script>
         <script type="text/javascript" src="static/js/utility.js"></script>
-        <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
         <script type="text/javascript" src="static/js/OpenLayers.js"></script>
-        <link rel="stylesheet" type="text/css" href="static/css/oem_style.css">
-        <link rel="stylesheet" type="text/css" href="static/css/oem_style2.css">
-        <link rel="stylesheet" type="text/css" href="static/css/oem_accordion_style.css">
 -->
         <script type="text/javascript">
             {% block java_script %}
@@ -32,13 +33,22 @@
     
     <body onload="init()">
         <header> 
-            <a href="home">
-                <img src="static/img/greenpeace.png" id="gp-logo">
+            <a href="/home">
+                <img src="/static/img/greenpeace.png" id="gp-logo">
             </a>
             
-            <ul id="menu">
-                {% block mainmenu %} {% endblock %}
-                {% include 'includes/submenu.html' %}
+            <ul class="level1">
+                <li><span>Informationen zu:</span></li>
+                {% block mainmenu %} {% show_mainmenu_categories %} {% endblock %}
+                <li class="right"><a href="/impressum">Impressum</a></li>
+                <li class="right"><a href="/copyright">Copyright</a></li>
+                <li class="right"><a href="/about">Über das Projekt</a></li>
+            {% if user.is_authenticated %}
+                <li class="right"><a href="/overview">Übersicht</a></li>
+                <li class="right"><a href="/logout">Logut</a></li>
+            {% else %}
+                <li class="right"><a href="/login">Login</a></li>
+            {% endif %}
             </ul>
             
             <div class="ui-widget">
@@ -48,7 +58,9 @@
         </header>
         
         <div id="main_content">
-            {% block main_content %} {% endblock %}
+            {% block main_content %}
+            maincontent
+            {% endblock %}
         </div>
     </body>
 </html>

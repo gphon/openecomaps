@@ -4,7 +4,8 @@
 body {
 	margin:15px;
 	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	background: #e0e0e0; 
+	background: #e0e0e0;
+	behavior: url(csshover.htc);
 }
 
 
@@ -26,8 +27,6 @@ body {
 }
 
 
-
-
 a {
 	color:#66CC00;
 	text-decoration:none;
@@ -36,23 +35,4 @@ a {
 a:hover {
 	text-decoration:underline;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

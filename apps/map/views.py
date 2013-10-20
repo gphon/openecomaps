@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
-from app_oem.models import POI
+from apps.map.models import POI
 
 
 

@@ -1,141 +1,278 @@
+#!/usr/bin/python
+# -*- coding: latin-1 -*-
+
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.test import TestCase
 
-from app_oem.models import Area
-from app_oem.models import GPGroup
-from app_oem.models import POI
-from app_oem.models import POICategory
+from apps.auth.models import GPGroup
+from apps.group_pages.models import Page
+from apps.group_pages.models import PageCategory
+from apps.map.models import Area
+from apps.map.models import POI
+from apps.map.models import POIFilter
 from app_oem.models import Seal
 
 import datetime
-import hashlib
 
 
 
 
 def create_dummy_data_view( request ):
     
-    a1 = Area(  name = 'Potsdam',
+    groups = GPGroup.objects.all()
+    groups.delete()
+    areas = Area.objects.all()
+    areas.delete()
+    pages = Page.objects.all()
+    pages.delete()
+    page_categories = PageCategory.objects.all()
+    page_categories.delete()
+    pois = POI.objects.all()
+    pois.delete()
+    poi_filters = POIFilter.objects.all()
+    poi_filters.delete()
+    seals = Seal.objects.all()
+    seals.delete()
+    
+    
+    try:
+        user_berlin = User.objects.get( username='berlin' )
+    except:
+        user_berlin = User(
+                username='berlin',
+                password='pbkdf2_sha256$12000$I0yV2XBQfjoT$PL/ZCWqtqQm9yIfvL0ocr0GyTwzNjjUpKS8e3Rmx8D0=' )
+        user_berlin.save()
+    
+    try:
+        user_potsdam = User.objects.get( username='potsdam' )
+    except:
+        user_potsdam = User(
+                username='potsdam',
+                password='pbkdf2_sha256$12000$I0yV2XBQfjoT$PL/ZCWqtqQm9yIfvL0ocr0GyTwzNjjUpKS8e3Rmx8D0=' )
+        user_potsdam.save()
+    
+    try:
+        user_stuttgart = User.objects.get( username='stuttgart' )
+    except:
+        user_stuttgart = User(
+                username='stuttgart',
+                password='pbkdf2_sha256$12000$I0yV2XBQfjoT$PL/ZCWqtqQm9yIfvL0ocr0GyTwzNjjUpKS8e3Rmx8D0=' )
+        user_stuttgart.save()
+    
+    try:
+        user_hamburg = User.objects.get( username='hamburg' )
+    except:
+        user_hamburg = User(
+                username='hamburg',
+                password='pbkdf2_sha256$12000$I0yV2XBQfjoT$PL/ZCWqtqQm9yIfvL0ocr0GyTwzNjjUpKS8e3Rmx8D0=' )
+        user_hamburg.save()
+        
+    try:
+        user_halle = User.objects.get( username='halle' )
+    except:
+        user_halle = User(
+                username='halle',
+                password='pbkdf2_sha256$12000$I0yV2XBQfjoT$PL/ZCWqtqQm9yIfvL0ocr0GyTwzNjjUpKS8e3Rmx8D0=' )
+        user_halle.save()
+    
+    ###########################################################################
+    
+    area_potsdam = Area(
+                name = 'Potsdam',
                 lat_top  = 52.512878,   lat_bottom = 52.342996,
                 lon_left = 12.885879,   lon_right  = 13.167087 )
-    a1.save()
+    area_potsdam.save()
     
-    a2 = Area(  name = 'Stuttgart',
+    area_stuttgart = Area(
+                name = 'Stuttgart',
                 lat_top  = 48.865166,   lat_bottom = 48.692773,
                 lon_left =  9.036201,   lon_right  =  9.315666 )
-    a2.save()
+    area_stuttgart.save()
     
-    a3 = Area(  name = 'Werder (Havel)',
+    area_werder = Area(
+                name = 'Werder (Havel)',
                 lat_top  = 52.460403,   lat_bottom = 52.299242,
                 lon_left = 12.801449,   lon_right  = 12.96141 )
-    a3.save(),
+    area_werder.save(),
     
     ###########################################################################
     
-    g1 = GPGroup(   name = 'Duesseldorf',
-                    password = hashlib.md5(b'321').hexdigest(),
-                    email = 'info@duesseldorf.greenpeace.de' )
-    g1.save()
+    group_b = GPGroup( name = 'Berlin',
+                       user = user_berlin )
+    group_b.save()
     
-    g2 = GPGroup(   name = 'Potsdam',
-                    password = hashlib.md5(b'123').hexdigest(),
-                    email = 'info@potsdam.greenpeace.de' )
-    g2.save()
+    group_p = GPGroup( name = 'Potsdam',
+                       user = user_potsdam )
+    group_p.save()
     
-    g3 = GPGroup(   name = 'Stuttgart',
-                    password = hashlib.md5(b'abc').hexdigest(),
-                    email = 'info@stuttgart.greenpeace.de' )
-    g3.save()
+    group_s = GPGroup( name = 'Stuttgart',
+                       user = user_stuttgart )
+    group_s.save()
+    
+    group_hh = GPGroup( name = 'Hamburg',
+                        user = user_hamburg )
+    group_hh.save()
+    
+    group_halle = GPGroup( name = 'Halle',
+                           user = user_halle )
+    group_halle.save()
     
     # assign areas to groups
-    g2.areas.add( a1, a3 )
-    g3.areas.add( a2 )
+    group_p.areas.add( area_potsdam, area_werder )
+    group_s.areas.add( area_stuttgart )
     
     ###########################################################################
     
-    c1 = POICategory(   name = 'Ernaehrung',
-                        colour = '#00ff00' )
-    c1.save()
+    filter_ernaehrung = POIFilter( name = 'Ernaehrung', colour = '#00ff00' )
+    filter_ernaehrung.save()
     
-    c2 = POICategory(   name = 'Textilien',
-                        colour = '#0000ff' )
-    c2.save()
+    filter_textilien = POIFilter( name = 'Textilien', colour = '#0000ff' )
+    filter_textilien.save()
     
     ###########################################################################
     
-    s1 = Seal(  name = 'Fair Trade',
-                annotation = 'Siegel fuer fairen Handel',
-                image = 'fairtrade.svg' )
-    s1.save()
+    seal_demeter = Seal( name = 'Demeter',
+                         annotation = 'tollstes Biosiegel ueberhaupt',
+                         image = 'demeter.svg' )
+    seal_demeter.save()
     
-    s2 = Seal(  name = 'FSC',
-                annotation = 'forest stewardship council',
-                image = 'fsc.svg' )
-    s2.save()
+    seal_fsc = Seal( name = 'FSC',
+                     annotation = 'forest stewardship council',
+                     image = 'fsc.svg' )
+    seal_fsc.save()
     
-    s3 = Seal(  name = 'Demeter',
-                annotation = 'tollstes Biosiegel ueberhaupt',
-                image = 'demeter.svg' )
-    s3.save()
+    seal_ft = Seal( name = 'Fair Trade',
+                    annotation = 'Siegel fuer fairen Handel',
+                    image = 'fairtrade.svg' )
+    seal_ft.save()
     
     ###########################################################################
     
-    p1 = POI(   name = 'Cafe Kieselstein',
+    poi1 = POI( name = 'Cafe Kieselstein',
                 street = 'Hegelallee 23',
-                zip_code = '14467',
-                city = 'Potsdam',
+                zip_code = '14467',             city = 'Potsdam',
                 annotation = 'toller laden',
-                lat = 52.402123,
-                lon = 13.048488,
+                lat = 52.402123,                lon = 13.048488,
                 verified = False,
                 verification_date = datetime.date.fromtimestamp(0) )
-    p1.save()
+    poi1.save()
     
-    p2 = POI(   name = 'Schalotte Naturkost',
+    poi2 = POI( name = 'Schalotte Naturkost',
                 street = 'Charlottenstrasse 30',
-                zip_code = '14467',
-                city = 'Potsdam',
+                zip_code = '14467',             city = 'Potsdam',
                 annotation = 'Bioladen',
-                lat = 52.399372,
-                lon = 13.055376,
+                lat = 52.399372,                lon = 13.055376,
                 verified = True,
                 verification_date = datetime.date.today() )
-    p2.save()
+    poi2.save()
     
-    p3 = POI(   name = 'Vitalia Reformhaus GmbH',
+    poi3 = POI( name = 'Vitalia Reformhaus GmbH',
                 street = 'Rotebuehlstrasse 59',
-                zip_code = '70178',
-                city = 'Stuttgart',
+                zip_code = '70178',             city = 'Stuttgart',
                 annotation = 'Reformhaus',
-                lat = 48.773077,
-                lon = 9.16796,
+                lat = 48.773077,                lon = 9.16796,
                 verified = False,
                 verification_date = datetime.date.fromtimestamp(0) )
-    p3.save()
+    poi3.save()
     
-    p4 = POI(   name = 'BioStube / Michael Chilla-Jung',
+    poi4 = POI( name = 'BioStube / Michael Chilla-Jung',
                 street = 'Mielestrasse 2',
-                zip_code = '14542',
-                city = 'Werder (Havel)',
+                zip_code = '14542',             city = 'Werder (Havel)',
                 annotation = 'kenn ich nich',
-                lat = 52.403885,
-                lon = 12.910467,
+                lat = 52.403885,                lon = 12.910467,
                 verified = False,
                 verification_date = datetime.date.fromtimestamp(0) )
-    p4.save()
+    poi4.save()
     
     # assign pois to categories
-    p1.categories.add( c1 )
-    p2.categories.add( c1 )
-    p3.categories.add( c1 )
+    poi1.filters.add( filter_ernaehrung )
+    poi2.filters.add( filter_ernaehrung )
+    poi3.filters.add( filter_ernaehrung )
     
     # assign pois to seals
-    p1.seals.add( s1 )
-    p2.seals.add( s1, s3 )
-    p3.seals.add( s3 )
+    poi1.seals.add( seal_demeter )
+    poi2.seals.add( seal_demeter, seal_ft )
+    poi3.seals.add( seal_ft )
+    poi4.seals.add( seal_demeter )
+    
+    ###########################################################################
+    
+    pc_fish = PageCategory( name = 'Fisch' )
+    pc_fish.save()
+    
+    pc_textiles = PageCategory( name = 'Textilien' )
+    pc_textiles.save()
+    
+    pc_paper = PageCategory( name = 'Papier' )
+    pc_paper.save()
+    
+    pc_misc = PageCategory( name = 'sonstiges' )
+    pc_misc.save()
+    
+    pc_gmo = PageCategory( name = 'Gentechnik' )
+    pc_gmo.save()
+    
+    pc_fish.groups.add( group_s )
+    pc_paper.groups.add( group_b, group_p, group_halle, group_hh )
+    
+    ###########################################################################
+    
+    page1 = Page(   title = 'Fischliste Stuttgart',
+                    text = 'Seit mehreren Jahrzehnten werden die Weltmeere industriell ausgebeutet. Das hat dazu geführt, dass 87 Prozent der Fischbestände zu den überfischten oder erschöpften Beständen gezählt werden. Die maritimen Ökosysteme sind außerdem noch von anderen, menschengemachten Gefahren bedroht: Vermüllung der Meere mit Plastikabfällen, Verschmutzung mit Öl durch zunehmende Tiefseebohrungen, Überdüngung der Meere durch industrielle Landwirtschaft, Klimawandel. Die Organisation Greenpeace kämpft seit ihrer Gründung für den Erhalt der Meeresökosysteme. Greenpeace Stuttgart setzt die Themen lokal und verbrauchernah um. So ist unsere Stuttgarter Fischliste bereits in der neunten Auflage.',
+                    image = 'blank.gif',
+                    flyer = 'fischliste_stuttgart.pdf',
+                    last_modify = datetime.datetime.now(),
+                    group = group_s,
+                    page_category = pc_fish )
+    page1.save()
+    
+    page2 = Page(   title = 'Papierratgeber Berlin',
+                    text = '2008 haben wir einen Papierratgeber für Berlin entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders möchten wir auch die Verwendung von Recyclingpapier in der Schule fördern, dafür sind wir auf Schul- und Kinderfesten oft präsent.',
+                    image = 'blank.gif',
+                    flyer = 'papierratgeber_berlin.pdf',
+                    last_modify = datetime.datetime.now(),
+                    group = group_b,
+                    page_category = pc_paper )
+    page2.save()
+    
+    page3 = Page(   title = 'Papierratgeber Potsdam',
+                    text = '2008 haben wir einen Papierratgeber für Potsdam entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders möchten wir auch die Verwendung von Recyclingpapier in der Schule fördern, dafür sind wir auf Schul- und Kinderfesten oft präsent.',
+                    image = 'blank.gif',
+                    flyer = 'papierratgeber_potsdam.pdf',
+                    last_modify = datetime.datetime.now(),
+                    group = group_p,
+                    page_category = pc_paper )
+    page3.save()
+    
+    page4 = Page(   title = 'Papierratgeber Halle',
+                    text = 'Im Juni 2010 haben wir unseren Flyer zum Thema Recyclingpapier fertig gestellt.<br><br>Er ist fuer Kinder und deren Eltern gedacht. Auf der Vorderseite befindet sich ein Comic des Grafikers Bern Zierfuss, das den Kindern an Hand zweier Hefte und ihrer Geschichte die Bedeutung von Recyclingpapier fuer den Waldschutz und die Umwelt klar macht.',
+                    image = 'blank.gif',
+                    flyer = 'papierratgeber_potsdam.pdf',
+                    last_modify = datetime.datetime.now(),
+                    group = group_halle,
+                    page_category = pc_paper )
+    page4.save()
+    
+    page5 = Page(   title = 'Papierratgeber Hamburg',
+                    text = 'keine Beschreibung hinterlegt',
+                    image = 'blank.gif',
+                    flyer = 'papierratgeber_hamburg.pdf',
+                    last_modify = datetime.datetime.now(),
+                    group = group_hh,
+                    page_category = pc_paper )
+    page5.save()
+    
+    page6 = Page(   title = 'Fischliste Potsdam',
+                    text = 'von Stuttgart kopiert :-).',
+                    image = 'blank.gif',
+                    flyer = 'fischliste_stuttgart.pdf',
+                    last_modify = datetime.datetime.now(),
+                    group = group_p,
+                    page_category = pc_fish )
+    page6.save()
     
     return HttpResponse('success')
-
 
 
 
@@ -147,12 +284,11 @@ def show_dummy_data_view( request ):
     ........print group<br><br>
     
     <table border="1">
-        <tr><td>name</td><td>password</td><td>email</td></tr>"""
+        <tr><td>name</td><td>user</td></tr>"""
     for group in GPGroup.objects.all():
         output += '<tr>'
         output += '<td>%s</td>' % group.name
-        output += '<td>%s</td>' % group.password
-        output += '<td>%s</td>' % group.email
+        output += '<td>%s</td>' % group.user
         output += '</tr>'
     output += '</table>'
     
@@ -192,8 +328,9 @@ def show_dummy_data_view( request ):
     <b>fetch all POI categories:</b><br>
     for category in POICategory.objects.all():<br>
     ........print category<br><br>"""
-    for category in POICategory.objects.all():
-        output += '>>> <font color="%s">%s</font><br>' % (category.colour, category.name)
+    for poi_filter in POIFilter.objects.all():
+        output += '>>> <font color="%s">%s</font><br>' % ( poi_filter.colour,
+                                                            poi_filter.name )
     
     ###########################################################################
     
@@ -264,7 +401,7 @@ def show_dummy_data_view( request ):
     ................print poi<br><br>"""
     
     for poi in POI.objects.all():
-        if 'Ernaehrung' in [category.name for category in poi.categories.all()]:
+        if 'Ernaehrung' in [poi_filter.name for poi_filter in poi.filters.all()]:
             output += '>>> %s<br>' % poi.name
     
     ###########################################################################
