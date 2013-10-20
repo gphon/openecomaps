@@ -1,0 +1,35 @@
+{% extends "group_pages/pages.html" %}
+
+
+{% block mainmenu %}
+    <li>
+        <span>
+            Kategorie >> {{ selected_category }}
+        </span>
+    </li>
+{% endblock %}
+
+
+{% block content %}
+    {% for page in pages %}
+        <div class="pic">
+            <a href="/category/{{ selected_category.id }}/show/group/{{ page.group.id }}">
+                <img src="/static/user_content/img/{{ page.page_category|lower }}/{{ page.group|lower }}.png">
+            </a>
+            <ul>
+                <li class="title">
+                    <a href="">
+                        {{ page.group.name }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <div class="pic">
+            <a href="/category/{{ selected_category.id }}/add">
+                <img src="/static/img/plus_sign.png" alt="neu" style="width:100px;height:100px">
+            </a>
+        </div>
+	{% endif %}
+{% endblock %}

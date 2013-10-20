@@ -1,0 +1,16 @@
+{% extends "group_pages/pages.html" %}
+
+
+{% block mainmenu %}
+    <li>
+        <span>
+            Kategorie >> {{ selected_category }} >> {{ page.group }}
+        </span>
+    </li>
+{% endblock %}
+
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    {{ page.text }}
+{% endblock %}

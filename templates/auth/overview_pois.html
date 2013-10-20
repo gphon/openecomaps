@@ -1,0 +1,35 @@
+{% extends "auth/auth.html" %}
+
+
+{% block content %}
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>PLZ / Ort</th>
+            <th>Stra&szlig;e</th>
+            <th>Annotation</th>
+            <th>verified</th>
+            <th>verification date</th>
+        </tr>
+        {% for poi in pois %}
+        <tr>
+            <td>{{ poi.name }}</td>
+            <td>{{ poi.zip_code }} / {{ poi.city }}</td>
+            <td>{{ poi.street }}</td>
+            <td>{{ poi.annotation }}</td>
+            <td>
+                <form action="/overview" method="post">
+                    {% csrf_token %}
+                    {% if poi.verified %}
+                    <input type="submit" value="true">
+                    {% else %}
+                    <input type="submit" value="false">
+                    {# hier noch eine extra variable ubergeben mit den poi id #}
+                    {% endif %}
+                </form>
+            </td>
+            <td>{{ poi.verification_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

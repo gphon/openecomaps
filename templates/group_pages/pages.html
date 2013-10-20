@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load show_tabmenu_for_categories %}
+
+
+{% block main_content %}
+    <div id="tabs">
+        <h1>&nbsp;</h1>
+        {% show_tabmenu_for_categories selected_category.id %}
+        <a href="/" class="button">&larr;zurück zur Karte</a>
+    </div>
+    <div id="content">
+        {% block content %}
+            die Kategorien
+        {% endblock %}
+    </div>
+{% endblock %}

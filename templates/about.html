@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% load show_tabmenu_for_infopage %}
+
+
+{% block main_content %}
+    {% show_tabmenu_for_infopage 'about' %}
+    
+    <div id="content">
+        about
+    </div>
+{% endblock %}

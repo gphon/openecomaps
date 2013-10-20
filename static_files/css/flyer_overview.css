@@ -1,0 +1,46 @@
+div.pic {
+    float: left;
+    height: 160px;
+    width: 160px;
+    padding: 15px;
+    margin: 5px 3px;
+    background: url(frame-ls.gif) center no-repeat;
+    background: white;
+}
+
+
+div.pic img {
+    height: 158px;
+    width: 126px;
+    margin: 0 16px;
+
+    border-color: #444 #AAA #AAA #444;
+    border: 1px solid;
+}
+
+div.pic ul {
+    margin: 0;
+    padding: 0;
+}
+
+li.title {
+    list-style: none;
+    text-align: center;
+    color: #999;
+    font: bold 13px Verdana, sans-serif;
+    margin: 2px 15px;
+}
+li.text {
+    list-style: none;
+    text-align: center;
+    color: #999;
+    font: bold 13px Verdana, sans-serif;
+    margin: 2px 15px;
+}
+li.date {
+    list-style: none;
+    text-align: center;
+    color: #999;
+    font: bold 13px Verdana, sans-serif;
+    margin: 2px 15px;
+}

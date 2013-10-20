@@ -1,0 +1,9 @@
+<ul>
+    {% for category in categories %}
+    <li>
+        <a href="/category/{{ category.id }}"{% ifequal selected category.id %} class="active"{% endifequal %}>
+            {{ category.name }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
