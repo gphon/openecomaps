@@ -6,6 +6,12 @@
     {% csrf_token %}
         <table>
             {{ form.as_table }}
+            {% if page %}
+            <tr>
+                <th>Seite löschen:</th>
+                <td><input type="checkbox"><input type="checkbox"></td>
+            </tr>
+            {% endif %}
             <tr>
                 <td></td>
                 <td>

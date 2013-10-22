@@ -1,6 +1,6 @@
 from django import template
 
-from apps.group_pages.models import Category
+from apps.group_pages.models.category import Category
 
 
 register = template.Library()
