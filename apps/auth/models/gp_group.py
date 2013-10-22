@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from apps.map.models import Area
+from apps.map.models.area import Area
 
 
 class GPGroup( models.Model ):

@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from models import Area
-from models import POI
-from models import POIFilter
+from apps.map.models.area import Area
+from apps.map.models.poi import POI
+from apps.map.models.poi_filter import POIFilter
 
 class AreaAdmin( admin.ModelAdmin ):
     pass

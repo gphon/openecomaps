@@ -1,18 +1,8 @@
 from django.db import models
+from django.forms import ModelForm
 
-from apps.auth.models import GPGroup
-
-
-class PageCategory( models.Model ):
-    name = models.CharField( max_length=50 )
-    
-    groups = models.ManyToManyField( GPGroup )
-    
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        ordering = ['name']
+from apps.auth.models.gp_group import GPGroup
+from apps.group_pages.models.category import Category
 
 
 class Page( models.Model ):
@@ -23,7 +13,13 @@ class Page( models.Model ):
     modified = models.DateTimeField()
     
     group = models.ForeignKey( GPGroup )
-    page_category = models.ForeignKey( PageCategory )
+    category = models.ForeignKey( Category )
     
     def __str__(self):
         return self.title
+
+
+class PageForm( ModelForm ):
+    class Meta:
+        model = Page
+        fields = ('title', 'text', 'image', 'flyer')

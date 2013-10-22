@@ -1,15 +1,21 @@
 from django.contrib import admin
 
-from models import Page
-from models import PageCategory
+from apps.group_pages.models.page import Page
+from apps.group_pages.models.category import Category
+from apps.group_pages.models.seal import Seal
 
 
 class PageAdmin( admin.ModelAdmin ):
     pass
 
-class PageCategoryAdmin( admin.ModelAdmin ):
+class CategoryAdmin( admin.ModelAdmin ):
+    pass
+
+class SealAdmin( admin.ModelAdmin ):
     pass
 
 
+
 admin.site.register( Page, PageAdmin )
-admin.site.register( PageCategory, PageCategoryAdmin )
+admin.site.register( Category, CategoryAdmin )
+admin.site.register( Seal, SealAdmin )

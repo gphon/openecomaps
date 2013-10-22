@@ -5,13 +5,13 @@
     {% for entry in entries %}
         <div class="pic">
         {% if entry.title %}
-            <a href="/category/{{ entry.page_category.id }}/edit/group/{{ entry.group.id }}">
-                <img src="/static/user_content/img/{{ entry.page_category|lower }}/{{ group|lower }}.png">
+            <a href="/category/{{ entry.category.id }}/edit">
+                <img src="/static/user_content/img/{{ entry.category|lower }}/{{ group|lower }}.png">
             </a>
             <ul>
                 <li class="title">
                     <a href="">
-                        {{ entry.page_category }}
+                        {{ entry.category }}
                     </a>
                 </li>
                 <li class="text">
@@ -22,7 +22,7 @@
                 </li>
             </ul>
         {% else %}
-            <a href="/category/{{ entry.id }}/add/group/{{ group.id }}">
+            <a href="/category/{{ entry.id }}/add">
                 <img src="/static/img/question_mark_sign.png">
             </a>
             <ul>

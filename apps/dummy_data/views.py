@@ -3,61 +3,60 @@
 
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.test import TestCase
 
 from apps.auth.models import GPGroup
 from apps.group_pages.models import Page
-from apps.group_pages.models import PageCategory
+from apps.group_pages.models import Category
+from apps.group_pages.models import Seal
 from apps.map.models import Area
 from apps.map.models import POI
 from apps.map.models import POIFilter
-from app_oem.models import Seal
 
 import datetime
 
 
-
-
-def create_dummy_data_view( request ):
-    
+def delete_data_in_db():
     groups = GPGroup.objects.all()
     groups.delete()
     areas = Area.objects.all()
     areas.delete()
     pages = Page.objects.all()
     pages.delete()
-    page_categories = PageCategory.objects.all()
-    page_categories.delete()
+    categories = Category.objects.all()
+    categories.delete()
     pois = POI.objects.all()
     pois.delete()
     poi_filters = POIFilter.objects.all()
     poi_filters.delete()
     seals = Seal.objects.all()
     seals.delete()
-    
-    
-    try:
-        user_berlin = User.objects.get( username='berlin' )
-    except:
-        user_berlin = User(
-                username='berlin',
-                password='pbkdf2_sha256$12000$I0yV2XBQfjoT$PL/ZCWqtqQm9yIfvL0ocr0GyTwzNjjUpKS8e3Rmx8D0=' )
-        user_berlin.save()
+
+
+def create_dummy_data( request ):
+    delete_data_in_db()
     
     try:
         user_potsdam = User.objects.get( username='potsdam' )
     except:
         user_potsdam = User(
                 username='potsdam',
-                password='pbkdf2_sha256$12000$I0yV2XBQfjoT$PL/ZCWqtqQm9yIfvL0ocr0GyTwzNjjUpKS8e3Rmx8D0=' )
+                password='pbkdf2_sha256$12000$rC78a5oqcS0A$xisbYYY3J56sDRQV5chrGGI4l7s0kQjrWTHi6bHoFxM=' )
         user_potsdam.save()
+    
+    try:
+        user_berlin = User.objects.get( username='berlin' )
+    except:
+        user_berlin = User(
+                username='berlin',
+                password='pbkdf2_sha256$12000$rC78a5oqcS0A$xisbYYY3J56sDRQV5chrGGI4l7s0kQjrWTHi6bHoFxM=' )
+        user_berlin.save()
     
     try:
         user_stuttgart = User.objects.get( username='stuttgart' )
     except:
         user_stuttgart = User(
                 username='stuttgart',
-                password='pbkdf2_sha256$12000$I0yV2XBQfjoT$PL/ZCWqtqQm9yIfvL0ocr0GyTwzNjjUpKS8e3Rmx8D0=' )
+                password='pbkdf2_sha256$12000$rC78a5oqcS0A$xisbYYY3J56sDRQV5chrGGI4l7s0kQjrWTHi6bHoFxM=' )
         user_stuttgart.save()
     
     try:
@@ -198,78 +197,78 @@ def create_dummy_data_view( request ):
     
     ###########################################################################
     
-    pc_fish = PageCategory( name = 'Fisch' )
-    pc_fish.save()
+    c_fish = Category( name = 'Fisch' )
+    c_fish.save()
     
-    pc_textiles = PageCategory( name = 'Textilien' )
-    pc_textiles.save()
+    c_textiles = Category( name = 'Textilien' )
+    c_textiles.save()
     
-    pc_paper = PageCategory( name = 'Papier' )
-    pc_paper.save()
+    c_paper = Category( name = 'Papier' )
+    c_paper.save()
     
-    pc_misc = PageCategory( name = 'sonstiges' )
-    pc_misc.save()
+    c_misc = Category( name = 'sonstiges' )
+    c_misc.save()
     
-    pc_gmo = PageCategory( name = 'Gentechnik' )
-    pc_gmo.save()
+    c_gmo = Category( name = 'Gentechnik' )
+    c_gmo.save()
     
-    pc_fish.groups.add( group_s )
-    pc_paper.groups.add( group_b, group_p, group_halle, group_hh )
+    c_fish.groups.add( group_s )
+    c_paper.groups.add( group_b, group_p, group_halle, group_hh )
     
     ###########################################################################
     
     page1 = Page(   title = 'Fischliste Stuttgart',
-                    text = 'Seit mehreren Jahrzehnten werden die Weltmeere industriell ausgebeutet. Das hat dazu geführt, dass 87 Prozent der Fischbestände zu den überfischten oder erschöpften Beständen gezählt werden. Die maritimen Ökosysteme sind außerdem noch von anderen, menschengemachten Gefahren bedroht: Vermüllung der Meere mit Plastikabfällen, Verschmutzung mit Öl durch zunehmende Tiefseebohrungen, Überdüngung der Meere durch industrielle Landwirtschaft, Klimawandel. Die Organisation Greenpeace kämpft seit ihrer Gründung für den Erhalt der Meeresökosysteme. Greenpeace Stuttgart setzt die Themen lokal und verbrauchernah um. So ist unsere Stuttgarter Fischliste bereits in der neunten Auflage.',
+                    text = 'Seit mehreren Jahrzehnten werden die Weltmeere industriell ausgebeutet. Das hat dazu gefÃ¼hrt, dass 87 Prozent der FischbestÃ¤nde zu den Ã¼berfischten oder erschÃ¶pften BestÃ¤nden gezÃ¤hlt werden. Die maritimen Ãkosysteme sind auÃerdem noch von anderen, menschengemachten Gefahren bedroht: VermÃ¼llung der Meere mit PlastikabfÃ¤llen, Verschmutzung mit Ãl durch zunehmende Tiefseebohrungen, ÃberdÃ¼ngung der Meere durch industrielle Landwirtschaft, Klimawandel. Die Organisation Greenpeace kÃ¤mpft seit ihrer GrÃ¼ndung fÃ¼r den Erhalt der MeeresÃ¶kosysteme. Greenpeace Stuttgart setzt die Themen lokal und verbrauchernah um. So ist unsere Stuttgarter Fischliste bereits in der neunten Auflage.',
                     image = 'blank.gif',
                     flyer = 'fischliste_stuttgart.pdf',
-                    last_modify = datetime.datetime.now(),
+                    modified = datetime.datetime.now(),
                     group = group_s,
-                    page_category = pc_fish )
+                    category = c_fish )
     page1.save()
     
     page2 = Page(   title = 'Papierratgeber Berlin',
-                    text = '2008 haben wir einen Papierratgeber für Berlin entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders möchten wir auch die Verwendung von Recyclingpapier in der Schule fördern, dafür sind wir auf Schul- und Kinderfesten oft präsent.',
+                    text = '2008 haben wir einen Papierratgeber fÃ¼r Berlin entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders mÃ¶chten wir auch die Verwendung von Recyclingpapier in der Schule fÃ¶rdern, dafÃ¼r sind wir auf Schul- und Kinderfesten oft prÃ¤sent.',
                     image = 'blank.gif',
                     flyer = 'papierratgeber_berlin.pdf',
-                    last_modify = datetime.datetime.now(),
+                    modified = datetime.datetime.now(),
                     group = group_b,
-                    page_category = pc_paper )
+                    category = c_paper )
     page2.save()
     
     page3 = Page(   title = 'Papierratgeber Potsdam',
-                    text = '2008 haben wir einen Papierratgeber für Potsdam entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders möchten wir auch die Verwendung von Recyclingpapier in der Schule fördern, dafür sind wir auf Schul- und Kinderfesten oft präsent.',
+                    text = '2008 haben wir einen Papierratgeber fÃ¼r Potsdam entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders mÃ¶chten wir auch die Verwendung von Recyclingpapier in der Schule fÃ¶rdern, dafÃ¼r sind wir auf Schul- und Kinderfesten oft prÃ¤sent.',
                     image = 'blank.gif',
                     flyer = 'papierratgeber_potsdam.pdf',
-                    last_modify = datetime.datetime.now(),
+                    modified = datetime.datetime.now(),
                     group = group_p,
-                    page_category = pc_paper )
+                    category = c_paper )
     page3.save()
     
     page4 = Page(   title = 'Papierratgeber Halle',
                     text = 'Im Juni 2010 haben wir unseren Flyer zum Thema Recyclingpapier fertig gestellt.<br><br>Er ist fuer Kinder und deren Eltern gedacht. Auf der Vorderseite befindet sich ein Comic des Grafikers Bern Zierfuss, das den Kindern an Hand zweier Hefte und ihrer Geschichte die Bedeutung von Recyclingpapier fuer den Waldschutz und die Umwelt klar macht.',
                     image = 'blank.gif',
                     flyer = 'papierratgeber_potsdam.pdf',
-                    last_modify = datetime.datetime.now(),
+                    modified = datetime.datetime.now(),
                     group = group_halle,
-                    page_category = pc_paper )
+                    category = c_paper )
     page4.save()
     
     page5 = Page(   title = 'Papierratgeber Hamburg',
                     text = 'keine Beschreibung hinterlegt',
                     image = 'blank.gif',
                     flyer = 'papierratgeber_hamburg.pdf',
-                    last_modify = datetime.datetime.now(),
+                    modified = datetime.datetime.now(),
                     group = group_hh,
-                    page_category = pc_paper )
+                    category = c_paper )
     page5.save()
     
     page6 = Page(   title = 'Fischliste Potsdam',
                     text = 'von Stuttgart kopiert :-).',
                     image = 'blank.gif',
                     flyer = 'fischliste_stuttgart.pdf',
-                    last_modify = datetime.datetime.now(),
+                    modified = datetime.datetime.now(),
                     group = group_p,
-                    page_category = pc_fish )
+                    category = c_fish )
     page6.save()
     
     return HttpResponse('success')
@@ -277,7 +276,7 @@ def create_dummy_data_view( request ):
 
 
 
-def show_dummy_data_view( request ):
+def show_dummy_data( request ):
     output = """
     <b>fetch all greenpeace groups:</b><br>
     for group in GPGroup.objects.all():<br>

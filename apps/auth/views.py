@@ -6,9 +6,11 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 
 from apps.auth.forms import LoginForm
-from apps.auth.models import GPGroup
-from apps.group_pages.models import Page
-from apps.map.models import POI
+from apps.auth.models.gp_group import GPGroup
+from apps.group_pages.models import Category
+from apps.group_pages.models.page import Page
+from apps.group_pages.models.page import PageForm
+from apps.map.models.poi import POI
 
 
 def overview_poi( request ):
@@ -34,17 +36,16 @@ def overview_poi( request ):
     return render_to_response( 'auth/overview_pois.html', context,
                                     context_instance=RequestContext(request) )
 
-from apps.group_pages.models import PageCategory
 
 def overview_pages( request ):
     request.session['overview'] = 'pages'
     
     group = get_object_or_404( GPGroup, user=request.user )
-    categories = PageCategory.objects.all()
+    categories = Category.objects.all()
     
     entry_list = []
     for category in categories:
-        page = Page.objects.filter( page_category=category, group=group )
+        page = Page.objects.filter( category=category, group=group )
         entry_list.append( ( page[0] if page else category ) )
     #endfor
     context = {
@@ -82,6 +83,37 @@ def overview( request ):
     elif latest_overview_page == 'settings':
         return settings( request )
     #endif
+
+
+
+
+
+def add_group_page( request, category_id ):
+    group = get_object_or_404( GPGroup, user=request.user )
+    form = PageForm()
+    context = {
+        'group' : group,
+        'form' : form,
+        'selected_page' : 'pages_overview',
+    }
+    return render_to_response( 'auth/add_or_edit_page.html', context,
+                                    context_instance=RequestContext(request) )
+
+
+def edit_group_page( request, category_id ):
+    group = get_object_or_404( GPGroup, user=request.user )
+    category = get_object_or_404( Category, id=category_id )
+    page = get_object_or_404( Page, category=category, group_id=group.id )
+    form = PageForm( instance=page )
+    context = {
+        'group' : group,
+        'page' : page,
+        'form' : form,
+        'selected_page' : 'pages_overview',
+    }
+    return render_to_response( 'auth/add_or_edit_page.html', context,
+                                    context_instance=RequestContext(request) )
+
 
 
 def login( request ):

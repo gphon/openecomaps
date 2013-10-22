@@ -1,12 +1,19 @@
 {% extends "group_pages/pages.html" %}
 
+{% load show_tabmenu_for_groups %}
+
 
 {% block mainmenu %}
     <li>
         <span>
-            Kategorie >> {{ selected_category }} >> {{ page.group }}
+            Kategorie >> Flyer : {{ selected_category }} >> {{ page.group }}
         </span>
     </li>
+{% endblock %}
+
+
+{% block tabs %}
+    {% show_tabmenu_for_groups selected_category.id page.group.id %}
 {% endblock %}
 
 

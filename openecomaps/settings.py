@@ -31,25 +31,31 @@ ADMINS = (
 MANAGERS = ADMINS
 
 
-DATABASES = {
-#    'default': {
-#        'ENGINE':   'django.db.backends.postgresql_psycopg2',
-#        'NAME':     'openecomaps',
-#        'USER':     'openecomaps',
-#        'PASSWORD': 'oem',
-#        'HOST':     '127.0.0.1',
-#        'PORT':     '',
-#    },
-    
-    'default': {
-        'ENGINE':   'django.db.backends.sqlite3',
-        'NAME':     os.path.join( cwd, 'sqlite.db' ),
-        'USER':     '',
-        'PASSWORD': '',
-        'HOST':     '',
-        'PORT':     '',
-    },
-}
+from openecomaps import LOCAL_MASCHINE
+
+if LOCAL_MASCHINE:
+    DATABASES = {
+        'default': {
+            'ENGINE':   'django.db.backends.sqlite3',
+            'NAME':     os.path.join( cwd, 'sqlite.db' ),
+            'USER':     '',
+            'PASSWORD': '',
+            'HOST':     '',
+            'PORT':     '',
+        },
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE':   'django.db.backends.postgresql_psycopg2',
+            'NAME':     'openecomaps',
+            'USER':     'openecomaps',
+            'PASSWORD': 'oem',
+            'HOST':     '127.0.0.1',
+            'PORT':     '',
+        },
+    }
+#endif
 
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -158,8 +164,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'app_oem',
     'apps.auth',
+    'apps.dummy_data',
     'apps.group_pages',
     'apps.map',
 )

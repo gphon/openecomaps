@@ -1,5 +1,7 @@
 {% extends "group_pages/pages.html" %}
 
+{% load show_tabmenu_for_categories %}
+
 
 {% block mainmenu %}
     <li>
@@ -10,11 +12,16 @@
 {% endblock %}
 
 
+{% block tabs %}
+    {% show_tabmenu_for_categories selected_category.id %}
+{% endblock %}
+
+
 {% block content %}
     {% for page in pages %}
         <div class="pic">
             <a href="/category/{{ selected_category.id }}/show/group/{{ page.group.id }}">
-                <img src="/static/user_content/img/{{ page.page_category|lower }}/{{ page.group|lower }}.png">
+                <img src="/static/user_content/img/{{ page.category|lower }}/{{ page.group|lower }}.png">
             </a>
             <ul>
                 <li class="title">
@@ -28,7 +35,7 @@
     {% if user.is_authenticated %}
         <div class="pic">
             <a href="/category/{{ selected_category.id }}/add">
-                <img src="/static/img/plus_sign.png" alt="neu" style="width:100px;height:100px">
+                <img src="/static/img/plus_sign.png" alt="neu">
             </a>
         </div>
 	{% endif %}

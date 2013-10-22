@@ -8,7 +8,8 @@ admin.autodiscover()
 
 urlpatterns = patterns( '',
     
-    url( r'^poi/', include('apps.map.urls') ),
+    url( r'^poi/',      include('apps.map.urls') ),
+    url( r'^category/', include('apps.group_pages.urls') ),
     
     url( r'^static/(?P<path>.*)$', 'django.views.static.serve' ),
     
@@ -17,17 +18,6 @@ urlpatterns = patterns( '',
     url( r'^$',         TemplateView.as_view(template_name='home.html') ),
     # ex: /home
     url( r'^home$',     TemplateView.as_view(template_name='home.html') ),
-    
-    
-    # ex: /category/4
-    url( r'^category/(?P<category_id>\d*)$',
-                                'apps.group_pages.views.category_overview' ),
-    # ex: /category/4/show/city/17
-    url( r'^category/(?P<category_id>\d*)/show/group/(?P<group_id>\d*)$',
-                                'apps.group_pages.views.show_group_page' ),
-    # ex: /category/4/add/city/17
-    url( r'^category/(?P<category_id>\d*)/add$',
-                                'apps.group_pages.views.add_group_page' ),
     
     
     # ex: /overview
@@ -60,9 +50,9 @@ urlpatterns = patterns( '',
     
     
     # ex: /create_dummy_data
-    url( r'^create_dummy_data$',    'app_oem.tests.create_dummy_data_view' ),
+    url( r'^create_dummy_data$',    'apps.dummy_data.views.create_dummy_data' ),
     # ex: /show_dummy_data
-    url( r'^show_dummy_data$',      'app_oem.tests.show_dummy_data_view' ),
+    url( r'^show_dummy_data$',      'apps.dummy_data.views.show_dummy_data' ),
     
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

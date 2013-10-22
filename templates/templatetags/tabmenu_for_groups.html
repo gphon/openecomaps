@@ -1,0 +1,9 @@
+<ul>
+    {% for group in category.groups.all %}
+    <li>
+        <a href="/category/{{ category.id }}/show/group/{{ group.id }}"{% ifequal selected group.id %} class="active"{% endifequal %}>
+            {{ group.name }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
