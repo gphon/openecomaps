@@ -16,3 +16,6 @@ class Area( models.Model ):
     def __str__( self ):
         return '%s (%s/%s - %s/%s)' % ( self.name, self.lon_left, self.lat_top,
                                             self.lon_right, self.lat_bottom )
+    
+    class Meta:
+        app_label = 'map'

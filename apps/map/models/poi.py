@@ -27,3 +27,6 @@ class POI( models.Model ):
     
     def __str__( self ):
         return '%s - (%s)' % (self.name, self.city)
+    
+    class Meta:
+        app_label = 'map'
