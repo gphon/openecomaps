@@ -212,7 +212,7 @@ def create_dummy_data( request ):
     c_gmo = Category( name = 'Gentechnik' )
     c_gmo.save()
     
-    c_fish.groups.add( group_s )
+    c_fish.groups.add( group_s, group_p )
     c_paper.groups.add( group_b, group_p, group_halle, group_hh )
     
     ###########################################################################
