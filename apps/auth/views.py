@@ -1,9 +1,11 @@
 from django.core.context_processors import csrf
 from django.contrib import auth
+from django.shortcuts import get_list_or_404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
+from django.http import Http404
 
 from apps.auth.forms import LoginForm
 from apps.auth.models.gp_group import GPGroup
@@ -13,23 +15,26 @@ from apps.group_pages.models.page import PageForm
 from apps.map.models.poi import POI
 
 
+from django.db.models import Q
+import operator
+
+
 def overview_poi( request ):
-    request.session['overview'] = 'pois'
+    if not request.user.is_authenticated():
+        raise Http404
     
-    if request.POST:
-        pass
+    request.session['overview'] = 'pois'
     
     group = get_object_or_404( GPGroup, user=request.user )
     areas = group.areas.all()
-    pois = set( [] )
-    for area in areas:
-        queryset = POI.objects.filter( lat__range=(area.lat_bottom,area.lat_top),
-                                       lon__range=(area.lon_left,area.lon_right) )
-        pois |= set( queryset )
-    #endfor
+    
+    qset = [ Q( lat__range=(area.lat_bottom,area.lat_top) ) &
+             Q( lon__range=(area.lon_left,area.lon_right) )
+             for area in areas ]
+    pois = POI.objects.filter( reduce( operator.or_, qset ) ).order_by( 'zip_code', 'name' )
     
     context = {
-        'pois' : list( pois ),
+        'pois' : pois,
         'group' : group,
         'selected_page' : 'poi_overview',
     }
@@ -38,18 +43,22 @@ def overview_poi( request ):
 
 
 def overview_pages( request ):
+    if not request.user.is_authenticated():
+        raise Http404
+    
     request.session['overview'] = 'pages'
     
     group = get_object_or_404( GPGroup, user=request.user )
-    categories = Category.objects.all()
+    categories = get_list_or_404( Category )
     
-    entry_list = []
+    entries = []
     for category in categories:
         page = Page.objects.filter( category=category, group=group )
-        entry_list.append( ( page[0] if page else category ) )
+        entries.append( ( page[0] if page else category ) )
     #endfor
+    
     context = {
-        'entries' : entry_list,
+        'entries' : entries,
         'group' : group,
         'selected_page' : 'pages_overview',
     }
@@ -58,9 +67,13 @@ def overview_pages( request ):
 
 
 def settings( request ):
+    if not request.user.is_authenticated():
+        raise Http404
+    
     request.session['overview'] = 'settings'
     
     group = GPGroup.objects.get( user=request.user )
+    
     context = {
         'group' : group,
         'selected_page' : 'settings_overview',
@@ -87,12 +100,42 @@ def overview( request ):
 
 
 
-
 def add_group_page( request, category_id ):
+    if not request.user.is_authenticated():
+        raise Http404
+    
     group = get_object_or_404( GPGroup, user=request.user )
-    form = PageForm()
+    category = get_object_or_404( Category, id=category_id )
+    
+    if request.method == 'POST':
+        if request.POST.get( 'btn_add_page', '' ):
+            # if page already exists, raise 404 error
+            if Page.objects.filter( category_id=category_id, group=group ):
+                raise Http404
+            #endif
+        #endif
+        
+        form = PageForm( request.POST )
+        if form.is_valid():
+            page = Page()
+            page.title = form.cleaned_data['title']
+            page.text = form.cleaned_data['text']
+            page.image = form.cleaned_data['image']
+            page.flyer = form.cleaned_data['flyer']
+            page.group = group
+            page.category = category
+            
+            page.save()
+            
+            return HttpResponseRedirect( '/overview' )
+        #endif
+    else:
+        form = PageForm()
+    #endif
+    
     context = {
         'group' : group,
+        'category' : category,
         'form' : form,
         'selected_page' : 'pages_overview',
     }
@@ -101,14 +144,31 @@ def add_group_page( request, category_id ):
 
 
 def edit_group_page( request, category_id ):
+    if not request.user.is_authenticated():
+        raise Http404
     group = get_object_or_404( GPGroup, user=request.user )
     category = get_object_or_404( Category, id=category_id )
     page = get_object_or_404( Page, category=category, group_id=group.id )
     form = PageForm( instance=page )
     context = {
         'group' : group,
+        'category' : category,
         'page' : page,
         'form' : form,
+        'selected_page' : 'pages_overview',
+    }
+    return render_to_response( 'auth/add_or_edit_page.html', context,
+                                    context_instance=RequestContext(request) )
+
+
+def delete_group_page( request, category_id ):
+    if not request.user.is_authenticated():
+        raise Http404
+    
+    group = get_object_or_404( GPGroup, user=request.user )
+    
+    context = {
+        'group' : group,
         'selected_page' : 'pages_overview',
     }
     return render_to_response( 'auth/add_or_edit_page.html', context,

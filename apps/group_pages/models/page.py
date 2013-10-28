@@ -5,10 +5,16 @@ from apps.auth.models.gp_group import GPGroup
 from apps.group_pages.models.category import Category
 
 
+def upload_image_handler( instance, filename ):
+    filepath = filename
+    print(filepath)
+    return filepath
+
+
 class Page( models.Model ):
     title = models.CharField( max_length=50 )
     text = models.TextField()
-    image = models.ImageField(upload_to='/user_content/img')
+    image = models.ImageField(upload_to=upload_image_handler)
     flyer = models.FileField(upload_to='/user_content/bin')
     modified = models.DateTimeField()
     

@@ -1,8 +1,8 @@
 <ul>
-    {% for group in category.groups.all %}
+    {% for page in pages %}
     <li>
-        <a href="/category/{{ category.id }}/show/group/{{ group.id }}"{% ifequal selected group.id %} class="active"{% endifequal %}>
-            {{ group.name }}
+        <a href="/category/{{ page.category.id }}/flyer/{{ page.group.id }}"{% ifequal selected page.group.id %} class="active"{% endifequal %}>
+            {{ page.group.name }}
         </a>
     </li>
     {% endfor %}

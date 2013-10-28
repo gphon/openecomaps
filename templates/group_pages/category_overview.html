@@ -20,7 +20,7 @@
 {% block content %}
     {% for page in pages %}
         <div class="pic">
-            <a href="/category/{{ selected_category.id }}/show/group/{{ page.group.id }}">
+            <a href="/category/{{ selected_category.id }}/flyer/{{ page.group.id }}">
                 <img src="/static/user_content/img/{{ page.category|lower }}/{{ page.group|lower }}.png">
             </a>
             <ul>
@@ -32,7 +32,7 @@
             </ul>
         </div>
     {% endfor %}
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and not group_has_page %}
         <div class="pic">
             <a href="/category/{{ selected_category.id }}/add">
                 <img src="/static/img/plus_sign.png" alt="neu">

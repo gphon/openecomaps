@@ -9,51 +9,74 @@
 
         map.addLayer( new OpenLayers.Layer.OSM() );
         
-        var layerAerial = new OpenLayers.Layer.Bing(
-                {
-                    name: "Bing Map",
-                    key: 'AoGQ41xJtaeTYW-5bGSuE7e589v03uKnxXeXmtFEsWMH1UoZMyhBydLItxE7Qua_',
-                    type: 'Aerial'
-                }
-            );
+        var layerFilterPapier = new OpenLayers.Layer.Vector( "Papier",
+            {
+                strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
+                protocol : new OpenLayers.Protocol.HTTP(
+                    {
+                        url : "http://localhost:8000/poi/get/layer/papier",
+                        format: new OpenLayers.Format.Text()
+                    }
+                )
+            }
+        );
+        var layerFilterLebensmittel = new OpenLayers.Layer.Vector( "Lebensmittel",
+            {
+                strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
+                protocol: new OpenLayers.Protocol.HTTP(
+                    {
+                        url : "http://localhost:8000/poi/get/layer/lebensmittel",
+                        format : new OpenLayers.Format.Text()
+                    }
+                )
+            }
+        );
         
         
-        var papier = new OpenLayers.Layer.Vector("Papier", {
-            strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1.1})],
-            protocol: new OpenLayers.Protocol.HTTP({
-                url: "poi.php?layer=papier",
-                format: new OpenLayers.Format.Text()
-            })
-        });
-        
-        var lebensmittel = new OpenLayers.Layer.Vector("Lebensmittel", {
-            strategies: [new OpenLayers.Strategy.BBOX({resFactor: 1.1})],
-            protocol: new OpenLayers.Protocol.HTTP({
-                url: "poi.php?layer=lebensmittel",
-                format: new OpenLayers.Format.Text()
-            })
-        });
+        var layerMapAerial = new OpenLayers.Layer.Bing(
+            {
+                name : "Bing Map",
+                key : 'AoGQ41xJtaeTYW-5bGSuE7e589v03uKnxXeXmtFEsWMH1UoZMyhBydLItxE7Qua_',
+                type : 'Aerial'
+            }
+        );
         
         
-        map.addLayers( [papier,lebensmittel, layerAerial] );
+        map.addLayers(
+            [
+                layerFilterPapier,
+                layerFilterLebensmittel,
+                layerMapAerial
+            ]
+        );
         
-        map.addControl(new OpenLayers.Control.LayerSwitcher());
-        map.addControl(new OpenLayers.Control.PanZoomBar());
-        map.addControl(new OpenLayers.Control.Navigation());
-
+        
+        map.addControl( new OpenLayers.Control.LayerSwitcher() );
+        map.addControl( new OpenLayers.Control.PanZoomBar() );
+        map.addControl( new OpenLayers.Control.Navigation() );
+        
         map.zoomToMaxExtent();
-
-        selectControl = new OpenLayers.Control.SelectFeature([lebensmittel, papier], {onSelect: onFeatureSelect, onUnselect: onFeatureUnselect});
-        map.addControl(selectControl);
+        
+        selectControl = new OpenLayers.Control.SelectFeature(
+            [
+                layerFilterPapier,
+                layerFilterLebensmittel
+            ],
+            {
+                onSelect : onFeatureSelect,
+                onUnselect: onFeatureUnselect
+            }
+        );
+        map.addControl( selectControl );
         selectControl.activate();
         
-        var lonLat = new OpenLayers.LonLat( 9.946344,49.783903 )
-        .transform(
+        
+        var lonLat = new OpenLayers.LonLat( 13.053131,52.403257 ).transform(
             new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-            map.getProjectionObject() // to Spherical Mercator Projection
+            map.getProjectionObject()               // to Spherical Mercator Projection
         );
-        var zoom=11;
-        map.setCenter (lonLat, zoom);
+        var zoom=12;
+        map.setCenter( lonLat, zoom );
     }
      
      function onPopupClose(evt) {

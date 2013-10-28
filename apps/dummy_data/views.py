@@ -123,11 +123,14 @@ def create_dummy_data( request ):
     
     ###########################################################################
     
-    filter_ernaehrung = POIFilter( name = 'Ernaehrung', colour = '#00ff00' )
+    filter_ernaehrung = POIFilter( name = 'Lebensmittel', colour = '#00ff00' )
     filter_ernaehrung.save()
     
     filter_textilien = POIFilter( name = 'Textilien', colour = '#0000ff' )
     filter_textilien.save()
+    
+    filter_papier = POIFilter( name = 'Papier', colour = '#ff0000' )
+    filter_papier.save()
     
     ###########################################################################
     
@@ -186,8 +189,9 @@ def create_dummy_data( request ):
     
     # assign pois to categories
     poi1.filters.add( filter_ernaehrung )
-    poi2.filters.add( filter_ernaehrung )
+    poi2.filters.add( filter_ernaehrung, filter_papier )
     poi3.filters.add( filter_ernaehrung )
+    poi4.filters.add( filter_papier )
     
     # assign pois to seals
     poi1.seals.add( seal_demeter )
@@ -212,8 +216,8 @@ def create_dummy_data( request ):
     c_gmo = Category( name = 'Gentechnik' )
     c_gmo.save()
     
-    c_fish.groups.add( group_s, group_p )
-    c_paper.groups.add( group_b, group_p, group_halle, group_hh )
+    #c_fish.groups.add( group_s, group_p )
+    #c_paper.groups.add( group_b, group_p, group_halle, group_hh )
     
     ###########################################################################
     

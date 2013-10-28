@@ -8,8 +8,10 @@
             <th>PLZ / Ort</th>
             <th>Stra&szlig;e</th>
             <th>Annotation</th>
+            <th>Filter</th>
             <th>verified</th>
             <th>verification date</th>
+            <th></th>
         </tr>
         {% for poi in pois %}
         <tr>
@@ -18,7 +20,14 @@
             <td>{{ poi.street }}</td>
             <td>{{ poi.annotation }}</td>
             <td>
-                <form action="/overview" method="post">
+                <ul>
+                {% for f in poi.filters.all %}
+                    <li>{{ f }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+            <td>
+                <form action="/poi/verify/{{ poi.id }}" method="post">
                     {% csrf_token %}
                     {% if poi.verified %}
                     <input type="submit" value="true">
@@ -29,6 +38,12 @@
                 </form>
             </td>
             <td>{{ poi.verification_date }}</td>
+            <td>
+                <form action="/poi/edit/{{ poi.id }}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="edit">
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </table>

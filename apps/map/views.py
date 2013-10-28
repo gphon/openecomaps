@@ -1,23 +1,36 @@
+from django.http import Http404
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 from apps.map.models.poi import POI
 
+import datetime
 
 
-def fetch_pois( request, lon_left, lon_right, lat_top, lat_bottom ):
-    out = ''
-    # fetch all POI's where lon_right > poi.lon > lon_left and where
-    #                                           lat_top > poi.lat > lat_bottom
-    for poi in POI.objects.filter( lon__gt=lon_left ).filter( lon__lt=lon_right ) \
-                            .filter( lat__lt=lat_top ).filter( lat__gt=lat_bottom ):
-        out += '%s\t' % poi.lat         # lat
-        out += '%s\t' % poi.lon         # lon
-        out += '%s\t' % poi.name        # title
-        out += '%s\t' % poi.annotation  # description
-        out += '%s\t' % 'blank'         # icon
-        out += '%s\t' % '24,24'         # iconSize
-        out += '%s\n' % '0,-16'         # iconOffset
+def get_poi_layer( request, layer ):
+    try:
+        koords = request.GET.get( 'bbox', '' )
+        left, bottom, right, top = koords.split(',')
+        lon_left, lon_right = float(left), float(right)
+        lat_top, lat_bottom = float(top), float(bottom)
+    except:
+        raise Http404
+    
+    qset = Q(lon__gt=lon_left) & Q(lon__lt=lon_right) & Q(lat__lt=lat_top) & Q(lat__gt=lat_bottom)
+    
+    out = 'lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n'
+    for poi in POI.objects.filter( qset ):
+        if layer in [ poi_layer.name.lower() for poi_layer in poi.filters.all() ]:
+            out += '%s\t%s\t' % ( poi.lat, poi.lon )
+            out += '%s\t' % poi.name
+            out += '%s\t' % poi.annotation
+            out += '/static/img/icons/%s.png\t' % layer # icon
+            out += '24,24\t'                # iconSize
+            out += '0,-16\n'                # iconOffset
+            print('%s - %s' % (layer, poi.name))
+    print(out)
     return HttpResponse( out[:-1] )
 
 
@@ -28,18 +41,24 @@ def add_poi( request ):
     return HttpResponse( text )
 
 def del_poi( request ):
-    #:TODO
-    return render_to_response( 'home.html' )
+    #TODO:
+    return HttpResponseRedirect( '/overview/poi' )
 
-def update_poi( request ):
-    #:TODO
-    return render_to_response( 'home.html' )
+def edit_poi( request, poi_id ):
+    #TODO:
+    return HttpResponseRedirect( '/overview/poi' )
 
-def verify_poi( request ):
-    #:TODO
-    pass
-
-def falsify_poi( request ):
-    #:TODO
-    pass
+def verify_poi( request, poi_id ):
+    if not request.user.is_authenticated():
+        raise Http404
+    
+    poi = get_object_or_404( POI, id=poi_id )
+    #TODO: check if access is allowed
+    if poi.verified:
+        poi.verified = False
+    else:
+        poi.verified = True
+        poi.verification_date = datetime.date.today()
+    poi.save()
+    return HttpResponseRedirect( '/overview/poi' )
 
