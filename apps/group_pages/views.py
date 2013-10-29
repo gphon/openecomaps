@@ -32,6 +32,20 @@ def category_overview_seals( request, category_id ):
     return category_overview_flyer( request, category_id )
 
 
+"""
+merge show group page and show seal page
+"""
+def show_page( request, category_id, model, model_id ):
+    category = get_object_or_404( Category, id=category_id )
+    page = get_object_or_404( model, category=category, group_id=model_id )
+    context = {
+        'selected_category' : category,
+        'page' : page,
+    }
+    return render_to_response( 'group_pages/group_page.html', context,
+                                    context_instance=RequestContext(request) )
+
+"""
 def show_group_page( request, category_id, group_id ):
     category = get_object_or_404( Category, id=category_id )
     page = get_object_or_404( Page, category=category, group_id=group_id )
@@ -52,3 +66,4 @@ def show_seal_page( request, category_id, seal_id ):
     }
     return render_to_response( 'group_pages/group_page.html', context,
                                     context_instance=RequestContext(request) )
+"""

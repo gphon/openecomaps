@@ -1,4 +1,8 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include
+from django.conf.urls import patterns
+from django.conf.urls import url
+from django.contrib.auth.views import login
+from django.contrib.auth.views import logout
 from django.views.generic.base import TemplateView
 
 # Uncomment the next two lines to enable the admin:
@@ -8,16 +12,17 @@ admin.autodiscover()
 
 urlpatterns = patterns( '',
     
-    url( r'^poi/',      include('apps.map.urls') ),
-    url( r'^category/', include('apps.group_pages.urls') ),
+    url( r'^poi/',          include('apps.map.urls') ),
+    url( r'^category/',     include('apps.group_pages.urls') ),
+    url( r'^dummy_data/',   include('apps.dummy_data.urls') ),
     
     url( r'^static/(?P<path>.*)$', 'django.views.static.serve' ),
     
     
     # ex: /
-    url( r'^$',         TemplateView.as_view(template_name='home.html') ),
+    url( r'^$',         TemplateView.as_view( template_name='home.html' ) ),
     # ex: /home
-    url( r'^home$',     TemplateView.as_view(template_name='home.html') ),
+    url( r'^home$',     TemplateView.as_view( template_name='home.html' ) ),
     
     
     # ex: /overview
@@ -29,30 +34,20 @@ urlpatterns = patterns( '',
     
     
     # ex: /login
-    url( r'^login$',    'apps.auth.views.login' ),
+    url( r'^login$',    login,  {'template_name':'auth/auth.html'} ),
     # ex: /logout
-    url( r'^logout$',   'apps.auth.views.logout' ),
+    url( r'^logout$',   logout, {'next_page':'/home'} ),
     # ex: /settings
     url( r'^settings$', 'apps.auth.views.settings' ),
     
     
     # ex: /about
-    url( r'^about$',     TemplateView.as_view(template_name='about.html') ),
+    url( r'^about$',     TemplateView.as_view( template_name='about.html' ) ),
     # ex: /copyrights
-    url( r'^copyright$', TemplateView.as_view(template_name='copyright.html') ),
+    url( r'^copyright$', TemplateView.as_view( template_name='copyright.html' ) ),
     # ex: /impressum
-    url( r'^impressum$', TemplateView.as_view(template_name='impressum.html') ),
+    url( r'^impressum$', TemplateView.as_view( template_name='impressum.html' ) ),
     
-    
-    
-    # ex: /search/berlin
-    #url( r'^search/(?P<search_term>\w*)$',   'app_oem.views.search_view' ),
-    
-    
-    # ex: /create_dummy_data
-    url( r'^create_dummy_data$',    'apps.dummy_data.views.create_dummy_data' ),
-    # ex: /show_dummy_data
-    url( r'^show_dummy_data$',      'apps.dummy_data.views.show_dummy_data' ),
     
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -40,18 +41,21 @@ def add_poi( request ):
         text += '%s : %s<br>' % (key, value)
     return HttpResponse( text )
 
+
+@login_required(login_url="/login")
 def del_poi( request ):
     #TODO:
     return HttpResponseRedirect( '/overview/poi' )
 
+
+@login_required(login_url="/login")
 def edit_poi( request, poi_id ):
     #TODO:
     return HttpResponseRedirect( '/overview/poi' )
 
+
+@login_required(login_url="/login")
 def verify_poi( request, poi_id ):
-    if not request.user.is_authenticated():
-        raise Http404
-    
     poi = get_object_or_404( POI, id=poi_id )
     #TODO: check if access is allowed
     if poi.verified:
@@ -61,4 +65,3 @@ def verify_poi( request, poi_id ):
         poi.verification_date = datetime.date.today()
     poi.save()
     return HttpResponseRedirect( '/overview/poi' )
-
