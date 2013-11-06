@@ -57,7 +57,7 @@ Die Kontrollstelle muss auf allen Produkt mit einer Codenummer angegeben werden,
 <br>
 Bei Verstößen gegen die Richtlinien drohen den Betrieben Auflagen, Geldstrafen oder sogar die Aberkennung des Siegels.
 ''' )
-SEAL_EU_BIO_IMAGE = 'eu_bio.png'
+SEAL_EU_BIO_IMAGE = 'eu_bio.svg'
 
 SEAL_DEMETER_NAME = 'Demeter'
 SEAL_DEMETER_DESCRIPTION = convert2html( '''
@@ -73,11 +73,11 @@ Um die biologisch-dynamische Landwirtschaft zu gewähren, muss jeder Hof Tierhalt
 <h3>Kontrolle:</h3>
 Neben der Kontrolle im Zuge des Bio-Siegels wird jährlich die Einhaltung der Kriterien von Demeter e.V. durch den Verband überprüft sowie ein Gespräch zur Betriebsentwicklung geführt.
 ''')
-SEAL_DEMETER_IMAGE = 'demeter.png'
+SEAL_DEMETER_IMAGE = 'demeter.svg'
 
 SEAL_FAIRTRADE_NAME = 'Fair Trade'
 SEAL_FAIRTRADE_DESCRIPTION = 'Siegel fuer fairen Handel'
-SEAL_FAIRTRADE_IMAGE = 'fairtrade.svg'
+SEAL_FAIRTRADE_IMAGE = 'fair_trade.svg'
 
 SEAL_FSC_NAME = 'FSC'
 SEAL_FSC_DESCRIPTION = 'forest stewardship council'

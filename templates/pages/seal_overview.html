@@ -21,11 +21,11 @@
     {% for page in pages %}
         <div class="pic">
             <a href="/pages/filter/{{ selected.id }}/{{ page.id }}">
-                <img src="/static/user_content/img/seals/{{ page.image }}.png">
+                <img src="/static/img/seals/{{ page.image }}">
             </a>
             <ul>
                 <li class="title">
-                    <a href="">
+                    <a href="/pages/filter/{{ selected.id }}/{{ page.id }}">
                         {{ page }}
                     </a>
                 </li>
