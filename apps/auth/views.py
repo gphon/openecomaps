@@ -1,3 +1,5 @@
+from functools import reduce
+
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import Http404
