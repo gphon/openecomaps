@@ -5,7 +5,7 @@
     {% for entry in entries %}
         <div class="pic">
         {% if entry.title %}
-            <a href="/category/{{ entry.category.id }}/edit">
+            <a href="/pages/category/{{ entry.category.id }}/edit">
                 <img src="/static/user_content/img/{{ entry.category|lower }}/{{ group|lower }}.png">
             </a>
             <ul>
@@ -22,7 +22,7 @@
                 </li>
             </ul>
         {% else %}
-            <a href="/category/{{ entry.id }}/add">
+            <a href="/pages/category/{{ entry.id }}/add">
                 <img src="/static/img/question_mark_sign.png">
             </a>
             <ul>
