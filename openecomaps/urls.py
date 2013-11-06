@@ -13,7 +13,7 @@ admin.autodiscover()
 urlpatterns = patterns( '',
     
     url( r'^poi/',          include('apps.map.urls') ),
-    url( r'^category/',     include('apps.group_pages.urls') ),
+    url( r'^pages/',        include('apps.pages.urls') ),
     url( r'^dummy_data/',   include('apps.dummy_data.urls') ),
     
     url( r'^static/(?P<path>.*)$', 'django.views.static.serve' ),

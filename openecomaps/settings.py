@@ -166,8 +166,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'apps.auth',
     'apps.dummy_data',
-    'apps.group_pages',
     'apps.map',
+    'apps.pages',
 )
 
 # A sample logging configuration. The only tangible logging

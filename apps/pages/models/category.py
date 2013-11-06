@@ -12,5 +12,5 @@ class Category( models.Model ):
         return self.name
     
     class Meta:
-        app_label = 'group_pages'
+        app_label = 'pages'
         ordering = ['name']

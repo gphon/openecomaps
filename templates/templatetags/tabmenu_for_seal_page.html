@@ -1,0 +1,7 @@
+{% for page in pages %}
+    <li>
+        <a href="/pages/filter/{{ selected }}/{{ page.id }}"{% ifequal selected page.id %} class="active"{% endifequal %}>
+            {{ page }}
+        </a>
+    </li>
+{% endfor %}

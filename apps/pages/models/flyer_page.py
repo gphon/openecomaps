@@ -2,7 +2,7 @@ from django.db import models
 from django.forms import ModelForm
 
 from apps.auth.models.gp_group import GPGroup
-from apps.group_pages.models.category import Category
+from apps.pages.models.category import Category
 
 
 def upload_image_handler( instance, filename ):
@@ -11,7 +11,7 @@ def upload_image_handler( instance, filename ):
     return filepath
 
 
-class Page( models.Model ):
+class FlyerPage( models.Model ):
     title = models.CharField( max_length=50 )
     text = models.TextField()
     image = models.ImageField(upload_to=upload_image_handler)
@@ -25,10 +25,10 @@ class Page( models.Model ):
         return self.title
     
     class Meta:
-        app_label = 'group_pages'
+        app_label = 'pages'
 
 
-class PageForm( ModelForm ):
+class FlyerPageForm( ModelForm ):
     class Meta:
-        model = Page
+        model = FlyerPage
         fields = ('title', 'text', 'image', 'flyer')

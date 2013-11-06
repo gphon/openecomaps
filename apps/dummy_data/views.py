@@ -5,12 +5,13 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 
 from apps.auth.models import GPGroup
-from apps.group_pages.models import Page
-from apps.group_pages.models import Category
-from apps.group_pages.models import Seal
+from apps.dummy_data.dummy_data import *
 from apps.map.models import Area
 from apps.map.models import POI
 from apps.map.models import POIFilter
+from apps.pages.models import Category
+from apps.pages.models import FlyerPage
+from apps.pages.models import SealPage
 
 import datetime
 
@@ -20,7 +21,7 @@ def delete_data_in_db():
     groups.delete()
     areas = Area.objects.all()
     areas.delete()
-    pages = Page.objects.all()
+    pages = FlyerPage.objects.all()
     pages.delete()
     categories = Category.objects.all()
     categories.delete()
@@ -28,7 +29,7 @@ def delete_data_in_db():
     pois.delete()
     poi_filters = POIFilter.objects.all()
     poi_filters.delete()
-    seals = Seal.objects.all()
+    seals = SealPage.objects.all()
     seals.delete()
 
 
@@ -38,42 +39,44 @@ def create_dummy_data( request ):
     try:
         user_potsdam = User.objects.get( username='potsdam' )
     except:
-        user_potsdam = User(
-                username='potsdam',
-                password='pbkdf2_sha256$12000$rC78a5oqcS0A$xisbYYY3J56sDRQV5chrGGI4l7s0kQjrWTHi6bHoFxM=' )
-        user_potsdam.save()
+        user_potsdam = User.objects.create_user( username='potsdam',
+                                             email = 'a@b.de', password='123' )
+    user_potsdam.save()
     
     try:
         user_berlin = User.objects.get( username='berlin' )
     except:
-        user_berlin = User(
-                username='berlin',
-                password='pbkdf2_sha256$12000$rC78a5oqcS0A$xisbYYY3J56sDRQV5chrGGI4l7s0kQjrWTHi6bHoFxM=' )
-        user_berlin.save()
+        user_berlin = User.objects.create_user( username='berlin',
+                                             email = 'a@b.de', password='123' )
+    user_berlin.save()
     
     try:
         user_stuttgart = User.objects.get( username='stuttgart' )
     except:
-        user_stuttgart = User(
-                username='stuttgart',
-                password='pbkdf2_sha256$12000$rC78a5oqcS0A$xisbYYY3J56sDRQV5chrGGI4l7s0kQjrWTHi6bHoFxM=' )
-        user_stuttgart.save()
+        user_stuttgart = User.objects.create_user( username='stuttgart',
+                                             email = 'a@b.de', password='123' )
+    user_stuttgart.save()
     
     try:
         user_hamburg = User.objects.get( username='hamburg' )
     except:
-        user_hamburg = User(
-                username='hamburg',
-                password='pbkdf2_sha256$12000$I0yV2XBQfjoT$PL/ZCWqtqQm9yIfvL0ocr0GyTwzNjjUpKS8e3Rmx8D0=' )
-        user_hamburg.save()
-        
+        user_hamburg = User.objects.create_user( username='hamburg',
+                                             email = 'a@b.de', password='123' )
+    user_hamburg.save()
+    
     try:
         user_halle = User.objects.get( username='halle' )
     except:
-        user_halle = User(
-                username='halle',
-                password='pbkdf2_sha256$12000$I0yV2XBQfjoT$PL/ZCWqtqQm9yIfvL0ocr0GyTwzNjjUpKS8e3Rmx8D0=' )
-        user_halle.save()
+        user_halle = User.objects.create_user( username='halle',
+                                             email = 'a@b.de', password='123' )
+    user_halle.save()
+    
+    try:
+        user_cottbus = User.objects.get( username='cottbus' )
+    except:
+        user_cottbus = User.objects.create_user( username='cottbus',
+                                             email = 'a@b.de', password='123' )
+    user_halle.save()
     
     ###########################################################################
     
@@ -97,107 +100,24 @@ def create_dummy_data( request ):
     
     ###########################################################################
     
-    group_b = GPGroup( name = 'Berlin',
-                       user = user_berlin )
+    group_b = GPGroup( name = 'Berlin',     user = user_berlin )
     group_b.save()
     
-    group_p = GPGroup( name = 'Potsdam',
-                       user = user_potsdam )
+    group_p = GPGroup( name = 'Potsdam',    user = user_potsdam )
     group_p.save()
     
-    group_s = GPGroup( name = 'Stuttgart',
-                       user = user_stuttgart )
+    group_s = GPGroup( name = 'Stuttgart',  user = user_stuttgart )
     group_s.save()
     
-    group_hh = GPGroup( name = 'Hamburg',
-                        user = user_hamburg )
+    group_hh = GPGroup( name = 'Hamburg',   user = user_hamburg )
     group_hh.save()
     
-    group_halle = GPGroup( name = 'Halle',
-                           user = user_halle )
+    group_halle = GPGroup( name = 'Halle',  user = user_halle )
     group_halle.save()
     
     # assign areas to groups
     group_p.areas.add( area_potsdam, area_werder )
     group_s.areas.add( area_stuttgart )
-    
-    ###########################################################################
-    
-    filter_ernaehrung = POIFilter( name = 'Lebensmittel', colour = '#00ff00' )
-    filter_ernaehrung.save()
-    
-    filter_textilien = POIFilter( name = 'Textilien', colour = '#0000ff' )
-    filter_textilien.save()
-    
-    filter_papier = POIFilter( name = 'Papier', colour = '#ff0000' )
-    filter_papier.save()
-    
-    ###########################################################################
-    
-    seal_demeter = Seal( name = 'Demeter',
-                         annotation = 'tollstes Biosiegel ueberhaupt',
-                         image = 'demeter.svg' )
-    seal_demeter.save()
-    
-    seal_fsc = Seal( name = 'FSC',
-                     annotation = 'forest stewardship council',
-                     image = 'fsc.svg' )
-    seal_fsc.save()
-    
-    seal_ft = Seal( name = 'Fair Trade',
-                    annotation = 'Siegel fuer fairen Handel',
-                    image = 'fairtrade.svg' )
-    seal_ft.save()
-    
-    ###########################################################################
-    
-    poi1 = POI( name = 'Cafe Kieselstein',
-                street = 'Hegelallee 23',
-                zip_code = '14467',             city = 'Potsdam',
-                annotation = 'toller laden',
-                lat = 52.402123,                lon = 13.048488,
-                verified = False,
-                verification_date = datetime.date.fromtimestamp(0) )
-    poi1.save()
-    
-    poi2 = POI( name = 'Schalotte Naturkost',
-                street = 'Charlottenstrasse 30',
-                zip_code = '14467',             city = 'Potsdam',
-                annotation = 'Bioladen',
-                lat = 52.399372,                lon = 13.055376,
-                verified = True,
-                verification_date = datetime.date.today() )
-    poi2.save()
-    
-    poi3 = POI( name = 'Vitalia Reformhaus GmbH',
-                street = 'Rotebuehlstrasse 59',
-                zip_code = '70178',             city = 'Stuttgart',
-                annotation = 'Reformhaus',
-                lat = 48.773077,                lon = 9.16796,
-                verified = False,
-                verification_date = datetime.date.fromtimestamp(0) )
-    poi3.save()
-    
-    poi4 = POI( name = 'BioStube / Michael Chilla-Jung',
-                street = 'Mielestrasse 2',
-                zip_code = '14542',             city = 'Werder (Havel)',
-                annotation = 'kenn ich nich',
-                lat = 52.403885,                lon = 12.910467,
-                verified = False,
-                verification_date = datetime.date.fromtimestamp(0) )
-    poi4.save()
-    
-    # assign pois to categories
-    poi1.filters.add( filter_ernaehrung )
-    poi2.filters.add( filter_ernaehrung, filter_papier )
-    poi3.filters.add( filter_ernaehrung )
-    poi4.filters.add( filter_papier )
-    
-    # assign pois to seals
-    poi1.seals.add( seal_demeter )
-    poi2.seals.add( seal_demeter, seal_ft )
-    poi3.seals.add( seal_ft )
-    poi4.seals.add( seal_demeter )
     
     ###########################################################################
     
@@ -216,63 +136,152 @@ def create_dummy_data( request ):
     c_gmo = Category( name = 'Gentechnik' )
     c_gmo.save()
     
-    #c_fish.groups.add( group_s, group_p )
-    #c_paper.groups.add( group_b, group_p, group_halle, group_hh )
+    ###########################################################################
+    
+    filter_lebensmittel = POIFilter( name = 'Lebensmittel', colour = '#00ff00' )
+    filter_lebensmittel.save()
+    
+    filter_textilien = POIFilter( name = 'Textilien', colour = '#0000ff' )
+    filter_textilien.save()
+    
+    filter_papier = POIFilter( name = 'Papier / Holz', colour = '#ff0000' )
+    filter_papier.save()
+    
+    filter_kosmetik = POIFilter( name = 'Kosmetik', colour = '#ffff00' )
+    filter_kosmetik.save()
+    
+    filter_mobilitaet = POIFilter( name = 'Mobilitaet', colour = '#ff00ff' )
+    filter_mobilitaet.save()
+    
+    filter_sonstiges = POIFilter( name = 'sonstiges', colour = '#00ffff' )
+    filter_sonstiges.save()
     
     ###########################################################################
     
-    page1 = Page(   title = 'Fischliste Stuttgart',
-                    text = 'Seit mehreren Jahrzehnten werden die Weltmeere industriell ausgebeutet. Das hat dazu gefÃ¼hrt, dass 87 Prozent der FischbestÃ¤nde zu den Ã¼berfischten oder erschÃ¶pften BestÃ¤nden gezÃ¤hlt werden. Die maritimen Ãkosysteme sind auÃerdem noch von anderen, menschengemachten Gefahren bedroht: VermÃ¼llung der Meere mit PlastikabfÃ¤llen, Verschmutzung mit Ãl durch zunehmende Tiefseebohrungen, ÃberdÃ¼ngung der Meere durch industrielle Landwirtschaft, Klimawandel. Die Organisation Greenpeace kÃ¤mpft seit ihrer GrÃ¼ndung fÃ¼r den Erhalt der MeeresÃ¶kosysteme. Greenpeace Stuttgart setzt die Themen lokal und verbrauchernah um. So ist unsere Stuttgarter Fischliste bereits in der neunten Auflage.',
-                    image = 'blank.gif',
-                    flyer = 'fischliste_stuttgart.pdf',
-                    modified = datetime.datetime.now(),
-                    group = group_s,
-                    category = c_fish )
+    
+    seal_demeter = SealPage( name = SEAL_DEMETER_NAME,
+                             text = SEAL_DEMETER_DESCRIPTION,
+                             image = SEAL_DEMETER_IMAGE )
+    seal_demeter.save()
+    
+    seal_eu_bio = SealPage( name = SEAL_EU_BIO_NAME,
+                            text = SEAL_EU_BIO_DESCRIPTION,
+                            image = SEAL_EU_BIO_IMAGE )
+    seal_eu_bio.save()
+    
+    seal_fsc = SealPage( name = SEAL_FSC_NAME,
+                         text = SEAL_FSC_DESCRIPTION,
+                         image = SEAL_FSC_IMAGE )
+    seal_fsc.save()
+    
+    seal_ft = SealPage( name = SEAL_FAIRTRADE_NAME,
+                        text = SEAL_FAIRTRADE_DESCRIPTION,
+                        image = SEAL_FAIRTRADE_IMAGE )
+    seal_ft.save()
+    
+    seal_msc = SealPage( name = SEAL_MSC_NAME,
+                         text = SEAL_MSC_DESCRIPTION,
+                         image = SEAL_MSC_IMAGE )
+    seal_msc.save()
+    
+    seal_demeter.filters.add( filter_lebensmittel )
+    seal_eu_bio.filters.add( filter_lebensmittel )
+    seal_fsc.filters.add( filter_papier )
+    seal_ft.filters.add( filter_kosmetik, filter_lebensmittel, filter_sonstiges )
+    seal_msc.filters.add( filter_lebensmittel )
+    
+    ###########################################################################
+    
+    poi1 = POI( name = 'Cafe Kieselstein',
+                street = 'Hegelallee 23',
+                zip_code = '14467',             city = 'Potsdam',
+                text = 'toller laden',
+                lat = 52.402123,                lon = 13.048488,
+                verified = False,
+                verification_date = datetime.date.fromtimestamp(0) )
+    poi1.save()
+    
+    poi2 = POI( name = 'Schalotte Naturkost',
+                street = 'Charlottenstrasse 30',
+                zip_code = '14467',             city = 'Potsdam',
+                text = 'Bioladen',
+                lat = 52.399372,                lon = 13.055376,
+                verified = True,
+                verification_date = datetime.date.today() )
+    poi2.save()
+    
+    poi3 = POI( name = 'Vitalia Reformhaus GmbH',
+                street = 'Rotebuehlstrasse 59',
+                zip_code = '70178',             city = 'Stuttgart',
+                text = 'Reformhaus',
+                lat = 48.773077,                lon = 9.16796,
+                verified = False,
+                verification_date = datetime.date.fromtimestamp(0) )
+    poi3.save()
+    
+    poi4 = POI( name = 'BioStube / Michael Chilla-Jung',
+                street = 'Mielestrasse 2',
+                zip_code = '14542',             city = 'Werder (Havel)',
+                text = 'kenn ich nich',
+                lat = 52.403885,                lon = 12.910467,
+                verified = False,
+                verification_date = datetime.date.fromtimestamp(0) )
+    poi4.save()
+    
+    # assign pois to categories
+    poi1.filters.add( filter_lebensmittel )
+    poi2.filters.add( filter_lebensmittel, filter_papier )
+    poi3.filters.add( filter_lebensmittel )
+    poi4.filters.add( filter_papier )
+    
+    # assign pois to seals
+    poi1.seals.add( seal_demeter )
+    poi2.seals.add( seal_demeter, seal_ft )
+    poi3.seals.add( seal_ft )
+    poi4.seals.add( seal_demeter )
+    
+    ###########################################################################
+    
+    page1 = FlyerPage(  title = PAGE_FISH_S_TITLE,      text = PAGE_FISH_S_TEXT,
+                        image = PAGE_FISH_S_IMAGE,      flyer = PAGE_FISH_S_FLYER,
+                        modified = datetime.datetime.now(),
+                        group = group_s,
+                        category = c_fish )
     page1.save()
     
-    page2 = Page(   title = 'Papierratgeber Berlin',
-                    text = '2008 haben wir einen Papierratgeber fÃ¼r Berlin entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders mÃ¶chten wir auch die Verwendung von Recyclingpapier in der Schule fÃ¶rdern, dafÃ¼r sind wir auf Schul- und Kinderfesten oft prÃ¤sent.',
-                    image = 'blank.gif',
-                    flyer = 'papierratgeber_berlin.pdf',
-                    modified = datetime.datetime.now(),
-                    group = group_b,
-                    category = c_paper )
+    page2 = FlyerPage(  title = PAGE_PAPER_B_TITLE,     text = PAGE_PAPER_B_TEXT,
+                        image = PAGE_PAPER_B_IMAGE,     flyer = PAGE_PAPER_B_FLYER,
+                        modified = datetime.datetime.now(),
+                        group = group_b,
+                        category = c_paper )
     page2.save()
     
-    page3 = Page(   title = 'Papierratgeber Potsdam',
-                    text = '2008 haben wir einen Papierratgeber fÃ¼r Potsdam entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders mÃ¶chten wir auch die Verwendung von Recyclingpapier in der Schule fÃ¶rdern, dafÃ¼r sind wir auf Schul- und Kinderfesten oft prÃ¤sent.',
-                    image = 'blank.gif',
-                    flyer = 'papierratgeber_potsdam.pdf',
-                    modified = datetime.datetime.now(),
-                    group = group_p,
-                    category = c_paper )
+    page3 = FlyerPage(  title = PAGE_PAPER_P_TITLE,     text = PAGE_PAPER_P_TEXT,
+                        image = PAGE_PAPER_P_IMAGE,     flyer = PAGE_PAPER_P_FLYER,
+                        modified = datetime.datetime.now(),
+                        group = group_p,
+                        category = c_paper )
     page3.save()
     
-    page4 = Page(   title = 'Papierratgeber Halle',
-                    text = 'Im Juni 2010 haben wir unseren Flyer zum Thema Recyclingpapier fertig gestellt.<br><br>Er ist fuer Kinder und deren Eltern gedacht. Auf der Vorderseite befindet sich ein Comic des Grafikers Bern Zierfuss, das den Kindern an Hand zweier Hefte und ihrer Geschichte die Bedeutung von Recyclingpapier fuer den Waldschutz und die Umwelt klar macht.',
-                    image = 'blank.gif',
-                    flyer = 'papierratgeber_potsdam.pdf',
-                    modified = datetime.datetime.now(),
-                    group = group_halle,
-                    category = c_paper )
+    page4 = FlyerPage(  title = PAGE_PAPER_Halle_TITLE, text = PAGE_PAPER_Halle_TEXT,
+                        image = PAGE_PAPER_Halle_IMAGE, flyer = PAGE_PAPER_Halle_FLYER,
+                        modified = datetime.datetime.now(),
+                        group = group_halle,
+                        category = c_paper )
     page4.save()
     
-    page5 = Page(   title = 'Papierratgeber Hamburg',
-                    text = 'keine Beschreibung hinterlegt',
-                    image = 'blank.gif',
-                    flyer = 'papierratgeber_hamburg.pdf',
-                    modified = datetime.datetime.now(),
-                    group = group_hh,
-                    category = c_paper )
+    page5 = FlyerPage(  title = PAGE_PAPER_HH_TITLE,    text = PAGE_PAPER_HH_TEXT,
+                        image = PAGE_PAPER_HH_IMAGE,    flyer = PAGE_PAPER_HH_FLYER,
+                        modified = datetime.datetime.now(),
+                        group = group_hh,
+                        category = c_paper )
     page5.save()
     
-    page6 = Page(   title = 'Fischliste Potsdam',
-                    text = 'von Stuttgart kopiert :-).',
-                    image = 'blank.gif',
-                    flyer = 'fischliste_stuttgart.pdf',
-                    modified = datetime.datetime.now(),
-                    group = group_p,
-                    category = c_fish )
+    page6 = FlyerPage(  title = PAGE_FISH_P_TITLE,      text = PAGE_FISH_P_TEXT,
+                        image = PAGE_FISH_P_IMAGE,      flyer = PAGE_FISH_P_FLYER,
+                        modified = datetime.datetime.now(),
+                        group = group_p,
+                        category = c_fish )
     page6.save()
     
     return HttpResponse('success')

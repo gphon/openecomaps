@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+
+{% block main_content %}
+    <div id="tabs">
+        <h1>&nbsp;</h1>
+        <ul>
+            <li>
+                <a href="/pages/category"{% ifequal view 'flyer'%} class="active"{% endifequal %}>
+                    Flyeransicht
+                </a>
+            </li>
+            <li>
+                <a href="/pages/filter"{% ifequal view 'seals'%} class="active"{% endifequal %}>
+                    Siegelansicht
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    &nbsp;
+                </a>
+            </li>
+            {% block tabs %}
+                hier kommen die Tabs
+            {% endblock %}
+        </ul>
+        <a href="/" class="button">&larr;zurück zur Karte</a>
+    </div>
+    <div id="content">
+        {% block content %}
+            die Kategorien
+        {% endblock %}
+    </div>
+{% endblock %}

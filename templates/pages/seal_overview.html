@@ -1,0 +1,35 @@
+{% extends "pages/pages.html" %}
+
+{% load show_tabmenu_for_seals %}
+
+
+{% block mainmenu %}
+    <li>
+        <span>
+            Kategorie >> {{ selected }}
+        </span>
+    </li>
+{% endblock %}
+
+
+{% block tabs %}
+    {% show_tabmenu_for_seals selected.id %}
+{% endblock %}
+
+
+{% block content %}
+    {% for page in pages %}
+        <div class="pic">
+            <a href="/pages/filter/{{ selected.id }}/{{ page.id }}">
+                <img src="/static/user_content/img/seals/{{ page.image }}.png">
+            </a>
+            <ul>
+                <li class="title">
+                    <a href="">
+                        {{ page }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.db import models
 
-from apps.group_pages.models.seal import Seal
 from apps.map.models.poi_filter import POIFilter
+from apps.pages.models.seal_page import SealPage
 
 
 class POI( models.Model ):
@@ -12,7 +12,7 @@ class POI( models.Model ):
     zip_code = models.CharField( max_length=5 )
     city = models.CharField( max_length=50 )
     
-    annotation = models.CharField( max_length=500 )
+    text = models.CharField( max_length=500 )
     
     # location data
     lat = models.FloatField()
@@ -23,7 +23,7 @@ class POI( models.Model ):
     verification_date = models.DateField()
     
     filters = models.ManyToManyField( POIFilter )
-    seals = models.ManyToManyField( Seal )
+    seals = models.ManyToManyField( SealPage )
     
     def __str__( self ):
         return '%s - (%s)' % (self.name, self.city)

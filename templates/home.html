@@ -9,7 +9,29 @@
 
         map.addLayer( new OpenLayers.Layer.OSM() );
         
-        var layerFilterPapier = new OpenLayers.Layer.Vector( "Papier",
+        var layerFilterLebensmittel = new OpenLayers.Layer.Vector( "Lebensmittel",
+            {
+                strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
+                protocol: new OpenLayers.Protocol.HTTP(
+                    {
+                        url : "http://localhost:8000/poi/get/layer/lebensmittel",
+                        format : new OpenLayers.Format.Text()
+                    }
+                )
+            }
+        );
+        var layerFilterTextilien = new OpenLayers.Layer.Vector( "Textilien",
+            {
+                strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
+                protocol : new OpenLayers.Protocol.HTTP(
+                    {
+                        url : "http://localhost:8000/poi/get/layer/textilien",
+                        format: new OpenLayers.Format.Text()
+                    }
+                )
+            }
+        );
+        var layerFilterPapier = new OpenLayers.Layer.Vector( "Papier / Holz",
             {
                 strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
                 protocol : new OpenLayers.Protocol.HTTP(
@@ -20,13 +42,35 @@
                 )
             }
         );
-        var layerFilterLebensmittel = new OpenLayers.Layer.Vector( "Lebensmittel",
+        var layerFilterKosmetik = new OpenLayers.Layer.Vector( "Kosmetik",
             {
                 strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
-                protocol: new OpenLayers.Protocol.HTTP(
+                protocol : new OpenLayers.Protocol.HTTP(
                     {
-                        url : "http://localhost:8000/poi/get/layer/lebensmittel",
-                        format : new OpenLayers.Format.Text()
+                        url : "http://localhost:8000/poi/get/layer/kosmetik",
+                        format: new OpenLayers.Format.Text()
+                    }
+                )
+            }
+        );
+        var layerFilterMobilitaet = new OpenLayers.Layer.Vector( "Mobilität",
+            {
+                strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
+                protocol : new OpenLayers.Protocol.HTTP(
+                    {
+                        url : "http://localhost:8000/poi/get/layer/mobilitaet",
+                        format: new OpenLayers.Format.Text()
+                    }
+                )
+            }
+        );
+        var layerFilterSonstiges = new OpenLayers.Layer.Vector( "sonstiges",
+            {
+                strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
+                protocol : new OpenLayers.Protocol.HTTP(
+                    {
+                        url : "http://localhost:8000/poi/get/layer/sonstiges",
+                        format: new OpenLayers.Format.Text()
                     }
                 )
             }
@@ -44,8 +88,12 @@
         
         map.addLayers(
             [
-                layerFilterPapier,
                 layerFilterLebensmittel,
+                layerFilterTextilien,
+                layerFilterPapier,
+                layerFilterKosmetik,
+                layerFilterMobilitaet,
+                layerFilterSonstiges,
                 layerMapAerial
             ]
         );

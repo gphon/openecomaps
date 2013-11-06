@@ -1,6 +1,6 @@
 {% for category in categories %}
     {% if 1 %} {# if not category.pages #}
-        <li><a href="/category/{{ category.id }}">{{ category.name }}</a></li>
+        <li><a href="/pages/category/{{ category.id }}">{{ category.name }}</a></li>
     {% else %}
         <li class="submenu">
             <a href="/category/{{ category.id }}">{{ category.name }}</a>

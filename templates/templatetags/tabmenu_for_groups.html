@@ -1,9 +1,0 @@
-<ul>
-    {% for page in pages %}
-    <li>
-        <a href="/category/{{ page.category.id }}/flyer/{{ page.group.id }}"{% ifequal selected page.group.id %} class="active"{% endifequal %}>
-            {{ page.group.name }}
-        </a>
-    </li>
-    {% endfor %}
-</ul>

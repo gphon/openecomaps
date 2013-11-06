@@ -1,25 +1,40 @@
-from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.http import Http404
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_list_or_404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
-from django.http import Http404
 
 from apps.auth.models.gp_group import GPGroup
-from apps.group_pages.models import Category
-from apps.group_pages.models.page import Page
-from apps.group_pages.models.page import PageForm
 from apps.map.models.poi import POI
+from apps.pages.models.category import Category
+from apps.pages.models.flyer_page import FlyerPage
+from apps.pages.models.flyer_page import FlyerPageForm
 
 import operator
 
 
+def overview( request ):
+    if request.session.has_key( 'auth_overview' ):
+        latest_auth_overview = request.session['auth_overview']
+    else:
+        latest_auth_overview = 'pois'
+    #endif
+    
+    if   latest_auth_overview == 'pois':
+        return overview_poi( request )
+    elif latest_auth_overview == 'pages':
+        return overview_pages( request )
+    elif latest_auth_overview == 'settings':
+        return settings( request )
+    #endif
+
+
 @login_required(login_url="/login")
 def overview_poi( request ):
-    request.session['overview'] = 'pois'
+    request.session['auth_overview'] = 'pois'
     
     group = get_object_or_404( GPGroup, user=request.user )
     areas = group.areas.all()
@@ -40,14 +55,14 @@ def overview_poi( request ):
 
 @login_required(login_url="/login")
 def overview_pages( request ):
-    request.session['overview'] = 'pages'
+    request.session['auth_overview'] = 'pages'
     
     group = get_object_or_404( GPGroup, user=request.user )
     categories = get_list_or_404( Category )
     
     entries = []
     for category in categories:
-        page = Page.objects.filter( category=category, group=group )
+        page = FlyerPage.objects.filter( category=category, group=group )
         entries.append( ( page[0] if page else category ) )
     #endfor
     
@@ -62,7 +77,7 @@ def overview_pages( request ):
 
 @login_required(login_url="/login")
 def settings( request ):
-    request.session['overview'] = 'settings'
+    request.session['auth_overview'] = 'settings'
     
     group = GPGroup.objects.get( user=request.user )
     
@@ -74,42 +89,24 @@ def settings( request ):
                                     context_instance=RequestContext(request) )
 
 
-def overview( request ):
-    if request.session.has_key( 'overview' ):
-        latest_overview_page = request.session['overview']
-    else:
-        latest_overview_page = 'pois'
-    #endif
-    
-    if   latest_overview_page == 'pois':
-        return overview_poi( request )
-    elif latest_overview_page == 'pages':
-        return overview_pages( request )
-    elif latest_overview_page == 'settings':
-        return settings( request )
-    #endif
 
 
-
-
+@login_required(login_url="/login")
 def add_group_page( request, category_id ):
-    if not request.user.is_authenticated():
-        raise Http404
-    
     group = get_object_or_404( GPGroup, user=request.user )
     category = get_object_or_404( Category, id=category_id )
     
     if request.method == 'POST':
         if request.POST.get( 'btn_add_page', '' ):
             # if page already exists, raise 404 error
-            if Page.objects.filter( category_id=category_id, group=group ):
+            if FlyerPage.objects.filter( category_id=category_id, group=group ):
                 raise Http404
             #endif
         #endif
         
-        form = PageForm( request.POST )
+        form = FlyerPageForm( request.POST )
         if form.is_valid():
-            page = Page()
+            page = FlyerPage()
             page.title = form.cleaned_data['title']
             page.text = form.cleaned_data['text']
             page.image = form.cleaned_data['image']
@@ -122,7 +119,7 @@ def add_group_page( request, category_id ):
             return HttpResponseRedirect( '/overview' )
         #endif
     else:
-        form = PageForm()
+        form = FlyerPageForm()
     #endif
     
     context = {
@@ -135,13 +132,12 @@ def add_group_page( request, category_id ):
                                     context_instance=RequestContext(request) )
 
 
+@login_required(login_url="/login")
 def edit_group_page( request, category_id ):
-    if not request.user.is_authenticated():
-        raise Http404
     group = get_object_or_404( GPGroup, user=request.user )
     category = get_object_or_404( Category, id=category_id )
-    page = get_object_or_404( Page, category=category, group_id=group.id )
-    form = PageForm( instance=page )
+    page = get_object_or_404( FlyerPage, category=category, group_id=group.id )
+    form = FlyerPageForm( instance=page )
     context = {
         'group' : group,
         'category' : category,
@@ -153,10 +149,8 @@ def edit_group_page( request, category_id ):
                                     context_instance=RequestContext(request) )
 
 
+@login_required(login_url="/login")
 def delete_group_page( request, category_id ):
-    if not request.user.is_authenticated():
-        raise Http404
-    
     group = get_object_or_404( GPGroup, user=request.user )
     
     context = {
