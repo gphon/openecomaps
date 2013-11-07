@@ -14,4 +14,4 @@ def show_tabmenu_for_seal_page( filter_id, selected ):
     poi_filter = get_object_or_404( POIFilter, id=filter_id )
     pages = SealPage.objects.filter( filters=poi_filter )
     print( pages )
-    return {'pages' : pages, 'selected' : selected}
+    return {'pages' : pages, 'selected' : selected, 'filter' : poi_filter}
