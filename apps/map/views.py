@@ -26,13 +26,13 @@ def get_poi_layer( request, layer ):
         if layer in [ poi_layer.name.lower() for poi_layer in poi.filters.all() ]:
             out += '%s\t%s\t' % ( poi.lat, poi.lon )
             out += '%s\t' % poi.name
-            out += '%s\t' % poi.annotation
+            out += '%s\t' % poi.text
             out += '/static/img/icons/%s.png\t' % layer # icon
             out += '24,24\t'                # iconSize
             out += '0,-16\n'                # iconOffset
             print('%s - %s' % (layer, poi.name))
     print(out)
-    return HttpResponse( out[:-1] )
+    return HttpResponse( out )
 
 
 def add_poi( request ):

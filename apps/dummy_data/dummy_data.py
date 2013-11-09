@@ -1,6 +1,9 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 
+import datetime
+
+
 
 PAGE_FISH_P_TITLE = 'Fischliste Potsdam'
 PAGE_FISH_P_TEXT = 'von Stuttgart kopiert :-).'
@@ -80,3 +83,90 @@ SEAL_FSC_IMAGE = 'img/seals/fsc.svg'
 SEAL_MSC_NAME = 'MSC'
 SEAL_MSC_DESCRIPTION = 'marine stewardship council'
 SEAL_MSC_IMAGE = 'img/seals/msc.svg'
+
+###############################################################################
+###############################################################################
+###############################################################################
+###############################################################################
+###############################################################################
+
+POI1_NAME = 'Cafe Kieselstein'
+POI1_STREET = 'Hegelallee 23'
+POI1_ZIP = '14467'
+POI1_CITY = 'Potsdam'
+POI1_TEXT = 'tolles Cafe :-)'
+POI1_LAT = 52.402123
+POI1_LON = 13.048488
+POI1_VERIFIED = False
+POI1_VERIFICATION_DATE = datetime.date.fromtimestamp(0)
+
+POI2_NAME = 'Schalotte Naturkost'
+POI2_STREET = 'Charlottenstrasse 30'
+POI2_ZIP = '14467'
+POI2_CITY = 'Potsdam'
+POI2_TEXT = 'Bioladen'
+POI2_LAT = 52.399372
+POI2_LON = 13.055376
+POI2_VERIFIED = True
+POI2_VERIFICATION_DATE = datetime.date.today()
+
+POI3_NAME = 'Vitalia Reformhaus GmbH'
+POI3_STREET = 'Rotebuehlstrasse 59'
+POI3_ZIP = '70178'
+POI3_CITY = 'Stuttgart'
+POI3_TEXT = 'Reformhaus'
+POI3_LAT = 48.773077
+POI3_LON = 9.16796
+POI3_VERIFIED = False
+POI3_VERIFICATION_DATE = datetime.date.fromtimestamp(0)
+
+POI4_NAME = 'BioStube / Michael Chilla-Jung'
+POI4_STREET = 'Mielestrasse 2'
+POI4_ZIP = '14542'
+POI4_CITY = 'Werder (Havel)'
+POI4_TEXT = 'keine Beschreibung vorhanden'
+POI4_LAT = 52.403885
+POI4_LON = 12.910467
+POI4_VERIFIED = False
+POI4_VERIFICATION_DATE = datetime.date.fromtimestamp(0)
+
+POI5_NAME = 'Lebensquell Biomarkt'
+POI5_STREET = 'Hegelallee 23'
+POI5_ZIP = '14467'
+POI5_CITY = 'Potsdam'
+POI5_TEXT = 'Bioladen'
+POI5_LAT = 52.402277
+POI5_LON = 13.048456
+POI5_VERIFIED = True
+POI5_VERIFICATION_DATE = datetime.date.today()
+
+POI6_NAME = 'Aktionsladen "Eine Welt"'
+POI6_STREET = 'Gutenbergstraﬂe 77'
+POI6_ZIP = '14467'
+POI6_CITY = 'Potsdam'
+POI6_TEXT = 'Weltladen'
+POI6_LAT = 52.40213
+POI6_LON = 13.060103
+POI6_VERIFIED = False
+POI6_VERIFICATION_DATE = datetime.date.fromtimestamp(0)
+
+POI7_NAME = 'Potsdam per Pedales'
+POI7_STREET = 'Rudolf-Breitscheid-Straﬂe'
+POI7_ZIP = '14482'
+POI7_CITY = 'Potsdam'
+POI7_TEXT = 'Fahrradausleih'
+POI7_LAT = 52.395008
+POI7_LON = 13.128817
+POI7_VERIFIED = False
+POI7_VERIFICATION_DATE = datetime.date.fromtimestamp(0)
+
+
+
+
+
+
+
+
+
+
+

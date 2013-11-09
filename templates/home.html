@@ -36,7 +36,7 @@
                 strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
                 protocol : new OpenLayers.Protocol.HTTP(
                     {
-                        url : "http://localhost:8000/poi/get/layer/papier",
+                        url : "http://localhost:8000/poi/get/layer/papier_holz",
                         format: new OpenLayers.Format.Text()
                     }
                 )
@@ -89,8 +89,8 @@
         map.addLayers(
             [
                 layerFilterLebensmittel,
-                layerFilterTextilien,
                 layerFilterPapier,
+                layerFilterTextilien,
                 layerFilterKosmetik,
                 layerFilterMobilitaet,
                 layerFilterSonstiges,

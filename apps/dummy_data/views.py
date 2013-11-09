@@ -13,7 +13,6 @@ from apps.pages.models import Category
 from apps.pages.models import FlyerPage
 from apps.pages.models import SealPage
 
-import datetime
 
 
 def convert2html( text ):
@@ -151,7 +150,7 @@ def create_dummy_data( request ):
     filter_textilien = POIFilter( name = 'Textilien', colour = '#0000ff' )
     filter_textilien.save()
     
-    filter_papier = POIFilter( name = 'Papier / Holz', colour = '#ff0000' )
+    filter_papier = POIFilter( name = 'Papier_Holz', colour = '#ff0000' )
     filter_papier.save()
     
     filter_kosmetik = POIFilter( name = 'Kosmetik', colour = '#ffff00' )
@@ -199,47 +198,77 @@ def create_dummy_data( request ):
     
     ###########################################################################
     
-    poi1 = POI( name = 'Cafe Kieselstein',
-                street = 'Hegelallee 23',
-                zip_code = '14467',             city = 'Potsdam',
-                text = 'toller laden',
-                lat = 52.402123,                lon = 13.048488,
-                verified = False,
-                verification_date = datetime.date.fromtimestamp(0) )
+    poi1 = POI( name = POI1_NAME,
+                street = convert2html( POI1_STREET ),
+                zip_code = POI1_ZIP, city = POI1_CITY,
+                text = POI1_TEXT,
+                lat = POI1_LAT, lon = POI1_LON,
+                verified = POI1_VERIFIED,
+                verification_date = POI1_VERIFICATION_DATE )
     poi1.save()
     
-    poi2 = POI( name = 'Schalotte Naturkost',
-                street = 'Charlottenstrasse 30',
-                zip_code = '14467',             city = 'Potsdam',
-                text = 'Bioladen',
-                lat = 52.399372,                lon = 13.055376,
-                verified = True,
-                verification_date = datetime.date.today() )
+    poi2 = POI( name = POI2_NAME,
+                street = convert2html( POI2_STREET ),
+                zip_code = POI2_ZIP, city = POI2_CITY,
+                text = POI2_TEXT,
+                lat = POI2_LAT, lon = POI2_LON,
+                verified = POI2_VERIFIED,
+                verification_date = POI2_VERIFICATION_DATE )
     poi2.save()
     
-    poi3 = POI( name = 'Vitalia Reformhaus GmbH',
-                street = 'Rotebuehlstrasse 59',
-                zip_code = '70178',             city = 'Stuttgart',
-                text = 'Reformhaus',
-                lat = 48.773077,                lon = 9.16796,
-                verified = False,
-                verification_date = datetime.date.fromtimestamp(0) )
+    poi3 = POI( name = POI3_NAME,
+                street = convert2html( POI3_STREET ),
+                zip_code = POI3_ZIP, city = POI3_CITY,
+                text = POI3_TEXT,
+                lat = POI3_LAT, lon = POI3_LON,
+                verified = POI3_VERIFIED,
+                verification_date = POI3_VERIFICATION_DATE )
     poi3.save()
     
-    poi4 = POI( name = 'BioStube / Michael Chilla-Jung',
-                street = 'Mielestrasse 2',
-                zip_code = '14542',             city = 'Werder (Havel)',
-                text = 'kenn ich nich',
-                lat = 52.403885,                lon = 12.910467,
-                verified = False,
-                verification_date = datetime.date.fromtimestamp(0) )
+    poi4 = POI( name = POI4_NAME,
+                street = convert2html( POI4_STREET ),
+                zip_code = POI4_ZIP, city = POI4_CITY,
+                text = POI4_TEXT,
+                lat = POI4_LAT, lon = POI4_LON,
+                verified = POI4_VERIFIED,
+                verification_date = POI4_VERIFICATION_DATE )
     poi4.save()
     
-    # assign pois to categories
+    poi5 = POI( name = POI5_NAME,
+                street = convert2html( POI5_STREET ),
+                zip_code = POI5_ZIP, city = POI5_CITY,
+                text = POI5_TEXT,
+                lat = POI5_LAT, lon = POI5_LON,
+                verified = POI5_VERIFIED,
+                verification_date = POI5_VERIFICATION_DATE )
+    poi5.save()
+    
+    poi6 = POI( name = POI6_NAME,
+                street = convert2html( POI6_STREET ),
+                zip_code = POI6_ZIP, city = POI6_CITY,
+                text = POI6_TEXT,
+                lat = POI6_LAT, lon = POI6_LON,
+                verified = POI6_VERIFIED,
+                verification_date = POI6_VERIFICATION_DATE )
+    poi6.save()
+    
+    poi7 = POI( name = POI7_NAME,
+                street = convert2html( POI7_STREET ),
+                zip_code = POI7_ZIP, city = POI7_CITY,
+                text = POI7_TEXT,
+                lat = POI7_LAT, lon = POI7_LON,
+                verified = POI7_VERIFIED,
+                verification_date = POI7_VERIFICATION_DATE )
+    poi7.save()
+    
+    # assign pois to filters
     poi1.filters.add( filter_lebensmittel )
-    poi2.filters.add( filter_lebensmittel, filter_papier )
+    poi2.filters.add( filter_lebensmittel )
     poi3.filters.add( filter_lebensmittel )
-    poi4.filters.add( filter_papier )
+    poi4.filters.add( filter_lebensmittel )
+    poi5.filters.add( filter_lebensmittel )
+    poi6.filters.add( filter_lebensmittel, filter_textilien, filter_kosmetik )
+    poi7.filters.add( filter_mobilitaet )
     
     # assign pois to seals
     poi1.seals.add( seal_demeter )
