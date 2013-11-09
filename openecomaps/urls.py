@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls import patterns
 from django.conf.urls import url
+from django.conf.urls.static import static
 from django.contrib.auth.views import login
 from django.contrib.auth.views import logout
 from django.views.generic.base import TemplateView
@@ -17,7 +19,6 @@ urlpatterns = patterns( '',
     url( r'^dummy_data/',   include('apps.dummy_data.urls') ),
     
     url( r'^static/(?P<path>.*)$', 'django.views.static.serve' ),
-    
     
     # ex: /
     url( r'^$',         TemplateView.as_view( template_name='home.html' ) ),
@@ -54,4 +55,6 @@ urlpatterns = patterns( '',
     
     # Uncomment the next line to enable the admin:
     url( r'^admin/', include(admin.site.urls) ),
-)
+
+) + \
+static( settings.MEDIA_URL, document_root=settings.MEDIA_ROOT )

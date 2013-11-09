@@ -2,7 +2,7 @@
 
 
 {% block content %}
-    <form action="/category/{{ category.id }}/add" method="post">
+    <form action="/pages/category/{{ category.id }}/{% if page %}edit{% else %}add{% endif %}" method="post">
     {% csrf_token %}
         <table>
             {{ form.as_table }}
@@ -21,7 +21,7 @@
                 <td></td>
                 <td>
                     {% if page %}
-                    <input type="submit" value="ändern" name="btn_add_page">
+                    <input type="submit" value="ändern" name="btn_edit_page">
                     {% else %}
                     <input type="submit" value="erstellen" name="btn_add_page">
                     {% endif %}

@@ -1,47 +1,41 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 
-def convert2html( text ):
-    return text.replace('�', '&auml;').replace('�', '&Auml;'). \
-                replace('�', '&ouml;').replace('�', '&Ouml;'). \
-                replace('�', '&uuml;').replace('�', '&Uuml;'). \
-                replace('%', '%%').replace('�', '&szlig;')
-
 
 PAGE_FISH_P_TITLE = 'Fischliste Potsdam'
 PAGE_FISH_P_TEXT = 'von Stuttgart kopiert :-).'
-PAGE_FISH_P_IMAGE = 'blank.gif'
-PAGE_FISH_P_FLYER = 'fischliste_stuttgart.pdf'
+PAGE_FISH_P_IMAGE = 'img/flyer/potsdam_fisch.png'
+PAGE_FISH_P_FLYER = 'bin/stuttgart_fisch.pdf'
 
 PAGE_FISH_S_TITLE = 'Fischliste Stuttgart'
-PAGE_FISH_S_TEXT = 'Seit mehreren Jahrzehnten werden die Weltmeere industriell ausgebeutet. Das hat dazu geführt, dass 87 Prozent der Fischbestände zu den Überfischten oder erschöpften Beständen gezählt werden. Die maritimen Ökosysteme sind außerdem noch von anderen, menschengemachten Gefahren bedroht: Vermüllung der Meere mit PlastikabfÃÂ¤llen, Verschmutzung mit ÃÂl durch zunehmende Tiefseebohrungen, ÃÂberdÃÂ¼ngung der Meere durch industrielle Landwirtschaft, Klimawandel. Die Organisation Greenpeace kÃÂ¤mpft seit ihrer GrÃÂ¼ndung fÃÂ¼r den Erhalt der MeeresÃÂ¶kosysteme. Greenpeace Stuttgart setzt die Themen lokal und verbrauchernah um. So ist unsere Stuttgarter Fischliste bereits in der neunten Auflage.'
-PAGE_FISH_S_IMAGE = 'blank.gif'
-PAGE_FISH_S_FLYER = 'fischliste_stuttgart.pdf'
+PAGE_FISH_S_TEXT =  'Seit mehreren Jahrzehnten werden die Weltmeere industriell ausgebeutet. Das hat dazu geführt, dass 87 Prozent der Fischbestände zu den Überfischten oder erschöpften Beständen gezählt werden. Die maritimen �kosysteme sind au�erdem noch von anderen, menschengemachten Gefahren bedroht: Verm�llung der Meere mit PlastikabfÃÂ¤llen, Verschmutzung mit ÃÂl durch zunehmende Tiefseebohrungen, ÃÂberdÃÂ¼ngung der Meere durch industrielle Landwirtschaft, Klimawandel. Die Organisation Greenpeace kÃÂ¤mpft seit ihrer GrÃÂ¼ndung fÃÂ¼r den Erhalt der MeeresÃÂ¶kosysteme. Greenpeace Stuttgart setzt die Themen lokal und verbrauchernah um. So ist unsere Stuttgarter Fischliste bereits in der neunten Auflage.'
+PAGE_FISH_S_IMAGE = 'img/flyer/stuttgart_fisch.png'
+PAGE_FISH_S_FLYER = 'bin/stuttgart_fisch.pdf'
 
 PAGE_PAPER_B_TITLE = 'Papierratgeber Berlin'
-PAGE_PAPER_B_TEXT = '2008 haben wir einen Papierratgeber fÃÂ¼r Berlin entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders mÃÂ¶chten wir auch die Verwendung von Recyclingpapier in der Schule fÃÂ¶rdern, dafÃÂ¼r sind wir auf Schul- und Kinderfesten oft prÃÂ¤sent.'
-PAGE_PAPER_B_IMAGE = 'blank.gif'
-PAGE_PAPER_B_FLYER = 'papierratgeber_berlin.pdf'
+PAGE_PAPER_B_TEXT = '2008 haben wir einen Papierratgeber f�r Berlin entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders m�chten wir auch die Verwendung von Recyclingpapier in der Schule f�rdern, daf�r sind wir auf Schul- und Kinderfesten oft pr�sent.'
+PAGE_PAPER_B_IMAGE = 'img/flyer/berlin_papier.jpg'
+PAGE_PAPER_B_FLYER = 'bin/berlin_papier.pdf'
 
 PAGE_PAPER_Halle_TITLE = 'Papierratgeber Halle'
 PAGE_PAPER_Halle_TEXT = 'Im Juni 2010 haben wir unseren Flyer zum Thema Recyclingpapier fertig gestellt.<br><br>Er ist fuer Kinder und deren Eltern gedacht. Auf der Vorderseite befindet sich ein Comic des Grafikers Bern Zierfuss, das den Kindern an Hand zweier Hefte und ihrer Geschichte die Bedeutung von Recyclingpapier fuer den Waldschutz und die Umwelt klar macht.'
-PAGE_PAPER_Halle_IMAGE = 'blank.gif'
-PAGE_PAPER_Halle_FLYER = 'papierratgeber_potsdam.pdf'
+PAGE_PAPER_Halle_IMAGE = 'img/flyer/halle_papier.jpg'
+PAGE_PAPER_Halle_FLYER = 'bin/halle_papier.pdf'
 
 PAGE_PAPER_HH_TITLE = 'Papierratgeber Hamburg'
 PAGE_PAPER_HH_TEXT = 'keine Beschreibung hinterlegt'
-PAGE_PAPER_HH_IMAGE = 'blank.gif'
-PAGE_PAPER_HH_FLYER = 'papierratgeber_hamburg.pdf'
+PAGE_PAPER_HH_IMAGE = 'img/flyer/hamburg_papier.png'
+PAGE_PAPER_HH_FLYER = 'bin/hamburg_papier.pdf'
 
 PAGE_PAPER_P_TITLE = 'Papierratgeber Potsdam'
-PAGE_PAPER_P_TEXT = '2008 haben wir einen Papierratgeber fÃ¼r Potsdam entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders mÃ¶chten wir auch die Verwendung von Recyclingpapier in der Schule fÃ¶rdern, dafÃ¼r sind wir auf Schul- und Kinderfesten oft prÃ¤sent.'
-PAGE_PAPER_P_IMAGE = 'blank.gif'
-PAGE_PAPER_P_FLYER = 'papierratgeber_potsdam.pdf'
+PAGE_PAPER_P_TEXT = '2008 haben wir einen Papierratgeber f�r Potsdam entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders mÃ¶chten wir auch die Verwendung von Recyclingpapier in der Schule fÃ¶rdern, dafÃ¼r sind wir auf Schul- und Kinderfesten oft prÃ¤sent.'
+PAGE_PAPER_P_IMAGE = 'img/flyer/berlin_papier.jpg'
+PAGE_PAPER_P_FLYER = 'bin/berlin_papier.pdf'
 
 ###############################################################################
 
 SEAL_EU_BIO_NAME = 'EU-Bio'
-SEAL_EU_BIO_DESCRIPTION = convert2html( '''
+SEAL_EU_BIO_DESCRIPTION = '''
 Zum Jahresbeginn 2009 trat in der EU eine neue Basisverordnung (VO Nr. 834/2007) �ber den �kologischen Landbau in Kraft. Darin wird die Herstellung �kologischer Produkte und ihre Kennzeichnung mit Hilfe des EU-Bio-Siegels und der �ko-Kontrollstelle geregelt. Auf verpackten Lebensmitteln ist das Siegel Pflicht, auf unverpackten Erzeugnissen kann es freiwillig benutzt werden. Neben dem EU-Bio-Siegel k�nnen zus�tzlich auch andere, wie nationale Logos oder Logos von Anbauverb�nden verwendet werden.<br>
 Die neue Basisverordnung als rechtliche Grundlage f�r die �kologische Landwirtschaft, soll die Rechtslage vereinfacht, klarer aber weniger im Detail regeln. Es wurden Ziele und Grunds�tze hinzugef�gt.<br>
 Erg�nzt wird die Basisverordnung durch konkretere Durchf�hrungsbestimmungen (VO Nr. 889/2008) sowie eine Importregelung (VO Nr. 1235/2008) f�r Produkte von au�erhalb der EU. Nationale Gesetze, wie das deutsche �kolandbaugesetz, k�nnen weitere Regelungen beinhalten.<br>
@@ -56,11 +50,11 @@ Um die Einhaltung der Standards zu gew�hrleisten, werden die Erzeuger- und Verar
 Die Kontrollstelle muss auf allen Produkt mit einer Codenummer angegeben werden, wodurch eine R�ckverfolgbarkeit gew�hrleistet ist.<br>
 <br>
 Bei Verst��en gegen die Richtlinien drohen den Betrieben Auflagen, Geldstrafen oder sogar die Aberkennung des Siegels.
-''' )
-SEAL_EU_BIO_IMAGE = 'eu_bio.svg'
+'''
+SEAL_EU_BIO_IMAGE = 'img/seals/eu_bio.svg'
 
 SEAL_DEMETER_NAME = 'Demeter'
-SEAL_DEMETER_DESCRIPTION = convert2html( '''
+SEAL_DEMETER_DESCRIPTION = '''
 Demeter ist ein Anbauverband, dessen Produkte nach biologisch-dynamischen Richtlinien hergestellt werden. Die Anbauweise basiert auf der anthroposophischen Lehre, in der ein Hof als Organismus - also ein in sich geschlossenes System - verstanden wird. Deshalb sollte ein Demeter-Hof die n�tigen Zutaten f�r seine Produkte selbst herstellen. Eine Leitlinie ist das Ressourcen- und Energiesparen und der Einsatz erneuerbarer Energiequellen. Zudem wird auf den Schutz des Bodens und der Erhaltung des Bodenlebens wertgelegt.<br>
 Das 1997 gegr�ndete internationale Netzwerk umfasst mittlerweile fast 50 L�nder.<br>
 <br>
@@ -72,17 +66,17 @@ Um die biologisch-dynamische Landwirtschaft zu gew�hren, muss jeder Hof Tierhalt
 <br>
 <h3>Kontrolle:</h3>
 Neben der Kontrolle im Zuge des Bio-Siegels wird j�hrlich die Einhaltung der Kriterien von Demeter e.V. durch den Verband �berpr�ft sowie ein Gespr�ch zur Betriebsentwicklung gef�hrt.
-''')
-SEAL_DEMETER_IMAGE = 'demeter.svg'
+'''
+SEAL_DEMETER_IMAGE = 'img/seals/demeter.svg'
 
 SEAL_FAIRTRADE_NAME = 'Fair Trade'
 SEAL_FAIRTRADE_DESCRIPTION = 'Siegel fuer fairen Handel'
-SEAL_FAIRTRADE_IMAGE = 'fair_trade.svg'
+SEAL_FAIRTRADE_IMAGE = 'img/seals/fair_trade.svg'
 
 SEAL_FSC_NAME = 'FSC'
 SEAL_FSC_DESCRIPTION = 'forest stewardship council'
-SEAL_FSC_IMAGE = 'fsc.svg'
+SEAL_FSC_IMAGE = 'img/seals/fsc.svg'
 
 SEAL_MSC_NAME = 'MSC'
 SEAL_MSC_DESCRIPTION = 'marine stewardship council'
-SEAL_MSC_IMAGE = 'msc.svg'
+SEAL_MSC_IMAGE = 'img/seals/msc.svg'

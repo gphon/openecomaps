@@ -21,7 +21,7 @@
     {% for page in pages %}
         <div class="pic">
             <a href="/pages/filter/{{ selected.id }}/{{ page.id }}">
-                <img src="/static/img/seals/{{ page.image }}">
+                <img src="{{ page.image.url }}">
             </a>
             <ul>
                 <li class="title">

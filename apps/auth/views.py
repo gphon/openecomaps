@@ -138,8 +138,19 @@ def add_group_page( request, category_id ):
 def edit_group_page( request, category_id ):
     group = get_object_or_404( GPGroup, user=request.user )
     category = get_object_or_404( Category, id=category_id )
+    
+    #: only if the page exist, we can edit it
     page = get_object_or_404( FlyerPage, category=category, group_id=group.id )
+    
     form = FlyerPageForm( instance=page )
+    if request.method == 'POST' and request.POST.get( 'btn_edit_page', '' ):
+        form = FlyerPageForm( request.POST )
+        if form.is_valid():
+            print('blabla')
+            form.save()
+        #endif
+    #endif
+    
     context = {
         'group' : group,
         'category' : category,

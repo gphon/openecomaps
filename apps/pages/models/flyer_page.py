@@ -14,8 +14,8 @@ def upload_image_handler( instance, filename ):
 class FlyerPage( models.Model ):
     title = models.CharField( max_length=50 )
     text = models.TextField()
-    image = models.ImageField(upload_to=upload_image_handler)
-    flyer = models.FileField(upload_to='/user_content/bin')
+    image = models.ImageField(upload_to='/user_content')
+    flyer = models.FileField(upload_to='/user_content')
     modified = models.DateTimeField()
     
     group = models.ForeignKey( GPGroup )

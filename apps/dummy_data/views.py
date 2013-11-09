@@ -16,6 +16,13 @@ from apps.pages.models import SealPage
 import datetime
 
 
+def convert2html( text ):
+    return text.replace('ä', '&auml;').replace('Ä', '&Auml;'). \
+                replace('ö', '&ouml;').replace('Ö', '&Ouml;'). \
+                replace('ü', '&uuml;').replace('Ü', '&Uuml;'). \
+                replace('%', '%%').replace('ß', '&szlig;')
+
+
 def delete_data_in_db():
     groups = GPGroup.objects.all()
     groups.delete()
@@ -160,27 +167,27 @@ def create_dummy_data( request ):
     
     
     seal_demeter = SealPage( name = SEAL_DEMETER_NAME,
-                             text = SEAL_DEMETER_DESCRIPTION,
+                             text = convert2html( SEAL_DEMETER_DESCRIPTION ),
                              image = SEAL_DEMETER_IMAGE )
     seal_demeter.save()
     
     seal_eu_bio = SealPage( name = SEAL_EU_BIO_NAME,
-                            text = SEAL_EU_BIO_DESCRIPTION,
+                            text = convert2html( SEAL_EU_BIO_DESCRIPTION ),
                             image = SEAL_EU_BIO_IMAGE )
     seal_eu_bio.save()
     
     seal_fsc = SealPage( name = SEAL_FSC_NAME,
-                         text = SEAL_FSC_DESCRIPTION,
+                         text = convert2html( SEAL_FSC_DESCRIPTION ),
                          image = SEAL_FSC_IMAGE )
     seal_fsc.save()
     
     seal_ft = SealPage( name = SEAL_FAIRTRADE_NAME,
-                        text = SEAL_FAIRTRADE_DESCRIPTION,
+                        text = convert2html( SEAL_FAIRTRADE_DESCRIPTION ),
                         image = SEAL_FAIRTRADE_IMAGE )
     seal_ft.save()
     
     seal_msc = SealPage( name = SEAL_MSC_NAME,
-                         text = SEAL_MSC_DESCRIPTION,
+                         text = convert2html( SEAL_MSC_DESCRIPTION ),
                          image = SEAL_MSC_IMAGE )
     seal_msc.save()
     
@@ -242,42 +249,42 @@ def create_dummy_data( request ):
     
     ###########################################################################
     
-    page1 = FlyerPage(  title = PAGE_FISH_S_TITLE,      text = PAGE_FISH_S_TEXT,
+    page1 = FlyerPage(  title = PAGE_FISH_S_TITLE,      text = convert2html( PAGE_FISH_S_TEXT ),
                         image = PAGE_FISH_S_IMAGE,      flyer = PAGE_FISH_S_FLYER,
                         modified = datetime.datetime.now(),
                         group = group_s,
                         category = c_fish )
     page1.save()
     
-    page2 = FlyerPage(  title = PAGE_PAPER_B_TITLE,     text = PAGE_PAPER_B_TEXT,
+    page2 = FlyerPage(  title = PAGE_PAPER_B_TITLE,     text = convert2html( PAGE_PAPER_B_TEXT ),
                         image = PAGE_PAPER_B_IMAGE,     flyer = PAGE_PAPER_B_FLYER,
                         modified = datetime.datetime.now(),
                         group = group_b,
                         category = c_paper )
     page2.save()
     
-    page3 = FlyerPage(  title = PAGE_PAPER_P_TITLE,     text = PAGE_PAPER_P_TEXT,
+    page3 = FlyerPage(  title = PAGE_PAPER_P_TITLE,     text = convert2html( PAGE_PAPER_P_TEXT ),
                         image = PAGE_PAPER_P_IMAGE,     flyer = PAGE_PAPER_P_FLYER,
                         modified = datetime.datetime.now(),
                         group = group_p,
                         category = c_paper )
     page3.save()
     
-    page4 = FlyerPage(  title = PAGE_PAPER_Halle_TITLE, text = PAGE_PAPER_Halle_TEXT,
+    page4 = FlyerPage(  title = PAGE_PAPER_Halle_TITLE, text = convert2html( PAGE_PAPER_Halle_TEXT ),
                         image = PAGE_PAPER_Halle_IMAGE, flyer = PAGE_PAPER_Halle_FLYER,
                         modified = datetime.datetime.now(),
                         group = group_halle,
                         category = c_paper )
     page4.save()
     
-    page5 = FlyerPage(  title = PAGE_PAPER_HH_TITLE,    text = PAGE_PAPER_HH_TEXT,
+    page5 = FlyerPage(  title = PAGE_PAPER_HH_TITLE,    text = convert2html( PAGE_PAPER_HH_TEXT ),
                         image = PAGE_PAPER_HH_IMAGE,    flyer = PAGE_PAPER_HH_FLYER,
                         modified = datetime.datetime.now(),
                         group = group_hh,
                         category = c_paper )
     page5.save()
     
-    page6 = FlyerPage(  title = PAGE_FISH_P_TITLE,      text = PAGE_FISH_P_TEXT,
+    page6 = FlyerPage(  title = PAGE_FISH_P_TITLE,      text = convert2html( PAGE_FISH_P_TEXT ),
                         image = PAGE_FISH_P_IMAGE,      flyer = PAGE_FISH_P_FLYER,
                         modified = datetime.datetime.now(),
                         group = group_p,

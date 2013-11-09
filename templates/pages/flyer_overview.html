@@ -21,7 +21,7 @@
     {% for page in pages %}
         <div class="pic">
             <a href="/pages/category/{{ selected.id }}/{{ page.id }}">
-                <img src="/static/user_content/img/{{ page.category|lower }}/{{ page.group|lower }}.png">
+                <img src="{{ page.image.url }}">
             </a>
             <ul>
                 <li class="title">

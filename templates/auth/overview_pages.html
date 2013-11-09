@@ -6,7 +6,7 @@
         <div class="pic">
         {% if entry.title %}
             <a href="/pages/category/{{ entry.category.id }}/edit">
-                <img src="/static/user_content/img/{{ entry.category|lower }}/{{ group|lower }}.png">
+                <img src="{{ entry.image.url }}">
             </a>
             <ul>
                 <li class="title">
