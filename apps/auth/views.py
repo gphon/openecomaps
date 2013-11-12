@@ -12,6 +12,7 @@ from django.template import RequestContext
 from apps.auth.models.gp_group import GPGroup
 from apps.map.models.poi import POI
 from apps.pages.models.category import Category
+from apps.map.models.poi_filter import POIFilter
 from apps.pages.models.flyer_page import FlyerPage
 from apps.pages.models.flyer_page import FlyerPageForm
 

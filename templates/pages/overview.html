@@ -1,0 +1,56 @@
+{% extends "pages/pages.html" %}
+
+{% load show_tabmenu_for_categories %}
+{% load show_tabmenu_for_seals %}
+
+
+{% block mainmenu %}
+    <li>
+        <span>
+            Kategorie >> {{ selected }}
+        </span>
+    </li>
+{% endblock %}
+
+
+{% block tabs %}
+    {% ifequal overview 'flyer' %}
+        {% show_tabmenu_for_categories selected.id %}
+    {% else %}
+        {% show_tabmenu_for_seals selected.id %}
+    {% endifequal %}
+{% endblock %}
+
+
+{% block content %}
+    {% for page in pages %}
+        <div class="pic">
+            <a href="/pages/{% ifequal overview 'flyer' %}category{% else %}filter{% endifequal %}/{{ selected.id }}/{{ page.id }}">
+                <img src="{{ page.image.url }}">
+            </a>
+            <ul>
+                <li class="title">
+                    {% ifequal overview 'flyer' %}
+                    <a href="">
+                        {{ page.group.name }}
+                    </a>
+                    {% else %}
+                    <a href="/pages/filter/{{ selected.id }}/{{ page.id }}">
+                        {{ page }}
+                    </a>
+                    {% endifequal %}
+                </li>
+            </ul>
+        </div>
+    {% endfor %}
+
+    {% ifequal overview 'flyer' %}
+        {% if user.is_authenticated and not group_has_page %}
+        <div class="pic">
+            <a href="/pages/category/{{ selected.id }}/add">
+                <img src="/static/img/plus_sign.png" alt="neu">
+            </a>
+        </div>
+        {% endif %}
+    {% endifequal %}
+{% endblock %}

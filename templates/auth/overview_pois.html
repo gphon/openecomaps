@@ -16,15 +16,13 @@
         {% for poi in pois %}
         <tr>
             <td>{{ poi.name }}</td>
-            <td>{{ poi.zip_code }} / {{ poi.city }}</td>
+            <td>{{ poi.zip_code }}<br>{{ poi.city }}</td>
             <td>{{ poi.street }}</td>
             <td>{{ poi.text }}</td>
             <td>
-                <ul>
                 {% for f in poi.filters.all %}
-                    <li>{{ f }}</li>
+                    <input type="checkbox" checked disabled>{{ f }}{% if not forloop.last %}<br>{% endif %}
                 {% endfor %}
-                </ul>
             </td>
             <td>
                 <form action="/poi/verify/{{ poi.id }}" method="post">
@@ -37,7 +35,7 @@
                     {% endif %}
                 </form>
             </td>
-            <td>{{ poi.verification_date }}</td>
+            <td>{{ poi.verification_date|date:"d.m.Y" }}</td>
             <td>
                 <form action="/poi/edit/{{ poi.id }}" method="post">
                     {% csrf_token %}

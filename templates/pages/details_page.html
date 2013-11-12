@@ -1,0 +1,33 @@
+{% extends "pages/pages.html" %}
+
+{% load show_tabmenu_for_flyer_page %}
+{% load show_tabmenu_for_seal_page %}
+
+
+{% block mainmenu %}
+    <li>
+        <span>
+            {% ifequal details 'flyer' %}
+            Kategorie >> Flyer : {{ selected }} >> {{ page.group }}
+            {% else %}
+            Kategorie >> Siegel : {{ selected }} >> {{ page }}
+            {% endifequal %}
+        </span>
+    </li>
+{% endblock %}
+
+
+{% block tabs %}
+    {% ifequal details 'flyer' %}
+        {% show_tabmenu_for_flyer_page selected.id page.id %}
+    {% else %}
+        {% show_tabmenu_for_seal_page selected.id page.id %}
+    {% endifequal %}
+{% endblock %}
+
+
+{% block content %}
+    <h1>{{ page }}</h1>
+    <img src="{{ page.image.url }}" width="150">
+    {{ page.text }}
+{% endblock %}

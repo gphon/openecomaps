@@ -1,11 +1,15 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.db.models import Q
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 from apps.map.models.poi import POI
+from apps.map.models.poi import POIForm
+from apps.auth.models.gp_group import GPGroup
 
 import datetime
 
@@ -50,8 +54,19 @@ def del_poi( request ):
 
 @login_required(login_url="/login")
 def edit_poi( request, poi_id ):
-    #TODO:
-    return HttpResponseRedirect( '/overview/poi' )
+    group = get_object_or_404( GPGroup, user=request.user )
+    poi = get_object_or_404( POI, id=poi_id )
+    
+    if request.method == 'POST':
+        if request.POST.get( 'btn_ok', '' ):
+            pass
+    form = POIForm( instance=poi )
+    context = {
+        'group' : group,
+        'form' : form,
+    }
+    return render_to_response( 'auth/edit_poi.html', context,
+                                    context_instance=RequestContext(request) )
 
 
 @login_required(login_url="/login")
