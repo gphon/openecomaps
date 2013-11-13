@@ -100,14 +100,12 @@ def add_group_page( request, category_id ):
     category = get_object_or_404( Category, id=category_id )
     
     if request.method == 'POST':
-        if request.POST.get( 'btn_add_page', '' ):
-            # if page already exists, raise 404 error
-            if FlyerPage.objects.filter( category_id=category_id, group=group ):
-                raise Http404
-            #endif
+        # if page already exists, raise 404 error
+        if FlyerPage.objects.filter( category_id=category_id, group=group ):
+            raise Http404
         #endif
         
-        form = FlyerPageForm( request.POST )
+        form = FlyerPageForm( request.POST, request.FILES )
         if form.is_valid():
             page = FlyerPage()
             page.title = form.cleaned_data['title']
@@ -145,7 +143,7 @@ def edit_group_page( request, category_id ):
     
     form = FlyerPageForm( instance=page )
     if request.method == 'POST' and request.POST.get( 'btn_edit_page', '' ):
-        form = FlyerPageForm( request.POST )
+        form = FlyerPageForm( request.POST, request.FILES )
         if form.is_valid():
             print('blabla')
             form.save()

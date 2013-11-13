@@ -2,7 +2,7 @@
 
 
 {% block content %}
-    <form action="/pages/category/{{ category.id }}/{% if page %}edit{% else %}add{% endif %}" method="post">
+    <form enctype="multipart/form-data" action="/pages/category/{{ category.id }}/{% if page %}edit{% else %}add{% endif %}" method="post">
     {% csrf_token %}
         <table>
             {{ form.as_table }}
