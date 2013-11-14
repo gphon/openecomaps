@@ -37,10 +37,7 @@
             </td>
             <td>{{ poi.verification_date|date:"d.m.Y" }}</td>
             <td>
-                <form action="/poi/edit/{{ poi.id }}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="edit">
-                </form>
+                <a href="/poi/edit/{{ poi.id }}">edit</a>
             </td>
         </tr>
         {% endfor %}

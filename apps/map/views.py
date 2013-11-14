@@ -57,12 +57,16 @@ def edit_poi( request, poi_id ):
     group = get_object_or_404( GPGroup, user=request.user )
     poi = get_object_or_404( POI, id=poi_id )
     
-    if request.method == 'POST':
-        if request.POST.get( 'btn_ok', '' ):
-            pass
     form = POIForm( instance=poi )
+    if request.method == 'POST':
+        form = POIForm( request.POST )
+        if form.is_valid():
+            form.save()
+        #endif
+    #endif
     context = {
         'group' : group,
+        'poi' : poi,
         'form' : form,
     }
     return render_to_response( 'auth/edit_poi.html', context,
