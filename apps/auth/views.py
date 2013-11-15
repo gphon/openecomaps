@@ -12,10 +12,10 @@ from django.template import RequestContext
 from apps.auth.models.gp_group import GPGroup
 from apps.map.models.poi import POI
 from apps.pages.models.category import Category
-from apps.map.models.poi_filter import POIFilter
 from apps.pages.models.flyer_page import FlyerPage
 from apps.pages.models.flyer_page import FlyerPageForm
 
+import datetime
 import operator
 
 
@@ -107,16 +107,14 @@ def add_group_page( request, category_id ):
         
         form = FlyerPageForm( request.POST, request.FILES )
         if form.is_valid():
-            page = FlyerPage()
-            page.title = form.cleaned_data['title']
-            page.text = form.cleaned_data['text']
-            page.image = form.cleaned_data['image']
-            page.flyer = form.cleaned_data['flyer']
+            # create, but don't save the instance
+            page = form.save( commit=False )
+            
+            page.modified = datetime.datetime.now()
             page.group = group
             page.category = category
             
             page.save()
-            
             return HttpResponseRedirect( '/overview' )
         #endif
     else:
