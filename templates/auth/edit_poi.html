@@ -7,10 +7,20 @@
         <table>
             {{ form.as_table }}
             <tr>
+                <th>löschen:</th>
+                <td>
+                    <input type="checkbox" name="chk_del_1">
+                    <input type="checkbox" name="chk_del_2">
+                    <input type="checkbox" name="chk_del_3">
+                    (zum löschen drei Häkchen setzen)
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td>
                     <input type="submit" name="btn_edit_poi" value="OK">
                 </td>
+            </tr>
         </table>
     </form>
 {% endblock %}

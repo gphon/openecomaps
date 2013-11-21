@@ -36,4 +36,5 @@ class POI( models.Model ):
 class POIForm( ModelForm ):
     class Meta:
         model = POI
+        exclude = ('verified', 'verification_date')
         #fields = ('title', 'text', 'image', 'flyer')

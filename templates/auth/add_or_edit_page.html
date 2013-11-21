@@ -10,9 +10,9 @@
             <tr>
                 <th>Seite löschen:</th>
                 <td>
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
+                    <input type="checkbox" name="chk_del_1">
+                    <input type="checkbox" name="chk_del_2">
+                    <input type="checkbox" name="chk_del_3">
                     (zum löschen drei Häkchen setzen)
                 </td>
             </tr>
@@ -21,9 +21,9 @@
                 <td></td>
                 <td>
                     {% if page %}
-                    <input type="submit" value="ändern" name="btn_edit_page">
+                    <input type="submit" value="ändern" name="btn_edit">
                     {% else %}
-                    <input type="submit" value="erstellen" name="btn_add_page">
+                    <input type="submit" value="erstellen" name="btn_add">
                     {% endif %}
                     <input type="submit" value="abbrechen" name="btn_cancel">
                 </td>

@@ -27,7 +27,9 @@
 
 
 {% block content %}
-    <h1>{{ page }}</h1>
-    <img src="{{ page.image.url }}" width="150">
-    {{ page.text }}
+    {% autoescape off %}
+        <h1>{{ page|safe }}</h1>
+        <img src="{{ page.image.url }}" width="150">
+        {{ page.text|safe }}
+    {% endautoescape %}
 {% endblock %}

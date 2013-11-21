@@ -47,27 +47,29 @@ def add_poi( request ):
 
 
 @login_required(login_url="/login")
-def del_poi( request ):
-    #TODO:
-    return HttpResponseRedirect( '/overview/poi' )
-
-
-@login_required(login_url="/login")
 def edit_poi( request, poi_id ):
     group = get_object_or_404( GPGroup, user=request.user )
     poi = get_object_or_404( POI, id=poi_id )
     
-    form = POIForm( instance=poi )
     if request.method == 'POST':
-        form = POIForm( request.POST )
-        if form.is_valid():
-            form.save()
+        if request.POST.get('chk_del_1', '') and request.POST.get('chk_del_2', '') and request.POST.get('chk_del_3', ''):
+            poi.delete()
+            return HttpResponseRedirect( '/overview' )
+        else:
+            form = POIForm( request.POST, instance=poi )
+            if form.is_valid():
+                form.save()
+            #endif
         #endif
+    else:
+        form = POIForm( instance=poi )
     #endif
+    
     context = {
         'group' : group,
         'poi' : poi,
         'form' : form,
+        'selected_page' : 'poi_overview',
     }
     return render_to_response( 'auth/edit_poi.html', context,
                                     context_instance=RequestContext(request) )

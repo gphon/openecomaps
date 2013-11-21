@@ -139,13 +139,20 @@ def edit_group_page( request, category_id ):
     #: only if the page exist, we can edit it
     page = get_object_or_404( FlyerPage, category=category, group_id=group.id )
     
-    form = FlyerPageForm( instance=page )
-    if request.method == 'POST' and request.POST.get( 'btn_edit_page', '' ):
-        form = FlyerPageForm( request.POST, request.FILES )
-        if form.is_valid():
-            print('blabla')
-            form.save()
+    if request.method == 'POST':
+        if request.POST.get('chk_del_1', '') and request.POST.get('chk_del_2', '') and request.POST.get('chk_del_3', ''):
+            page.delete()
+            return HttpResponseRedirect( '/overview' )
+        else:
+            form = FlyerPageForm( request.POST, request.FILES, instance=page )
+            if form.is_valid():
+                page = form.save( commit=False )
+                page.modified = datetime.datetime.now()
+                page.save()
+            #endif
         #endif
+    else:
+        form = FlyerPageForm( instance=page )
     #endif
     
     context = {
@@ -153,18 +160,6 @@ def edit_group_page( request, category_id ):
         'category' : category,
         'page' : page,
         'form' : form,
-        'selected_page' : 'pages_overview',
-    }
-    return render_to_response( 'auth/add_or_edit_page.html', context,
-                                    context_instance=RequestContext(request) )
-
-
-@login_required(login_url="/login")
-def delete_group_page( request, category_id ):
-    group = get_object_or_404( GPGroup, user=request.user )
-    
-    context = {
-        'group' : group,
         'selected_page' : 'pages_overview',
     }
     return render_to_response( 'auth/add_or_edit_page.html', context,
