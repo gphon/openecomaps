@@ -1,78 +1,44 @@
 var map;
 
-function init(){
-    map = new OpenLayers.Map('map');
-
-    map.addLayer( new OpenLayers.Layer.OSM() );
-    
-    
-    var layerFilterLebensmittel = new OpenLayers.Layer.Vector( "Lebensmittel",
+function addLayer( layername, layerurl )
+{
+    var layer = new OpenLayers.Layer.Vector( layername,
         {
+            // strategies: [ new OpenLayers.Strategy.Fixed() ],
             strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
+            // projection: new OpenLayers.Projection( "EPSG:4326" ),
+            // visibility: true,
             protocol: new OpenLayers.Protocol.HTTP(
                 {
-                    url : "/poi/get/layer/lebensmittel",
+                    url : layerurl,
+                    /*
+                    format : new OpenLayers.Format.KML(
+                        {
+                            extractStyles : true,
+                            extractAttributes : true,
+                        }
+                    )
+                    */
                     format : new OpenLayers.Format.Text()
                 }
             )
         }
     );
-    var layerFilterTextilien = new OpenLayers.Layer.Vector( "Textilien",
-        {
-            strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
-            protocol : new OpenLayers.Protocol.HTTP(
-                {
-                    url : "/poi/get/layer/textilien",
-                    format: new OpenLayers.Format.Text()
-                }
-            )
-        }
-    );
-    var layerFilterPapier = new OpenLayers.Layer.Vector( "Papier / Holz",
-        {
-            strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
-            protocol : new OpenLayers.Protocol.HTTP(
-                {
-                    url : "/poi/get/layer/papier_holz",
-                    format: new OpenLayers.Format.Text()
-                }
-            )
-        }
-    );
-    var layerFilterKosmetik = new OpenLayers.Layer.Vector( "Kosmetik",
-        {
-            strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
-            protocol : new OpenLayers.Protocol.HTTP(
-                {
-                    url : "/poi/get/layer/kosmetik",
-                    format: new OpenLayers.Format.Text()
-                }
-            )
-        }
-    );
-    var layerFilterMobilitaet = new OpenLayers.Layer.Vector( "Mobilität",
-        {
-            strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
-            protocol : new OpenLayers.Protocol.HTTP(
-                {
-                    url : "/poi/get/layer/mobilitaet",
-                    format: new OpenLayers.Format.Text()
-                }
-            )
-        }
-    );
-    var layerFilterSonstiges = new OpenLayers.Layer.Vector( "sonstiges",
-        {
-            strategies : [ new OpenLayers.Strategy.BBOX( {resFactor: 1.1} ) ],
-            protocol : new OpenLayers.Protocol.HTTP(
-                {
-                    url : "/poi/get/layer/sonstiges",
-                    format: new OpenLayers.Format.Text()
-                }
-            )
-        }
-    );
+    return layer;
+}
+
+
+function init(){
+    map = new OpenLayers.Map('map');
+
+    map.addLayer( new OpenLayers.Layer.OSM() );
     
+    var layerFilterLebensmittel = addLayer( "Lebensmittel", "/poi/get/layer/lebensmittel" );
+    var layerFilterTextilien = addLayer( "Textilien", "/poi/get/layer/textilien" );
+    var layerFilterPapier = addLayer( "Papier / Holz", "/poi/get/layer/papier_holz" );
+    var layerFilterKosmetik = addLayer( "Kosmetik", "/poi/get/layer/kosmetik" );
+    var layerFilterMobilitaet = addLayer( "Mobilität", "/poi/get/layer/mobilitaet" );
+    var layerFilterSonstiges = addLayer( "sonstiges", "/poi/get/layer/sonstiges" );
     
     var layerMapAerial = new OpenLayers.Layer.Bing(
         {
