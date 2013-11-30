@@ -4,7 +4,7 @@
 {% block main_content %}
     {% if user.is_authenticated %}
         <div id="tabs">
-            <h1>{{ group.name }}</h1>
+            <h1>{{ user.group_name }}</h1>
             <ul>
                 <li>
                     <a href="/overview/poi"{% ifequal selected_page 'poi_overview' %} class="active"{% endifequal %}>

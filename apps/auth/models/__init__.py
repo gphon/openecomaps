@@ -1,1 +1,1 @@
-from apps.auth.models.gp_group import GPGroup
+from apps.auth.models.oem_user import OEMUser

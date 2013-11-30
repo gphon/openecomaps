@@ -20,7 +20,7 @@
         <script type="text/javascript" src="/static/js/function.js"></script>
     </head>
     
-    <body onload="init()">
+    <body{% if home %} onload="init()"{% endif %}>
         <header> 
             <a href="/home">
                 <img src="/static/img/greenpeace.png" id="gp-logo">

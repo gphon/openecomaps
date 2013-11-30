@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from apps.auth.models.gp_group import GPGroup
+from apps.auth.models.oem_user import OEMUser
 from apps.map.models.poi import POI
 from apps.pages.models.category import Category
 from apps.pages.models.flyer_page import FlyerPage
@@ -39,8 +39,8 @@ def overview( request ):
 def overview_poi( request ):
     request.session['auth_overview'] = 'pois'
     
-    group = get_object_or_404( GPGroup, user=request.user )
-    areas = group.areas.all()
+    user = get_object_or_404( OEMUser, id=request.user.id )
+    areas = user.areas.all()
     
     qset = [ Q( lat__range=(area.lat_bottom,area.lat_top) ) &
              Q( lon__range=(area.lon_left,area.lon_right) )
@@ -48,8 +48,8 @@ def overview_poi( request ):
     pois = POI.objects.filter( reduce( operator.or_, qset ) ).order_by( 'zip_code', 'name' )
     
     context = {
+        'user' : user,
         'pois' : pois,
-        'group' : group,
         'selected_page' : 'poi_overview',
     }
     return render_to_response( 'auth/overview_pois.html', context,
@@ -60,18 +60,18 @@ def overview_poi( request ):
 def overview_pages( request ):
     request.session['auth_overview'] = 'pages'
     
-    group = get_object_or_404( GPGroup, user=request.user )
+    user = get_object_or_404( OEMUser, id=request.user.id )
     categories = get_list_or_404( Category )
     
     entries = []
     for category in categories:
-        page = FlyerPage.objects.filter( category=category, group=group )
+        page = FlyerPage.objects.filter( category=category, user=user )
         entries.append( ( page[0] if page else category ) )
     #endfor
     
     context = {
+        'user' : user,
         'entries' : entries,
-        'group' : group,
         'selected_page' : 'pages_overview',
     }
     return render_to_response( 'auth/overview_pages.html', context,
@@ -82,7 +82,8 @@ def overview_pages( request ):
 def settings( request ):
     request.session['auth_overview'] = 'settings'
     
-    group = GPGroup.objects.get( user=request.user )
+    group = get_object_or_404( OEMUser, id=request.user.id )
+    
     
     context = {
         'group' : group,
@@ -96,12 +97,12 @@ def settings( request ):
 
 @login_required(login_url="/login")
 def add_group_page( request, category_id ):
-    group = get_object_or_404( GPGroup, user=request.user )
+    user = get_object_or_404( OEMUser, id=request.user.id )
     category = get_object_or_404( Category, id=category_id )
     
     if request.method == 'POST':
         # if page already exists, raise 404 error
-        if FlyerPage.objects.filter( category_id=category_id, group=group ):
+        if FlyerPage.objects.filter( category_id=category_id, user=user ):
             raise Http404
         #endif
         
@@ -111,7 +112,7 @@ def add_group_page( request, category_id ):
             page = form.save( commit=False )
             
             page.modified = datetime.datetime.now()
-            page.group = group
+            page.user = user
             page.category = category
             
             page.save()
@@ -122,7 +123,7 @@ def add_group_page( request, category_id ):
     #endif
     
     context = {
-        'group' : group,
+        'user' : user,
         'category' : category,
         'form' : form,
         'selected_page' : 'pages_overview',
@@ -133,11 +134,11 @@ def add_group_page( request, category_id ):
 
 @login_required(login_url="/login")
 def edit_group_page( request, category_id ):
-    group = get_object_or_404( GPGroup, user=request.user )
+    user = get_object_or_404( OEMUser, id=request.user.id )
     category = get_object_or_404( Category, id=category_id )
     
     #: only if the page exist, we can edit it
-    page = get_object_or_404( FlyerPage, category=category, group_id=group.id )
+    page = get_object_or_404( FlyerPage, category=category, user_id=user.id )
     
     if request.method == 'POST':
         if request.POST.get('chk_del_1', '') and request.POST.get('chk_del_2', '') and request.POST.get('chk_del_3', ''):
@@ -156,7 +157,7 @@ def edit_group_page( request, category_id ):
     #endif
     
     context = {
-        'group' : group,
+        'user' : user,
         'category' : category,
         'page' : page,
         'form' : form,

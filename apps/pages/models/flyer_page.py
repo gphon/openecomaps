@@ -1,8 +1,8 @@
 from django.db import models
 from django.forms import ModelForm
 
-from apps.auth.models.gp_group import GPGroup
 from apps.pages.models.category import Category
+from apps.auth.models.oem_user import OEMUser
 
 
 class FlyerPage( models.Model ):
@@ -12,7 +12,7 @@ class FlyerPage( models.Model ):
     flyer = models.FileField(upload_to='user_content/bin')
     modified = models.DateTimeField()
     
-    group = models.ForeignKey( GPGroup )
+    user = models.ForeignKey( OEMUser )
     category = models.ForeignKey( Category )
     
     def __str__(self):

@@ -16,14 +16,13 @@ urlpatterns = patterns( '',
     
     url( r'^poi/',          include('apps.map.urls') ),
     url( r'^pages/',        include('apps.pages.urls') ),
-    url( r'^dummy_data/',   include('apps.dummy_data.urls') ),
     
     url( r'^static/(?P<path>.*)$', 'django.views.static.serve' ),
     
     # ex: /
-    url( r'^$',         TemplateView.as_view( template_name='home.html' ) ),
+    url( r'^$',     TemplateView.as_view( template_name='home.html' ),  {'home':True} ),
     # ex: /home
-    url( r'^home$',     TemplateView.as_view( template_name='home.html' ) ),
+    url( r'^home$', TemplateView.as_view( template_name='home.html' ),  {'home':True} ),
     
     
     # ex: /overview
@@ -55,6 +54,8 @@ urlpatterns = patterns( '',
     
     # Uncomment the next line to enable the admin:
     url( r'^admin/', include(admin.site.urls) ),
-
+    
+    # ex: /dummy_data/create
+    url( r'^dummy_data/create$',    'apps.dummy_data.views.create_dummy_data' ),
 ) + \
 static( settings.MEDIA_URL, document_root=settings.MEDIA_ROOT )

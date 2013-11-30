@@ -9,7 +9,6 @@ from django.template import RequestContext
 
 from apps.map.models.poi import POI
 from apps.map.models.poi import POIForm
-from apps.auth.models.gp_group import GPGroup
 
 import datetime
 
@@ -48,7 +47,6 @@ def add_poi( request ):
 
 @login_required(login_url="/login")
 def edit_poi( request, poi_id ):
-    group = get_object_or_404( GPGroup, user=request.user )
     poi = get_object_or_404( POI, id=poi_id )
     
     if request.method == 'POST':
@@ -66,7 +64,6 @@ def edit_poi( request, poi_id ):
     #endif
     
     context = {
-        'group' : group,
         'poi' : poi,
         'form' : form,
         'selected_page' : 'poi_overview',

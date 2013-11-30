@@ -11,5 +11,5 @@ register = template.Library()
 @register.inclusion_tag('templatetags/tabmenu_for_flyer_page.html')
 def show_tabmenu_for_flyer_page( category_id, selected_page_id ):
     category = get_object_or_404( Category, id=category_id )
-    pages = FlyerPage.objects.filter( category=category ).order_by( 'group__name' )
+    pages = FlyerPage.objects.filter( category=category ).order_by( 'user__group_name' )
     return {'pages' : pages, 'selected_page_id' : selected_page_id}

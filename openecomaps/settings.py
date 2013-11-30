@@ -1,4 +1,5 @@
 # Django settings for openecomaps project.
+from openecomaps import LOCAL_MASCHINE
 
 import os
 cwd = os.getcwd()
@@ -27,11 +28,9 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-
 MANAGERS = ADMINS
 
 
-from openecomaps import LOCAL_MASCHINE
 
 if LOCAL_MASCHINE:
     DATABASES = {
@@ -139,6 +138,10 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+
+AUTH_USER_MODEL = 'auth.OEMUser'
+
 
 ROOT_URLCONF = 'openecomaps.urls'
 

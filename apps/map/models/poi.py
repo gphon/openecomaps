@@ -37,4 +37,9 @@ class POIForm( ModelForm ):
     class Meta:
         model = POI
         exclude = ('verified', 'verification_date')
-        #fields = ('title', 'text', 'image', 'flyer')
+
+
+class AddPOIForm( ModelForm ):
+    class Meta:
+        model = POI
+        fields = ('name', 'street', 'city', 'zip_code', 'text', 'filters', 'seals')

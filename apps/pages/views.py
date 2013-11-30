@@ -12,8 +12,8 @@ def category_overview( request ):
     if request.session.has_key( 'last_visited_category' ):
         return overview_flyer( request, request.session['last_visited_category'] )
     else:
-        #TODO: select id from database
-        return overview_flyer( request, 1 )
+        categories = Category.objects.all().order_by( 'name' )
+        return overview_flyer( request, categories[0] )
     #endif
 
 
@@ -32,10 +32,10 @@ def overview_flyer( request, category_id ):
     request.session['last_visited_category'] = category_id
     
     category = get_object_or_404( Category, id=category_id )
-    pages = FlyerPage.objects.filter( category=category ).order_by( 'group__name' )
+    pages = FlyerPage.objects.filter( category=category ).order_by( 'user__group_name' )
     page = None
     if request.user.is_authenticated():
-        page = FlyerPage.objects.filter( group__user=request.user, category=category )
+        page = FlyerPage.objects.filter( user=request.user, category=category )
     context = {
         'selected' : category,
         'pages' : pages,
