@@ -11,6 +11,10 @@ from apps.map.models.poi import POI, AddPOIForm
 from apps.map.models.poi import POIForm
 
 import datetime
+import urllib
+
+
+GOOGLE_API_URL = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
 
 
 def get_poi_layer( request, layer ):
@@ -38,13 +42,13 @@ def get_poi_layer( request, layer ):
     return HttpResponse( out )
 
 
-GOOGLE_API_URL = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
-import urllib
-
 def add_poi( request ):
     if request.method == 'POST':
         form = AddPOIForm( request.POST )
         if form.is_valid():
+            filters = form.cleaned_data['filters']
+            seals = form.cleaned_data['seals']
+            
             poi = form.save( commit=False )
             address = poi.street + ',' + poi.zip_code + ',' + poi.city
             url = GOOGLE_API_URL % address
@@ -56,8 +60,14 @@ def add_poi( request ):
             poi.lat = coords['lat']
             poi.lon = coords['lng']
             poi.verified = False
-            poi.verification_date = datetime.datetime.now()
+            poi.verification_date = datetime.date.today()
             poi.save()
+            #todo: check, that the id is not bigger than allowed
+            for poi_filter in filters:
+                poi.filters.add( poi_filter )
+            for seal in seals:
+                poi.seals.add( seal )
+            #import pdb; pdb.set_trace()
             return HttpResponse( 'add poi succeed' )
     else:
         form = AddPOIForm()

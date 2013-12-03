@@ -1,5 +1,10 @@
+#!/usr/bin/python
+# -*- coding: latin-1 -*-
+
 from django.db import models
 from django.forms import ModelForm
+from django.forms.widgets import CheckboxSelectMultiple
+from django.forms.widgets import Textarea
 
 from apps.map.models.poi_filter import POIFilter
 from apps.pages.models.seal_page import SealPage
@@ -13,7 +18,7 @@ class POI( models.Model ):
     zip_code = models.CharField( max_length=5 )
     city = models.CharField( max_length=50 )
     
-    text = models.CharField( max_length=500 )
+    text = models.CharField( max_length=500, blank=True )
     
     # location data
     lat = models.FloatField()
@@ -24,7 +29,7 @@ class POI( models.Model ):
     verification_date = models.DateField()
     
     filters = models.ManyToManyField( POIFilter )
-    seals = models.ManyToManyField( SealPage )
+    seals = models.ManyToManyField( SealPage, blank=True )
     
     def __str__( self ):
         return '%s - (%s)' % (self.name, self.city)
@@ -43,3 +48,14 @@ class AddPOIForm( ModelForm ):
     class Meta:
         model = POI
         fields = ('name', 'street', 'city', 'zip_code', 'text', 'filters', 'seals')
+        labels = {
+            'street' : 'Strasse',
+            'city' : 'Stadt',
+            'zip_code' : 'PLZ',
+            'text' : 'Beschreibung',
+            'seals' : 'Siegel',
+        }
+        widgets = {
+            'text' : Textarea(attrs = {'cols':'40', 'rows':'5'}),
+            'filters' : CheckboxSelectMultiple(),
+        }
