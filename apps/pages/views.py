@@ -40,7 +40,7 @@ def overview_flyer( request, category_id ):
         'selected' : category,
         'pages' : pages,
         'group_has_page' : page,
-        'overview' : 'flyer',
+        'view' : 'category',
     }
     return render_to_response( 'pages/overview.html', context,
                                     context_instance=RequestContext(request) )
@@ -54,7 +54,7 @@ def overview_seals( request, filter_id ):
     context = {
         'selected' : poi_filter,
         'pages' : pages,
-        'overview' : 'seals',
+        'view' : 'filter',
     }
     return render_to_response( 'pages/overview.html', context,
                                     context_instance=RequestContext(request) )
@@ -67,7 +67,7 @@ def show_flyer_page( request, category_id, flyer_page_id ):
     context = {
         'selected' : category,
         'page' : page,
-        'details' : 'flyer',
+        'view' : 'category',
     }
     return render_to_response( 'pages/details_page.html', context,
                                     context_instance=RequestContext(request) )
@@ -79,7 +79,7 @@ def show_seal_page( request, filter_id, seal_page_id ):
     context = {
         'selected' : poi_filter,
         'page' : page,
-        'details' : 'seals',
+        'view' : 'filter',
     }
     return render_to_response( 'pages/details_page.html', context,
                                     context_instance=RequestContext(request) )

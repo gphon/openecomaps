@@ -1,7 +1,0 @@
-{% for filter in filters %}
-    <li>
-        <a href="/pages/filter/{{ filter.id }}"{% ifequal selected filter.id %} class="active"{% endifequal %}>
-            {{ filter }}
-        </a>
-    </li>
-{% endfor %}

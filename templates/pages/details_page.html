@@ -1,13 +1,13 @@
 {% extends "pages/pages.html" %}
 
-{% load show_tabmenu_for_flyer_page %}
-{% load show_tabmenu_for_seal_page %}
+{% load show_tabmenus %}
+
 
 
 {% block mainmenu %}
     <li>
         <span>
-            {% ifequal details 'flyer' %}
+            {% ifequal view 'category' %}
             Kategorie >> Flyer : {{ selected }} >> {{ page.user.group_name }}
             {% else %}
             Kategorie >> Siegel : {{ selected }} >> {{ page }}
@@ -18,18 +18,25 @@
 
 
 {% block tabs %}
-    {% ifequal details 'flyer' %}
-        {% show_tabmenu_for_flyer_page selected.id page.id %}
-    {% else %}
-        {% show_tabmenu_for_seal_page selected.id page.id %}
-    {% endifequal %}
+    {% show_tabmenu_for_details_page view selected.id page.id %}
 {% endblock %}
 
 
 {% block content %}
     {% autoescape off %}
-        <h1>{{ page|safe }}</h1>
-        <img src="{{ page.image.url }}" width="150">
-        {{ page.text|safe }}
+        <h1>{{ page }}</h1>
+        <div id="thumbnail">
+            {% ifequal view 'category' %}
+                <a href="{{ page.flyer.url }}">
+                    <img src="{{ page.image.url }}" width="150">
+                </a>
+                <center>
+                <a href="{{ page.flyer.url }}">download</a>
+                </center>
+            {% else %}
+                <img src="{{ page.image.url }}" width="150">
+            {% endifequal %}
+        </div>
+        {{ page.text }}
     {% endautoescape %}
 {% endblock %}

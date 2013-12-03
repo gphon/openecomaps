@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from apps.map.models.poi import POI
+from apps.map.models.poi import POI, AddPOIForm
 from apps.map.models.poi import POIForm
 
 import datetime
@@ -31,18 +31,38 @@ def get_poi_layer( request, layer ):
             out += '%s\t' % poi.name
             out += '%s\t' % poi.text
             out += '/static/img/icons/%s.png\t' % layer # icon
-            out += '24,24\t'                # iconSize
+            out += '25,25\t'                # iconSize
             out += '0,-16\n'                # iconOffset
-            print('%s - %s' % (layer, poi.name))
-    print(out)
+        #endif
+    #endfor
     return HttpResponse( out )
 
 
+GOOGLE_API_URL = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
+import urllib
+
 def add_poi( request ):
-    text = ''
-    for key, value in request.POST.items():
-        text += '%s : %s<br>' % (key, value)
-    return HttpResponse( text )
+    if request.method == 'POST':
+        form = AddPOIForm( request.POST )
+        if form.is_valid():
+            poi = form.save( commit=False )
+            address = poi.street + ',' + poi.zip_code + ',' + poi.city
+            url = GOOGLE_API_URL % address
+            response = urllib.urlopen( url )
+            data = eval( response.read() )
+            #todo: if more than one result make a user request
+            #todo; make sure that one result is minimum, else error
+            coords = data['results'][0]['geometry']['location']
+            poi.lat = coords['lat']
+            poi.lon = coords['lng']
+            poi.verified = False
+            poi.verification_date = datetime.datetime.now()
+            poi.save()
+            return HttpResponse( 'add poi succeed' )
+    else:
+        form = AddPOIForm()
+    return render_to_response( 'poi_form.html', {'form' : form},
+                                    context_instance=RequestContext(request) )
 
 
 @login_required(login_url="/login")

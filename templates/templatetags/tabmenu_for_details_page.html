@@ -1,0 +1,11 @@
+{% for tab in tabs %}
+    <li>
+        <a href="/pages/{{ tabmenu }}/{{ menu.id }}/{{ tab.id }}"{% ifequal selected tab.id %} class="active"{% endifequal %}>
+            {% ifequal tabmenu 'category' %}
+                {{ tab.user.group_name }}
+            {% else %}
+                {{ tab }}
+            {% endifequal %}
+        </a>
+    </li>
+{% endfor %}

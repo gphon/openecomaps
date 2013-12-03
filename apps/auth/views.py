@@ -84,7 +84,6 @@ def settings( request ):
     
     group = get_object_or_404( OEMUser, id=request.user.id )
     
-    
     context = {
         'group' : group,
         'selected_page' : 'settings_overview',
