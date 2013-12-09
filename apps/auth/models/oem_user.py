@@ -14,6 +14,7 @@ class OEMUser( AbstractUser ):
     
     class Meta:
         app_label = 'auth'
+        db_table = 'auth_user'
 
 
 class OEMUserForm( ModelForm ):
