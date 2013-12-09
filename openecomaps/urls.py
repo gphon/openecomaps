@@ -57,5 +57,7 @@ urlpatterns = patterns( '',
     
     # ex: /dummy_data/create
     url( r'^dummy_data/create$',    'apps.dummy_data.views.create_dummy_data' ),
+    # ex: /dummy_data/init
+    url( r'^dummy_data/init$',      'apps.dummy_data.views.init' ),
 ) + \
 static( settings.MEDIA_URL, document_root=settings.MEDIA_ROOT )

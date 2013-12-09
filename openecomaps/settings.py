@@ -24,7 +24,7 @@ TEMPLATE_STRING_IF_INVALID = InvalidVarException()
 
 
 ADMINS = (
-    ('Stefan Bunde', 'greenpeace.stefanbunde@gmail.com'),
+    ('Stefan Bunde', 'openecomaps@gmail.com'),
     # ('Your Name', 'your_email@example.com'),
 )
 

@@ -1,8 +1,8 @@
 from django.db import models
 from django.forms import ModelForm
 
-from apps.pages.models.category import Category
 from apps.auth.models.oem_user import OEMUser
+from apps.pages.models.category import Category
 
 
 class FlyerPage( models.Model ):
@@ -15,7 +15,17 @@ class FlyerPage( models.Model ):
     user = models.ForeignKey( OEMUser )
     category = models.ForeignKey( Category )
     
-    def __str__(self):
+    def print_thumbnail( self ):
+        return '''
+            <a href="%(flyer_url)s">
+                <img src="%(image_url)s" width="150">
+            </a>
+            <center>
+                <a href="%(flyer_url)s">download</a>
+            </center>
+        ''' % { 'image_url':self.image.url, 'flyer_url':self.flyer.url }
+    
+    def __str__( self ):
         return self.title
     
     class Meta:

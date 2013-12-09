@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
 
+
 urlpatterns  = patterns( 'apps.pages.views',
 
     # ex: /pages/category
@@ -13,9 +14,9 @@ urlpatterns  = patterns( 'apps.pages.views',
     url( r'^filter/(?P<filter_id>\d*)$',        'overview_seals' ),
     
     # ex: /pages/category/4/7
-    url( r'^category/(?P<category_id>\d*)/(?P<flyer_page_id>\d*)$', 'show_flyer_page' ),
+    url( r'^(?P<view>category)/(?P<item_id>\d*)/(?P<page_id>\d*)$', 'show_details_page' ),
     # ex: /pages/filter/4/11
-    url( r'^filter/(?P<filter_id>\d*)/(?P<seal_page_id>\d*)$',      'show_seal_page' ),
+    url( r'^(?P<view>filter)/(?P<item_id>\d*)/(?P<page_id>\d*)$',   'show_details_page' ),
 
 )
 

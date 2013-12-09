@@ -48,7 +48,6 @@ def overview_poi( request ):
     pois = POI.objects.filter( reduce( operator.or_, qset ) ).order_by( 'zip_code', 'name' )
     
     context = {
-        'user' : user,
         'pois' : pois,
         'selected_page' : 'poi_overview',
     }
@@ -70,7 +69,6 @@ def overview_pages( request ):
     #endfor
     
     context = {
-        'user' : user,
         'entries' : entries,
         'selected_page' : 'pages_overview',
     }
@@ -82,10 +80,11 @@ def overview_pages( request ):
 def settings( request ):
     request.session['auth_overview'] = 'settings'
     
-    group = get_object_or_404( OEMUser, id=request.user.id )
+    user = get_object_or_404( OEMUser, id=request.user.id )
+    
     
     context = {
-        'group' : group,
+        'change_password_form' : '',
         'selected_page' : 'settings_overview',
     }
     return render_to_response( 'auth/settings.html', context,

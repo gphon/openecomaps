@@ -15,7 +15,6 @@ class SealPageAdmin( admin.ModelAdmin ):
     pass
 
 
-
 admin.site.register( Category, CategoryAdmin )
 admin.site.register( FlyerPage, FlyerPageAdmin )
 admin.site.register( SealPage, SealPageAdmin )

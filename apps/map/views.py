@@ -7,7 +7,8 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from apps.map.models.poi import POI, AddPOIForm
+from apps.map.models.poi import AddPOIForm
+from apps.map.models.poi import POI
 from apps.map.models.poi import POIForm
 
 import datetime

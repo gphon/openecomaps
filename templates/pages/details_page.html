@@ -26,16 +26,7 @@
     {% autoescape off %}
         <h1>{{ page }}</h1>
         <div id="thumbnail">
-            {% ifequal view 'category' %}
-                <a href="{{ page.flyer.url }}">
-                    <img src="{{ page.image.url }}" width="150">
-                </a>
-                <center>
-                <a href="{{ page.flyer.url }}">download</a>
-                </center>
-            {% else %}
-                <img src="{{ page.image.url }}" width="150">
-            {% endifequal %}
+            {{ page.print_thumbnail }}
         </div>
         {{ page.text }}
     {% endautoescape %}

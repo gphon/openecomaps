@@ -60,26 +60,18 @@ def overview_seals( request, filter_id ):
                                     context_instance=RequestContext(request) )
 
 
-
-def show_flyer_page( request, category_id, flyer_page_id ):
-    category = get_object_or_404( Category, id=category_id )
-    page = get_object_or_404( FlyerPage, category=category, id=flyer_page_id )
+def show_details_page( request, view, item_id, page_id ):
+    if view == 'category':
+        selected = get_object_or_404( Category, id=item_id )
+        page = get_object_or_404( FlyerPage, category=selected, id=page_id )
+    elif view == 'filter':
+        selected = get_object_or_404( POIFilter, id=item_id )
+        page = get_object_or_404( SealPage, id=page_id )
+    #endif
     context = {
-        'selected' : category,
+        'selected' : selected,
         'page' : page,
-        'view' : 'category',
-    }
-    return render_to_response( 'pages/details_page.html', context,
-                                    context_instance=RequestContext(request) )
-
-
-def show_seal_page( request, filter_id, seal_page_id ):
-    poi_filter = get_object_or_404( POIFilter, id=filter_id )
-    page = get_object_or_404( SealPage, id=seal_page_id )
-    context = {
-        'selected' : poi_filter,
-        'page' : page,
-        'view' : 'filter',
+        'view' : view,
     }
     return render_to_response( 'pages/details_page.html', context,
                                     context_instance=RequestContext(request) )

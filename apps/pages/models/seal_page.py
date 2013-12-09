@@ -10,6 +10,9 @@ class SealPage( models.Model ):
     
     filters = models.ManyToManyField( POIFilter )
     
+    def print_thumbnail( self ):
+        return '<img src="%s" width="150">' % self.image.url
+    
     def __str__( self ):
         return self.name
     

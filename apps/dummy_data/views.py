@@ -4,15 +4,14 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
-from apps.auth.models import OEMUser
+from apps.auth.models.oem_user import OEMUser
 from apps.dummy_data.dummy_data import *
-from apps.map.models import Area
-from apps.map.models import POI
-from apps.map.models import POIFilter
-from apps.pages.models import Category
-from apps.pages.models import FlyerPage
-from apps.pages.models import SealPage
-
+from apps.map.models.area import Area
+from apps.map.models.poi import POI
+from apps.map.models.poi_filter import POIFilter
+from apps.pages.models.category import Category
+from apps.pages.models.flyer_page import FlyerPage
+from apps.pages.models.seal_page import SealPage
 
 
 def convert2html( text ):
@@ -305,5 +304,24 @@ def create_dummy_data( request ):
                         user = user_potsdam,
                         category = c_fish )
     page6.save()
+    
+    return HttpResponse('success')
+
+
+
+
+def init( request ):
+    for name in ['Fisch', 'Textilien', 'Papier / Holz', 'Gentechnik', 'sonstiges']:
+        c = Category( name = name )
+        c.save()
+    #endfor
+    
+    ###########################################################################
+    
+    for name, colour in [ ('Lebensmittel','#00ff00'), ('Textilien','#0000ff'),
+                          ('Papier_Holz','#ff0000'), ('Kosmetik','#ffff00'),
+                          ('Mobilitaet','#ff00ff'), ('sonstiges','#00ffff') ]:
+        f = POIFilter( name = name, colour = colour )
+        f.save()
     
     return HttpResponse('success')
