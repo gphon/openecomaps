@@ -10,7 +10,7 @@ class OEMUser( AbstractUser ):
     areas = models.ManyToManyField( Area )
     
     def __str__( self ):
-        return self.name
+        return self.group_name
     
     class Meta:
         app_label = 'auth'
