@@ -29,7 +29,18 @@ function addLayer( layername, layerurl )
 
 
 function init(){
-    map = new OpenLayers.Map('map');
+    map = new OpenLayers.Map(
+        'map',
+        {
+            controls: [
+                new OpenLayers.Control.Navigation(),
+                new OpenLayers.Control.PanZoomBar(),
+                new OpenLayers.Control.LayerSwitcher(),
+                new OpenLayers.Control.ScaleLine(),
+                new OpenLayers.Control.OverviewMap(),
+            ],
+        }
+    );
 
     map.addLayer( new OpenLayers.Layer.OSM() );
     
@@ -60,11 +71,6 @@ function init(){
             layerMapAerial
         ]
     );
-    
-    
-    map.addControl( new OpenLayers.Control.LayerSwitcher() );
-    map.addControl( new OpenLayers.Control.PanZoomBar() );
-    map.addControl( new OpenLayers.Control.Navigation() );
     
     map.zoomToMaxExtent();
     

@@ -12,10 +12,10 @@ from apps.map.models.poi import POI
 from apps.map.models.poi import POIForm
 
 import datetime
-import urllib
+import urllib.request
 
 
-GOOGLE_API_URL = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
+GOOGLE_API_URL = 'http://maps.googleapis.com/maps/api/geocode/json?'
 
 
 def get_poi_layer( request, layer ):
@@ -51,10 +51,14 @@ def add_poi( request ):
             seals = form.cleaned_data['seals']
             
             poi = form.save( commit=False )
-            address = poi.street + ',' + poi.zip_code + ',' + poi.city
-            url = GOOGLE_API_URL % address
-            response = urllib.urlopen( url )
-            data = eval( response.read() )
+            values = {
+                'address' : poi.street + ',' + poi.zip_code + ',' + poi.city,
+                'sensor' : 'false',
+            }
+            data = urllib.parse.urlencode( values )
+            url = GOOGLE_API_URL + data
+            resp = urllib.request.urlopen( url )
+            data = eval( resp.read() )
             #todo: if more than one result make a user request
             #todo; make sure that one result is minimum, else error
             coords = data['results'][0]['geometry']['location']
