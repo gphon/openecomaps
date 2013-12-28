@@ -6,11 +6,12 @@ header {
 	width:100%;
 	border-radius:5px;         /* runde ecken */
 	margin-bottom:15px;
-	overflow:hidden;
+	/*overflow:visible;
+	overflow-x:hidden;*/
 }
 
-#gp-logo {
-	margin: 35px 0 0 23px;
+#osm-logo {
+	margin: -6px 0 2px 20px;
 }
 
 .level1 {
@@ -18,8 +19,7 @@ header {
 	float:left;
 	margin:0;
 	padding:0;
-	padding: 0 15px 0 10px;
-	margin-top:15px;
+	/*padding: 0 15px 0 10px;*/
 	list-style:none;
     background: #75d119; /* Old browsers */
     /* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -52,7 +52,7 @@ header {
 	margin-top:3px;
 }
 
-.level1 li a, .level1 li span {
+.level1 li a, .level1 a:visited, .level1 li span {
 	padding:3px 15px 4px;
 	display:block;
 	color:#fff;
@@ -66,7 +66,6 @@ header {
 .level1 li a:hover {
 	background-color:rgba(0,0,0,0.1);
 }
-
 
 .level1 ul ul {
     position: absolute;
@@ -96,6 +95,7 @@ header .ui-widget {
 
 #search-text {
 	color:#66cc00;
+	font-size:12px;
 	text-shadow:1px 1px 0 #fff,-1px -1px 0 #fff;
     border: 2px solid #66cc00;
     border-radius: 5px 5px 5px 5px;
@@ -123,4 +123,11 @@ header .ui-widget {
     left: 7px;
     top: 7px;
     width: 19px;
+}
+
+#addPOI {
+    font-size: 12px;
+    position: absolute;
+    right: 233px;
+    top: 31px;
 }

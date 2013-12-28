@@ -1,6 +1,3 @@
-@charset "UTF-8";
-
-
 body {
 	margin:15px;
 	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -12,12 +9,15 @@ body {
 #main_content {
 	display:block;
 	width:100%;
-	height:600px;
+	height:auto;
 	background-color: #fff;
 	border-radius:5px;
 	border: 1px solid #66cc00;
+	position:relative;
+	z-index:1;
+}
+#main_content.karte {
 	overflow:hidden;
-	overflow-y:scroll;
 }
 
 .smallmap {
@@ -27,12 +27,13 @@ body {
 }
 
 
-a {
+a, a:visited {
 	color:#66CC00;
 	text-decoration:none;
 }
 
-a:hover {
+a:hover, a:visited:hover {
+	color:#66CC00;
 	text-decoration:underline;
 }
 

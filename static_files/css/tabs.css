@@ -1,11 +1,12 @@
 #tabs {
 	width:250px;
-	height:100%;
+	height:auto;
+	padding-bottom:50px;
+	margin-right:25px;
 	border-right:1px solid #66CC00;
 	background:#efefef;
 	float:left;
 	display:block;
-	position:fixed;
 	border-radius: 5px 0 0 5px
 }
 
@@ -23,13 +24,13 @@
 	float:left;
 	width:100%;
 }
-
 #tabs li {
 	list-style:none;
 	border-bottom:1px solid #66CC00;
 	padding:0;
 	margin:0;
 	text-align:right;
+	clear:left;
 }
 
 #tabs li a {
@@ -55,6 +56,24 @@
     background: -ms-linear-gradient(top,  #75d119 0%,#5cb801 100%); /* IE10+ */
     background: linear-gradient(top,  #75d119 0%,#5cb801 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#75d119', endColorstr='#5cb801',GradientType=0 ); /* IE6-8 */
+}
+
+#tabs .tabButton {
+	float:left;
+	clear:none;
+	margin-left:5px;
+	border:1px solid #66CC00;
+	border-bottom:none;
+	border-radius:5px 5px 0 0;
+	overflow:hidden;
+}
+
+#tabs .tabButton a {
+	padding:5px 10px;
+}
+
+#tabs .tabButton + .tabButton + li {
+	border-top:1px solid #66CC00;
 }
 
 .button {

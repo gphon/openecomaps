@@ -1,13 +1,21 @@
 <html>
-    <body>
-        <form action="/poi/add" method="POST">
+	<head>
+        <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+        <link href="/static/css/formular.css" rel="stylesheet" type="text/css">
+    </head>
+    <body id="poiBody">
+        <form action="/poi/add" method="POST" id="poiForm">
+        	<legend>
+            	<h1>POI eintragen</h1>
+                <p>Vielen Dank, dass du uns hilfst, weitere Orte in unser Verzeichnis aufzunehmen. Bitte fülle die Felder aus und klicke auf "hinzufügen".</p>
+            </legend>
             {% csrf_token %}
             <table>
                 {{ form.as_table }}
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" value="hinzufügen">
+                        <input type="submit" value="hinzufügen" class="submitBtn">
                     </td>
                 </tr>
             </table>

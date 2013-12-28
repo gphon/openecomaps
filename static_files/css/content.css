@@ -1,8 +1,6 @@
 #content {
 	max-width:1000px;
-	float:left;
-	margin-left:275px;
-	padding: 10px;
+	padding: 25px;
 }
 
 #thumbnail {
@@ -10,4 +8,43 @@
     margin-left:15px;
     margin-right:15px;
     margin-bottom:20px;
+}
+
+#content th, #content td {
+	padding-right:10px;
+	padding-bottom:5px;
+	text-align:left;
+}
+
+.overlay {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:auto;
+	background:rgba(0,0,0,0.33);
+	z-index:90;
+}
+
+.overlayContent {
+	display:block;
+	position:relative;
+	margin:5% auto;
+	width:500px;
+	height:575px;	
+	box-shadow:0 0 10px #000;
+}
+
+.overlayIframe {
+	background:#fff;
+	border:none;
+	width:100%;
+	height:100%;
+}
+
+.closeOverlay {
+	position:absolute;
+	top:-15px;
+	right:-15px;
+	cursor:pointer;
 }

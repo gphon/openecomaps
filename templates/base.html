@@ -9,6 +9,7 @@
         
         <title>OpenEcoMaps</title>
         
+        <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
         <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
         <link href="/static/css/header.css" rel="stylesheet" type="text/css">
         <link href="/static/css/tabs.css" rel="stylesheet" type="text/css">
@@ -20,9 +21,9 @@
         -->
         <script type="text/javascript" src="/static/lib/OpenLayers/OpenLayers.js"></script>
         <script type="text/javascript" src="/static/js/map.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="/static/js/function.js"></script>
         
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="/static/js/add_poi.js"></script>
         <link href="/static/css/add_poi.css" rel="stylesheet" type="text/css">
         <!--
@@ -32,7 +33,7 @@
     <body{% if home %} onload="init()"{% endif %}>
         <header> 
             <a href="/home">
-                <img src="/static/img/greenpeace.png" id="gp-logo">
+                <img src="/static/img/logo-osm.png" id="osm-logo">
             </a>
             
             <ul class="level1">
@@ -49,13 +50,15 @@
             {% endif %}
             </ul>
             
+            <a href="/poi/add" class="openIframeLink" id="addPOI">POI eintragen</a>
+            
             <div class="ui-widget">
                 <input id="search-text" type="text" name="search-text" value="Stadt eingeben" autocomplete="off">
                 <input class="lupe" type="submit" value="">
             </div>
         </header>
         
-        <div id="main_content">
+        <div id="main_content" class="clearfix{% if home %} karte{% endif %}">
             {% block main_content %} maincontent {% endblock %}
         </div>
     </body>

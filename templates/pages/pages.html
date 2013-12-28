@@ -2,22 +2,17 @@
 
 
 {% block main_content %}
-    <div id="tabs">
+    <div id="tabs" class="clearfix">
         <h1>&nbsp;</h1>
         <ul>
-            <li>
+            <li class="tabButton">
                 <a href="/pages/category"{% ifequal view 'category' %} class="active"{% endifequal %}>
                     Flyeransicht
                 </a>
             </li>
-            <li>
+            <li class="tabButton">
                 <a href="/pages/filter"{% ifequal view 'filter' %} class="active"{% endifequal %}>
                     Siegelansicht
-                </a>
-            </li>
-            <li>
-                <a href="">
-                    &nbsp;
                 </a>
             </li>
             {% block tabs %}

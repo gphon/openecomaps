@@ -1,0 +1,66 @@
+html {
+	overflow-y:auto;
+}
+
+#poiBody {
+	background:#f2f2f2;
+}
+
+#poiForm {
+	padding:30px;
+}
+
+#poiForm legend {
+	margin-bottom:15px;
+}
+
+#poiForm h1 {
+	font-size:18px;
+	font-weight:normal;
+	margin-bottom:3px;
+}
+
+#poiForm th {
+	text-align:right;
+	padding-right:20px;
+}
+
+#poiForm input, #poiForm textarea, #poiForm select {
+	margin-bottom:10px;
+	width:100%;
+	border:1px solid #66cc00;
+	border-radius:5px;
+}
+
+#id_filters, #id_seals {
+	float:left;
+	margin-bottom:10px;
+}
+
+#id_filters li, #id_seals li {
+	float:left;
+	width:33%;
+	margin-bottom:5px;
+}
+
+#id_filters input, #id_seals li {
+	margin-bottom:0;
+	width:auto;
+}
+
+#poiForm input.submitBtn {
+	width:auto;
+	float:right;
+	margin-top:10px;
+	background:#66cc00;
+	color:#fff;
+}
+
+.errorlist {
+	color:#f00;
+	font-size:9px;
+}
+
+#poiForm .errorlist + input {
+	border-color:#f00;
+}
