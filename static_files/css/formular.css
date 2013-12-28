@@ -20,21 +20,34 @@ html {
 	margin-bottom:3px;
 }
 
-#poiForm th {
-	text-align:right;
-	padding-right:20px;
+.formUL {
+	list-style:none;
 }
 
-#poiForm input, #poiForm textarea, #poiForm select {
+.formUL > li > label {
+	width:25%;
+	float:left;
+	clear:left;
+}
+
+.formUL input, .formUL textarea, .formUL select {
+	float:left;
 	margin-bottom:10px;
-	width:100%;
+	width:75%;
 	border:1px solid #66cc00;
 	border-radius:5px;
+}
+
+.formUL .helpText {
+	font-size:9px;
+	margin-left:25%;
+	float:left;
 }
 
 #id_filters, #id_seals {
 	float:left;
 	margin-bottom:10px;
+	width:75%;
 }
 
 #id_filters li, #id_seals li {
@@ -45,6 +58,7 @@ html {
 
 #id_filters input, #id_seals li {
 	margin-bottom:0;
+	margin-right:5px;
 	width:auto;
 }
 
