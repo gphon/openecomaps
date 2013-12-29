@@ -28,18 +28,15 @@ function addLayer( layername, layerurl )
 }
 
 
-function init(){
-    map = new OpenLayers.Map(
-        'map',
-        {
-            controls: [
-                new OpenLayers.Control.Navigation(),
-                new OpenLayers.Control.PanZoomBar(),
-                new OpenLayers.Control.LayerSwitcher(),
-                new OpenLayers.Control.ScaleLine(),
-                new OpenLayers.Control.OverviewMap(),
-            ],
-        }
+function init( bounds, location, zoom ){
+    map = new OpenLayers.Map( 'map',
+        { controls: [
+            new OpenLayers.Control.Navigation(),
+            new OpenLayers.Control.PanZoomBar(),
+            new OpenLayers.Control.LayerSwitcher(),
+            new OpenLayers.Control.ScaleLine(),
+            new OpenLayers.Control.OverviewMap(),
+        ], }
     );
 
     map.addLayer( new OpenLayers.Layer.OSM() );
@@ -87,12 +84,24 @@ function init(){
     map.addControl( selectControl );
     selectControl.activate();
     
+    /*
+    northeast = bounds["northeast"];
+    southwest = bounds["southwest"];
     
-    var lonLat = new OpenLayers.LonLat( 13.053131,52.403257 ).transform(
-        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-        map.getProjectionObject()               // to Spherical Mercator Projection
+    var bounds = new OpenLayers.Bounds();
+    bounds.extend( new OpenLayers.LonLat( northeast["lng"], northeast["lat"] ) );
+    bounds.extend( new OpenLayers.LonLat( southwest["lng"], southwest["lat"] ) );
+    center = bounds.getCenterLonLat();
+    
+    var lonLat = new OpenLayers.LonLat( center.lon, center.lat ).transform(
+        new OpenLayers.Projection("EPSG:4326"),
+        map.getProjectionObject()
     );
-    var zoom=12;
+    */
+    var lonLat = new OpenLayers.LonLat( location["lng"], location["lat"] ).transform(
+        new OpenLayers.Projection("EPSG:4326"),
+        map.getProjectionObject()
+    );
     map.setCenter( lonLat, zoom );
 }
 

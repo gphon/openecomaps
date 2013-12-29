@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
 
+{% block javascript %}
+    {% autoescape off %}
+    var bounds = eval( {{bounds}} );
+    var center = eval( {{location}} );
+    var zoom = {{zoom}};
+    {% endautoescape %}
+{% endblock %}
+
 {% block main_content %}
             <div id="AddPOIFrame" class="PoiAddDiv">
                 Eintrag hinzufügen

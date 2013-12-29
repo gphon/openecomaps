@@ -26,11 +26,13 @@
         
         <script type="text/javascript" src="/static/js/add_poi.js"></script>
         <link href="/static/css/add_poi.css" rel="stylesheet" type="text/css">
-        <!--
-        -->
+        
+        <script>
+            {% block javascript %}{% endblock %}
+        </script>
     </head>
     
-    <body{% if home %} onload="init()"{% endif %}>
+    <body{% if home %} onload="init( bounds, center, zoom )"{% endif %}>
         <header> 
             <a href="/home">
                 <img src="/static/img/logo-osm.png" id="osm-logo">
@@ -53,8 +55,10 @@
             <a href="/poi/add" class="openIframeLink" id="addPOI">POI eintragen</a>
             
             <div class="ui-widget">
-                <input id="search-text" type="text" name="search-text" value="Stadt eingeben" autocomplete="off">
-                <input class="lupe" type="submit" value="">
+                <form action="/">
+                    <input id="search-text" type="text" name="search-text" value="Stadt eingeben" autocomplete="off">
+                    <input class="lupe" type="submit" value="">
+                </form>
             </div>
         </header>
         

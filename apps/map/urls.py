@@ -14,5 +14,4 @@ urlpatterns = patterns( 'apps.map.views',
     url( r'^form$', TemplateView.as_view( template_name='poi_form.html' ), {'form':AddPOIForm()} ),
     
     url( r'get/layer/(?P<layer>.*)', 'get_poi_layer' ),
-
 )

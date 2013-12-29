@@ -19,10 +19,11 @@ def category_overview( request ):
 
 def filter_overview( request ):
     if request.session.has_key( 'last_visited_filter' ):
+        print(request.session['last_visited_filter'])
         return overview_seals( request, request.session['last_visited_filter'] )
     else:
-        #TODO: select id from database
-        return overview_seals( request, 1 )
+        poi_filters = POIFilter.objects.all().order_by('id')
+        return overview_seals( request, poi_filters[0] )
     #endif
 
 
