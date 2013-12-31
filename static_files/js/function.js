@@ -16,7 +16,12 @@ $(document).ready(function(){
 		$(".overlay").fadeOut("fast");
 	});
 	
-	// Stadtsuche Text ausblenden
+	// Stadtsuche Suchwert übernehmen
+	if($(document).getUrlParam("search-text")) {
+		$("#search-text").val($(document).getUrlParam("search-text"));
+	}
+	
+	// Stadtsuche Text aus-/einblenden
 	var defaultSuchVal = $("#search-text").val();
 	$("#search-text").focus(function() {
 		if($(this).val() == defaultSuchVal) {
