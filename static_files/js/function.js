@@ -16,4 +16,16 @@ $(document).ready(function(){
 		$(".overlay").fadeOut("fast");
 	});
 	
+	// Stadtsuche Text ausblenden
+	var defaultSuchVal = $("#search-text").val();
+	$("#search-text").focus(function() {
+		if($(this).val() == defaultSuchVal) {
+			$(this).val("");
+		}
+	});
+	$("#search-text").blur(function() {
+		if($(this).val() == "") {
+			$(this).val(defaultSuchVal);
+		}
+	});
 });
