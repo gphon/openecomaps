@@ -10,12 +10,10 @@ class Area( models.Model ):
     lon_left    = models.FloatField()
     lon_right   = models.FloatField()
     
-    def __eq__( self, other ):
-        return self.id == other.id
-    
     def __str__( self ):
         return '%s (%s/%s - %s/%s)' % ( self.name, self.lon_left, self.lat_top,
                                             self.lon_right, self.lat_bottom )
     
     class Meta:
         app_label = 'map'
+        ordering = ['name']

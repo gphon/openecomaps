@@ -66,7 +66,7 @@ def get_poi_layer( request, layer ):
         if layer in [ poi_layer.name.lower() for poi_layer in poi.filters.all() ]:
             out += '%s\t%s\t' % ( poi.lat, poi.lon )
             out += '%s\t' % poi.name
-            out += '%s\t' % poi.text
+            out += '%s\t' % poi.text.replace( '/n', '<br>' )
             out += '/static/img/icons/%s.png\t' % layer # icon
             out += '25,25\t'                # iconSize
             out += '0,-16\n'                # iconOffset
