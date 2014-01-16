@@ -6,17 +6,17 @@ urlpatterns  = patterns( 'apps.pages.views',
     # ex: /pages/category
     url( r'^category$', 'category_overview' ),
     # ex: /pages/filter
-    url( r'^filter$',   'filter_overview' ),
+    url( r'^seals$',     'filter_overview' ),
     
     # ex: /pages/category/4
     url( r'^category/(?P<category_id>\d*)$',    'overview_flyer' ),
     # ex: /pages/filter/4
-    url( r'^filter/(?P<filter_id>\d*)$',        'overview_seals' ),
+    url( r'^seals/(?P<filter_id>\d*)$',         'overview_seals' ),
     
     # ex: /pages/category/4/7
     url( r'^(?P<view>category)/(?P<item_id>\d*)/(?P<page_id>\d*)$', 'show_details_page' ),
     # ex: /pages/filter/4/11
-    url( r'^(?P<view>filter)/(?P<item_id>\d*)/(?P<page_id>\d*)$',   'show_details_page' ),
+    url( r'^(?P<view>seals)/(?P<item_id>\d*)/(?P<page_id>\d*)$',    'show_details_page' ),
 
 )
 

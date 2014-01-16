@@ -2,4 +2,15 @@
 
 {% block content %}
     settings
+    <form action="/settings" method="post">
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td>
+                    <input type="button" value="OK">
+                </td>
+            </tr>
+        </table>
+    </form>
 {% endblock %}

@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
+from apps.auth.forms import ChangeSettingsForm
 from apps.auth.models.oem_user import OEMUser
 from apps.map.models.poi import POI
 from apps.pages.models.category import Category
@@ -79,12 +80,15 @@ def overview_pages( request ):
 @login_required(login_url="/login")
 def settings( request ):
     request.session['auth_overview'] = 'settings'
-    
     user = get_object_or_404( OEMUser, id=request.user.id )
     
+    if request.method == 'POST':
+        form = ChangeSettingsForm( instance=user )
+    else:
+        form = ChangeSettingsForm( instance=user )
     
     context = {
-        'change_password_form' : '',
+        'form' : form,
         'selected_page' : 'settings_overview',
     }
     return render_to_response( 'auth/settings.html', context,

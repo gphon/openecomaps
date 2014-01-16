@@ -19,7 +19,7 @@ def show_tabmenu_for_infopage( selected ):
 def show_tabmenu_for_overview( tabmenu, selected ):
     if   tabmenu == 'category':
         tabs = Category.objects.all()
-    elif tabmenu == 'filter':
+    elif tabmenu == 'seals':
         tabs = POIFilter.objects.all()
     return {'tabmenu' : tabmenu, 'tabs' : tabs, 'selected' : selected}
 

@@ -13,17 +13,18 @@ def category_overview( request ):
         return overview_flyer( request, request.session['last_visited_category'] )
     else:
         categories = Category.objects.all().order_by( 'name' )
-        return overview_flyer( request, categories[0] )
+        category = categories[0]
+        return overview_flyer( request, category.id )
     #endif
 
 
 def filter_overview( request ):
     if request.session.has_key( 'last_visited_filter' ):
-        print(request.session['last_visited_filter'])
         return overview_seals( request, request.session['last_visited_filter'] )
     else:
         poi_filters = POIFilter.objects.all().order_by('id')
-        return overview_seals( request, poi_filters[0] )
+        poi_filter = poi_filters[0]
+        return overview_seals( request, poi_filter.id )
     #endif
 
 
@@ -48,24 +49,28 @@ def overview_flyer( request, category_id ):
 
 
 def overview_seals( request, filter_id ):
+    print( filter_id )
     request.session['last_visited_filter'] = filter_id
-    
+    print( filter_id )
     poi_filter = get_object_or_404( POIFilter, id=filter_id )
     pages = SealPage.objects.filter( filters=poi_filter )
     context = {
         'selected' : poi_filter,
         'pages' : pages,
-        'view' : 'filter',
+        'view' : 'seals',
     }
+    print( context )
     return render_to_response( 'pages/overview.html', context,
                                     context_instance=RequestContext(request) )
+
+
 
 
 def show_details_page( request, view, item_id, page_id ):
     if view == 'category':
         selected = get_object_or_404( Category, id=item_id )
         page = get_object_or_404( FlyerPage, category=selected, id=page_id )
-    elif view == 'filter':
+    elif view == 'seals':
         selected = get_object_or_404( POIFilter, id=item_id )
         page = get_object_or_404( SealPage, id=page_id )
     #endif

@@ -20,9 +20,9 @@ urlpatterns = patterns( '',
     url( r'^static/(?P<path>.*)$', 'django.views.static.serve' ),
     
     # ex: /
-    url( r'^$',                 'apps.map.views.home' ),
+    url( r'^$',                 'apps.map.views.home.home' ),
     # ex: /home
-    url( r'^home$',             'apps.map.views.home' ),
+    url( r'^home$',             'apps.map.views.home.home' ),
     
     # ex: /overview
     url( r'^overview$',         'apps.auth.views.overview' ),
