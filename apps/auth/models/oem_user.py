@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.forms import ModelForm
 
 from apps.map.models.area import Area
 
@@ -15,9 +14,3 @@ class OEMUser( AbstractUser ):
     class Meta:
         app_label = 'auth'
         db_table = 'auth_user'
-
-
-class OEMUserForm( ModelForm ):
-    class Meta:
-        model = OEMUser
-        fields = ('password', )

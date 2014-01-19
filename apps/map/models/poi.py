@@ -9,6 +9,8 @@ from django.forms.widgets import Textarea
 from apps.map.models.poi_filter import POIFilter
 from apps.pages.models.seal_page import SealPage
 
+import datetime
+
 
 class POI( models.Model ):
     name = models.CharField( max_length=100 )
@@ -30,6 +32,10 @@ class POI( models.Model ):
     
     filters = models.ManyToManyField( POIFilter )
     seals = models.ManyToManyField( SealPage, blank=True )
+    
+    def __init__(self):
+        self.verified = False
+        self.verification_date = datetime.date.today()
     
     def __str__( self ):
         return '%s - (%s)' % (self.name, self.city)

@@ -2,7 +2,6 @@ from functools import reduce
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_list_or_404
 from django.shortcuts import get_object_or_404
@@ -83,7 +82,26 @@ def settings( request ):
     user = get_object_or_404( OEMUser, id=request.user.id )
     
     if request.method == 'POST':
-        form = ChangeSettingsForm( instance=user )
+        form = ChangeSettingsForm( request.POST, instance=user )
+        
+        if form.is_valid():
+            user = form.save( commit=False )
+            password = form.cleaned_data['password']
+            if password:
+                if user.check_password( password ):
+                    password1 = form.cleaned_data['password1']
+                    if password1:
+                        new_password = form.clean_password2()
+                        user.set_password( new_password )
+                        user.save()
+                    else:
+                        form.errors['password1'] = ['New password must not be empty']
+                    #end if
+                else:
+                    form.errors['password'] = ['Password incorrect']
+                #end if
+            #end if
+        #end if
     else:
         form = ChangeSettingsForm( instance=user )
     
@@ -92,45 +110,6 @@ def settings( request ):
         'selected_page' : 'settings_overview',
     }
     return render_to_response( 'auth/settings.html', context,
-                                    context_instance=RequestContext(request) )
-
-
-
-
-@login_required(login_url="/login")
-def add_group_page( request, category_id ):
-    user = get_object_or_404( OEMUser, id=request.user.id )
-    category = get_object_or_404( Category, id=category_id )
-    
-    if request.method == 'POST':
-        # if page already exists, raise 404 error
-        if FlyerPage.objects.filter( category_id=category_id, user=user ):
-            raise Http404
-        #endif
-        
-        form = FlyerPageForm( request.POST, request.FILES )
-        if form.is_valid():
-            # create, but don't save the instance
-            page = form.save( commit=False )
-            
-            page.modified = datetime.datetime.now()
-            page.user = user
-            page.category = category
-            
-            page.save()
-            return HttpResponseRedirect( '/overview' )
-        #endif
-    else:
-        form = FlyerPageForm()
-    #endif
-    
-    context = {
-        'user' : user,
-        'category' : category,
-        'form' : form,
-        'selected_page' : 'pages_overview',
-    }
-    return render_to_response( 'auth/add_or_edit_page.html', context,
                                     context_instance=RequestContext(request) )
 
 

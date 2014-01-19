@@ -9,9 +9,10 @@ class OEMUserChangeForm( UserChangeForm ):
     class Meta( UserChangeForm.Meta ):
         model = OEMUser
 
+
 class OEMUserAdmin( UserAdmin ):
     form = OEMUserChangeForm
-
+    
     fieldsets = UserAdmin.fieldsets + (
             ( None, {'fields': ('group_name', 'areas')} ),
     )
