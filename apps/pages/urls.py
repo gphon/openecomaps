@@ -23,8 +23,8 @@ urlpatterns  = patterns( 'apps.pages.views',
 urlpatterns += patterns( 'apps.auth.views',
 
     # ex: /category/4/add
-    url( r'^category/(?P<category_id>\d*)/add$',    'add_group_page' ),
+    url( r'^category/(?P<category_id>\d*)/add$',    'add_group_page.add_group_page' ),
     # ex: /category/4/edit
-    url( r'^category/(?P<category_id>\d*)/edit$',   'edit_group_page' ),
+    url( r'^category/(?P<category_id>\d*)/edit$',   'edit_group_page.edit_group_page' ),
 
 )

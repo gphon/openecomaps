@@ -19,27 +19,27 @@ urlpatterns = patterns( '',
     
     url( r'^static/(?P<path>.*)$', 'django.views.static.serve' ),
     
+    
     # ex: /
     url( r'^$',                 'apps.map.views.home.home' ),
     # ex: /home
     url( r'^home$',             'apps.map.views.home.home' ),
     
+    
     # ex: /overview
-    url( r'^overview$',         'apps.auth.views.overview' ),
+    url( r'^overview$',             'apps.auth.views.overviews.overview' ),
     # ex: /overview/poi
-    url( r'^overview/poi$',     'apps.auth.views.overview_poi' ),
+    url( r'^overview/poi$',         'apps.auth.views.overviews.overview_pois' ),
     # ex: /overview/pages
-    url( r'^overview/pages$',   'apps.auth.views.overview_pages' ),
-    
-    
+    url( r'^overview/pages$',       'apps.auth.views.overviews.overview_pages' ),
+    # ex: /overview/settings
+    url( r'^overview/settings$',    'apps.auth.views.overviews.overview_settings' ),
     
     
     # ex: /login
     url( r'^login$',    login,  {'template_name':'auth/auth.html'} ),
     # ex: /logout
     url( r'^logout$',   logout, {'next_page':'/home'} ),
-    # ex: /settings
-    url( r'^settings$', 'apps.auth.views.settings' ),
     
     
     # ex: /about
