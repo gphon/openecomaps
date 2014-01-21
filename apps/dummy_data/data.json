@@ -1,0 +1,281 @@
+{
+    'users' : [
+        {
+            'username'   : 'potsdam',       'password'   : '123',
+            'email'      : 'a@b.de',        'group_name' : 'Potsdam',
+        },
+        {
+            'username'   : 'berlin',        'password'   : '123',
+            'email'      : 'a@b.de',        'group_name' : 'Berlin',
+        },
+        {
+            'username'   : 'stuttgart',     'password'   : '123',
+            'email'      : 'a@b.de',        'group_name' : 'Stuttgart',
+        },
+        {
+            'username'   : 'hamburg',       'password'   : '123',
+            'email'      : 'a@b.de',        'group_name' : 'Hamburg',
+        },
+        {
+            'username'   : 'halle',         'password'   : '123',
+            'email'      : 'a@b.de',        'group_name' : 'Halle',
+        },
+        {
+            'username'   : 'cottbus',       'password'   : '123',
+            'email'      : 'a@b.de',        'group_name' : 'Cottbus',
+        },
+    ],
+    
+    'areas' : [
+        {
+            'name'       : 'Potsdam',
+            'lat_top'    : 52.512878,
+            'lat_bottom' : 52.342996,
+            'lon_left'   : 12.885879,
+            'lon_right'  : 13.167087,
+            'user'       : 'potsdam',
+        },
+        {
+            'name'       : 'Stuttgart',
+            'lat_top'    : 48.865166,
+            'lat_bottom' : 48.692773,
+            'lon_left'   : 9.036201,
+            'lon_right'  : 9.315666,
+            'user'       : 'stuttgart',
+        },
+        {
+            'name'       : 'Werder (Havel)',
+            'lat_top'    : 52.460403,
+            'lat_bottom' : 52.299242,
+            'lon_left'   : 12.801449,
+            'lon_right'  : 12.96141,
+            'user'       : 'potsdam',
+        },
+    ],
+    
+    'filters' : [
+        { 'name' : 'Lebensmittel' },
+        { 'name' : 'Textilien' },
+        { 'name' : 'Papier_Holz' },
+        { 'name' : 'Kosmetik' },
+        { 'name' : 'Mobilität' },
+        { 'name' : 'sonstiges' },
+    ],
+    
+    'pois' : [
+        {
+            'name'      : 'Cafe Kieselstein',
+            'street'    : 'Hegelallee 23',
+            'zip_code'  : '14467',
+            'city'      : 'Potsdam',
+            'text'      : 'tolles Cafe :-)',
+            'lat'       : 52.402123,
+            'lon'       : 13.048488,
+            'verified'  : False,
+            'verification_date' : '01.01.1970',
+            'filters'   : ['lebensmittel'],
+            'seals'     : ['demeter'],
+        },
+        {
+            'name'      : 'Schalotte Naturkost',
+            'street'    : 'Charlottenstrasse 30',
+            'zip_code'  : '14467',
+            'city'      : 'Potsdam',
+            'text'      : 'Bioladen',
+            'lat'       : 52.399372,
+            'lon'       : 13.055376,
+            'verified'  : True,
+            'verification_date' : '22.10.2013',
+            'filters'   : ['lebensmittel'],
+            'seals'     : ['demeter', 'fairtrade'],
+        },
+        {
+            'name'      : 'Lebensquell Biomarkt',
+            'street'    : 'Hegelallee 23',
+            'zip_code'  : '14467',
+            'city'      : 'Potsdam',
+            'text'      : 'Bioladen',
+            'lat'       : 52.402277,
+            'lon'       : 13.048456,
+            'verified'  : True,
+            'verification_date' : '25.02.2013',
+            'filters'   : ['lebensmittel', 'kosmetik'],
+            'seals'     : ['fairtrade', 'demeter', 'eu-bio'],
+        },
+        {
+            'name'      : 'BioStube / Michael Chilla-Jung',
+            'street'    : 'Mielestrasse 2',
+            'zip_code'  : '14542',
+            'city'      : 'Werder (Havel)',
+            'text'      : 'keine Beschreibung vorhanden',
+            'lat'       : 52.403885,
+            'lon'       : 12.910467,
+            'verified'  : False,
+            'verification_date' : '01.01.1970',
+            'filters'   : ['lebensmittel'],
+            'seals'     : ['demeter'],
+        },
+        {
+            'name'      : 'Aktionsladen "Eine Welt"',
+            'street'    : 'Gutenbergstraße 77',
+            'zip_code'  : '14467',
+            'city'      : 'Potsdam',
+            'text'      : 'Weltladen',
+            'lat'       : 52.40213,
+            'lon'       : 13.060103,
+            'verified'  : False,
+            'verification_date' : '01.01.1970',
+            'filters'   : ['lebensmittel', 'textilien', 'kosmetik'],
+            'seals'     : ['fairtrade'],
+        },
+        {
+            'name'      : 'Potsdam per Pedales',
+            'street'    : 'Rudolf-Breitscheid-Straße',
+            'zip_code'  : '14482',
+            'city'      : 'Potsdam',
+            'text'      : 'Fahrradausleih',
+            'lat'       : 52.395008,
+            'lon'       : 13.128817,
+            'verified'  : False,
+            'verification_date' : '01.01.1970',
+            'filters'   : ['mobilität'],
+            'seals'     : [],
+        },
+        {
+            'name'      : 'Vitalia Reformhaus GmbH',
+            'street'    : 'Rotebuehlstrasse 59',
+            'zip_code'  : '70178',
+            'city'      : 'Stuttgart',
+            'text'      : 'Reformhaus',
+            'lat'       : 48.773077,
+            'lon'       : 9.16796,
+            'verified'  : False,
+            'verification_date' : '01.01.1970',
+            'filters'   : ['lebensmittel', 'kosmetik'],
+            'seals'     : [],
+        },
+    ],
+    
+    'categories' : [
+        { 'name' : 'Fisch' },
+        { 'name' : 'Textilien' },
+        { 'name' : 'Papier / Holz' },
+        { 'name' : 'Gentechnik' },
+        { 'name' : 'sonstiges' },
+    ],
+    
+    'pages' : [
+        {
+            'title' : 'Fischliste Potsdam',
+            'text'  : 'von Stuttgart kopiert :-).',
+            'image' : 'img/potsdam_fisch.png',
+            'flyer' : 'bin/stuttgart_fisch.pdf',
+            'modified' : '04.04.2013 13:05',
+            'user'  : 'potsdam',
+            'category' : 'fisch',
+        },
+        {
+            'title' : 'Fischliste Stuttgart',
+            'text'  : 'Seit mehreren Jahrzehnten werden die Weltmeere industriell ausgebeutet. Das hat dazu geführt, dass 87 Prozent der Fischbestände zu den überfischten oder erschöpften Beständen gezählt werden. Die maritimen Ökosysteme sind außerdem noch von anderen, menschengemachten Gefahren bedroht: Vermüllung der Meere mit Plastikabfällen, Verschmutzung mit Öl durch zunehmende Tiefseebohrungen, Überdüngung der Meere durch industrielle Landwirtschaft, Klimawandel. Die Organisation Greenpeace kämpft seit ihrer Gründung für den Erhalt der Meeresökosysteme. Greenpeace Stuttgart setzt die Themen lokal und verbrauchernah um. So ist unsere Stuttgarter Fischliste bereits in der neunten Auflage.',
+            'image' : 'img/stuttgart_fisch.png',
+            'flypr' : 'bin/stuttgart_fisch.pdf',
+            'modified' : '04.04.2013 13:05',
+            'user'  : 'stuttgart',
+            'category' : 'fisch',
+        },
+        {
+            'title' : 'Papierratgeber Halle',
+            'text'  : 'Im Juni 2010 haben wir unseren Flyer zum Thema Recyclingpapier fertig gestellt.<br><br>Er ist fuer Kinder und deren Eltern gedacht. Auf der Vorderseite befindet sich ein Comic des Grafikers Bern Zierfuss, das den Kindern an Hand zweier Hefte und ihrer Geschichte die Bedeutung von Recyclingpapier fuer den Waldschutz und die Umwelt klar macht.',
+            'image' : 'img/halle_papier.jpg',
+            'flypr' : 'bin/halle_papier.pdf',
+            'modified' : '04.04.2013 13:05',
+            'user'  : 'halle',
+            'category' : 'papier_holz',
+        },
+        {
+            'title' : 'Papierratgeber Berlin',
+            'text'  : '2008 haben wir einen Papierratgeber für Berlin entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders möchten wir auch die Verwendung von Recyclingpapier in der Schule fördern, dafür sind wir auf Schul- und Kinderfesten oft präsent.',
+            'image' : 'img/berlin_papier.jpg',
+            'flypr' : 'bin/berlin_papier.pdf',
+            'modified' : '04.04.2013 13:05',
+            'user'  : 'berlin',
+            'category' : 'papier_holz',
+        },
+        {
+            'title' : 'Papierratgeber Hamburg',
+            'text'  : 'keine Beschreibung hinterlegt',
+            'image' : 'img/hamburg_papier.png',
+            'flypr' : 'bin/hamburg_papier.pdf',
+            'modified' : '04.04.2013 13:05',
+            'user'  : 'hamburg',
+            'category' : 'papier_holz',
+        },
+        {
+            'title' : 'Papierratgeber Potsdam',
+            'text'  : '2008 haben wir einen Papierratgeber für Potsdam entwickelt, der jedes Jahr aktualisiert wird und auf diesen Internetseiten zum Download bereit steht. Besonders möchten wir auch die Verwendung von Recyclingpapier in der Schule fördern, dafür sind wir auf Schul- und Kinderfesten oft präsent.',
+            'image' : 'img/berlin_papier.jpg',
+            'flypr' : 'bin/berlin_papier.pdf',
+            'modified' : '04.04.2013 13:05',
+            'user'  : 'potsdam',
+            'category' : 'papier_holz',
+        },
+    ],
+    
+    'seals' : [
+        {
+            'name'  : 'EU-Bio',
+            'text'  : '
+                Zum Jahresbeginn 2009 trat in der EU eine neue Basisverordnung (VO Nr. 834/2007) über den ökologischen Landbau in Kraft. Darin wird die Herstellung ökologischer Produkte und ihre Kennzeichnung mit Hilfe des EU-Bio-Siegels und der Öko-Kontrollstelle geregelt. Auf verpackten Lebensmitteln ist das Siegel Pflicht, auf unverpackten Erzeugnissen kann es freiwillig benutzt werden. Neben dem EU-Bio-Siegel können zusätzlich auch andere, wie nationale Logos oder Logos von Anbauverbänden verwendet werden.<br>
+                Die neue Basisverordnung als rechtliche Grundlage für die ökologische Landwirtschaft, soll die Rechtslage vereinfacht, klarer aber weniger im Detail regeln. Es wurden Ziele und Grundsätze hinzugefügt.<br>
+                Ergänzt wird die Basisverordnung durch konkretere Durchführungsbestimmungen (VO Nr. 889/2008) sowie eine Importregelung (VO Nr. 1235/2008) für Produkte von außerhalb der EU. Nationale Gesetze, wie das deutsche Ökolandbaugesetz, können weitere Regelungen beinhalten.<br>
+                <br>
+                <h3>Kriterien:</h3>
+                Die Betriebe sollen wenn möglich in einem hofeigenen Kreislauf wirtschaften, also eigene Futtermittel anbauen oder Dünger aus eigenem Kompost verwenden. Zukäufe müssen aus ökologischem Landbau kommen und müssen dokumentiert werden. In Ausnahmefällen kann aber auch konventionelles Saatgut, Pflanzensetzlinge, Futtermittel und Tiere zugekauft werden. Der Pflanzenschutz sollte durch vorbeugende Maßnahmen, z.B. Nützlinge, Fruchtwechsel oder robustere Arten geschehen. Als letzte Lösung dürfen aber bestimmte Pflanzenschutzmittel oder chemisch-synthetische Dünger eingesetzt werden.<br>
+                Mindestens 95% der Futtermittel sowie der Zutaten verarbeiteter Produkte müssen aus ökologischer Landwirtschaft stammen. Dagegen dürfen keine gentechnisch veränderten Organismen (GVO) im Landbau oder der Verarbeitung verwendet werden. Zusatzstoffe, die mit Hilfe von GVO hergestellt wurden dürfen allerdings verwendet werden, wenn sie anders nicht verfügbar sind.<br>
+                Die Verwendung von Zusatzstoffen ist beschränkt und entspricht etwa einem Zehntel derer konventioneller Produkte.<br>
+                <br>
+                <h3>Kontrolle:</h3>
+                Um die Einhaltung der Standards zu gewährleisten, werden die Erzeuger- und Verarbeitungsbetriebe einmal im Jahr kontrolliert. Zusätzlich können stichprobenartig unangemeldete Kontrollen stattfinden. Dabei werden von unabhängigen, anerkannten Kontrollstellen die Tiere und Pflanzen, Betriebsunterlagen, Produktionsstätten und Erzeugnisse überprüft und ein Bericht angefertigt. Da diese Kontrollen über den ganzen Prozess von der Herstellung über die Verarbeitung bis teilweise zu den Verkaufsstellen erfolgen, wird die durchgängige Überprüfung der Produktherstellung sichergestellt.<br>
+                Die Kontrollstelle muss auf allen Produkt mit einer Codenummer angegeben werden, wodurch eine Rückverfolgbarkeit gewährleistet ist.<br>
+                <br>
+                Bei Verstößen gegen die Richtlinien drohen den Betrieben Auflagen, Geldstrafen oder sogar die Aberkennung des Siegels.',
+            'image' : 'img/seals/eu_bio.svg',
+            'filters' : ['lebensmittel'],
+        },
+        {
+            'name'  : 'Demeter',
+            'text'  : '
+                Demeter ist ein Anbauverband, dessen Produkte nach biologisch-dynamischen Richtlinien hergestellt werden. Die Anbauweise basiert auf der anthroposophischen Lehre, in der ein Hof als Organismus - also ein in sich geschlossenes System - verstanden wird. Deshalb sollte ein Demeter-Hof die nötigen Zutaten für seine Produkte selbst herstellen. Eine Leitlinie ist das Ressourcen- und Energiesparen und der Einsatz erneuerbarer Energiequellen. Zudem wird auf den Schutz des Bodens und der Erhaltung des Bodenlebens wertgelegt.<br>
+                Das 1997 gegründete internationale Netzwerk umfasst mittlerweile fast 50 Länder.<br>
+                <br>
+                <h3>Kriterien:</h3>
+                Der Verband schreibt einzuhaltende Mindestanforderungen für Erzeugung und Verarbeitung vor, welche über dem Standard des EU-Bio-Siegels liegen. Der gesamte Betrieb muss auf biologisch-dynamische Landwirtschaft umgestellt werden.<br> 
+                Die Zutaten von Produkten müssen zu mindestens 90% aus Demeter-zertifizierten Bestandteilen bestehen. Nur wenn bestimmte Zutaten nicht verfügbar sind, können diese nach Genehmigung von Demeter e.V. von anderen Anbauverbänden oder von EU-Bio-zertifizierten Betrieben zugekauft werden. Die Zusatzstoffe sind auf 13 "absolut notwendige" beschränkt und für jedes Lebensmittel geregelt.<br>
+                Saatgut sollte auf dem eigenen Hof oder in der Region vermehrt werden. Über eine Negativliste ist bestimmtes Saatgut ausgeschlossen.<br>
+                Um die biologisch-dynamische Landwirtschaft zu gewähren, muss jeder Hof Tierhaltung einschließen. Dabei sind die Demeter-Richtlinien der Tierhaltung stärker Reglementiert als beim EU-Bio-Siegel. So soll die Haltung den Bedürfnissen der Tiere angepasst werden. Die Tiere dürfen zur Schlachtung nicht weiter als 200 Kilometer transportiert werden. Futtermittel müssen zu mindestens 50% vom eigenen Hof oder einer Hofkooperation stammen, zugekauftes Futter sollte biologisch-dynamisch produziert worden sein. Es darf keine konventionellen Bestandteile enthalten.<br>
+                <br>
+                <h3>Kontrolle:</h3>
+                Neben der Kontrolle im Zuge des Bio-Siegels wird jährlich die Einhaltung der Kriterien von Demeter e.V. durch den Verband überprüft sowie ein Gespräch zur Betriebsentwicklung geführt.',
+            'image' : 'img/seals/demeter.svg',
+            'filters' : ['lebensmittel'],
+        },
+        {
+            'name'  : 'Fair Trade',
+            'text'  : 'Siegel fuer fairen Handel',
+            'image' : 'img/seals/fair_trade.svg',
+            'filters' : ['lebensmittel', 'kosmetik', 'textilien', 'sonstiges'],
+        },
+        {
+            'name'  : 'FSC',
+            'text'  : 'forest stewardship council',
+            'image' : 'img/seals/fsc.svg',
+            'filters' : ['papier_holz'],
+        },
+        {
+            'name'  : 'MSC',
+            'text'  : 'marine stewardship council',
+            'image' : 'img/seals/msc.svg',
+            'filters' : ['lebensmittel'],
+        },
+    ],
+}
