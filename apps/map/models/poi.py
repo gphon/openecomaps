@@ -27,15 +27,11 @@ class POI( models.Model ):
     lon = models.FloatField()
     
     # verification
-    verified = models.BooleanField()
-    verification_date = models.DateField()
+    verified = models.BooleanField( default=False )
+    verification_date = models.DateField( default=datetime.date.today() )
     
     filters = models.ManyToManyField( POIFilter )
     seals = models.ManyToManyField( SealPage, blank=True )
-    
-    def __init__(self):
-        self.verified = False
-        self.verification_date = datetime.date.today()
     
     def __str__( self ):
         return '%s - (%s)' % (self.name, self.city)
