@@ -14,26 +14,16 @@ admin.autodiscover()
 
 urlpatterns = patterns( '',
     
-    url( r'^poi/',              include('apps.map.urls') ),
-    url( r'^pages/',            include('apps.pages.urls') ),
-    
-    url( r'^static/(?P<path>.*)$', 'django.views.static.serve' ),
-    
-    
     # ex: /
-    url( r'^$',                 'apps.map.views.home.home' ),
+    url( r'^$',         'apps.oem.views.home.home' ),
     # ex: /home
-    url( r'^home$',             'apps.map.views.home.home' ),
+    url( r'^home$',     'apps.oem.views.home.home' ),
     
     
-    # ex: /overview
-    url( r'^overview$',             'apps.auth.views.overviews.overview' ),
-    # ex: /overview/poi
-    url( r'^overview/poi$',         'apps.auth.views.overviews.overview_pois' ),
-    # ex: /overview/pages
-    url( r'^overview/pages$',       'apps.auth.views.overviews.overview_pages' ),
-    # ex: /overview/settings
-    url( r'^overview/settings$',    'apps.auth.views.overviews.overview_settings' ),
+    url( r'^admin/',    include( admin.site.urls ) ),
+    url( r'^overview/', include( 'apps.oem.urls.overview' ) ),
+    url( r'^pages/',    include( 'apps.oem.urls.pages' ) ),
+    url( r'^poi/',      include( 'apps.oem.urls.poi' ) ),
     
     
     # ex: /login
@@ -50,15 +40,9 @@ urlpatterns = patterns( '',
     url( r'^impressum$', TemplateView.as_view( template_name='impressum.html' ) ),
     
     
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    
-    # Uncomment the next line to enable the admin:
-    url( r'^admin/', include(admin.site.urls) ),
-    
+    # ex: /init
+    url( r'^init$',      'apps.oem.init' ),
     # ex: /dummy_data/create
-    url( r'^dummy_data/create$',    'apps.dummy_data.views.create_dummy_data' ),
-    # ex: /dummy_data/init
-    url( r'^dummy_data/init$',      'apps.dummy_data.views.init' ),
+    url( r'^dummy_data/create$',    'apps.oem.dummy_data.views.create_dummy_data' ),
 ) + \
 static( settings.MEDIA_URL, document_root=settings.MEDIA_ROOT )

@@ -39,7 +39,7 @@ function init( bounds, location, zoom ) {
     var layerFilterTextilien = addLayer( "Textilien", "/poi/get/layer/textilien" );
     var layerFilterPapier = addLayer( "Papier / Holz", "/poi/get/layer/papier_holz" );
     var layerFilterKosmetik = addLayer( "Kosmetik", "/poi/get/layer/kosmetik" );
-    var layerFilterMobilitaet = addLayer( "Mobilität", "/poi/get/layer/mobilitaet" );
+    var layerFilterMobilitaet = addLayer( "Mobilität", "/poi/get/layer/mobilität" );
     var layerFilterSonstiges = addLayer( "sonstiges", "/poi/get/layer/sonstiges" );
     
     var layerMapAerial = new OpenLayers.Layer.Bing( {
