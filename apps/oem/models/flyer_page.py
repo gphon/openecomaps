@@ -7,8 +7,8 @@ from apps.oem.models.oem_user import OEMUser
 class FlyerPage( models.Model ):
     title = models.CharField( max_length=50 )
     text = models.TextField()
-    image = models.ImageField(upload_to='user_content/img/flyer')
-    flyer = models.FileField(upload_to='user_content/bin')
+    image = models.ImageField(upload_to='img')
+    flyer = models.FileField(upload_to='bin')
     modified = models.DateTimeField()
     
     user = models.ForeignKey( OEMUser )

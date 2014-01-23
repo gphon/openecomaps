@@ -6,31 +6,60 @@ import os
 BASE_DIR = os.path.dirname( os.path.dirname(__file__) )
 
 
-class InvalidVarException(object):
-    def __mod__(self, missing):
-        try:
-            missing_str=unicode(missing)
-        except:
-            missing_str='Failed to create string representation'
-        raise Exception('Unknown template variable %r %s' % (missing, missing_str))
-    def __contains__(self, search):
-        if search=='%s':
-            return True
-        return False
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = '496db235=@j-w*ple75+6i538i@%lj5(z+f=+_n&1djsc99nil'
 
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-TEMPLATE_STRING_IF_INVALID = InvalidVarException()
 
 
-ADMINS = (
-    ('Stefan Bunde', 'openecomaps@gmail.com'),
+TEMPLATE_DIRS = (
+    os.path.join( BASE_DIR, 'templates' ),
 )
 
-MANAGERS = ADMINS
+
+# Hosts/domain names that are valid for this site; required if DEBUG is False
+# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = []
 
 
+###############################################################################
+###   Application definition
+###############################################################################
+
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    #'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'apps.oem',
+)
+
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+
+AUTH_USER_MODEL = 'auth.OEMUser'
+
+ROOT_URLCONF = 'openecomaps.urls'
+
+WSGI_APPLICATION = 'openecomaps.wsgi.application'
+
+
+###############################################################################
+###   Database
+###############################################################################
 
 if LOCAL_MASCHINE:
     DATABASES = {
@@ -57,21 +86,13 @@ else:
 #endif
 
 
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+###############################################################################
+###   Internationalization
+###############################################################################
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'Europe/Berlin'
-
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-SITE_ID = 1
+TIME_ZONE = 'Europe/Berlin'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -83,6 +104,51 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
+
+
+###############################################################################
+###   Static files (CSS, JavaScript, Images)
+###############################################################################
+
+# URL prefix for static files.
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join( BASE_DIR, 'static_files' ),
+)
+
+
+
+
+
+
+
+
+class InvalidVarException(object):
+    def __mod__(self, missing):
+        try:
+            missing_str=unicode(missing)
+        except:
+            missing_str='Failed to create string representation'
+        raise Exception('Unknown template variable %r %s' % (missing, missing_str))
+    def __contains__(self, search):
+        if search=='%s':
+            return True
+        return False
+
+
+TEMPLATE_STRING_IF_INVALID = InvalidVarException()
+
+
+ADMINS = (
+    ('Stefan Bunde', 'openecomaps@gmail.com'),
+)
+
+MANAGERS = ADMINS
+
+
+SITE_ID = 1
+
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -99,17 +165,7 @@ MEDIA_URL = '/user_content/'
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = ''
 
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
 
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join( BASE_DIR, 'static_files' ),
-)
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -119,8 +175,6 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '496db235=@j-w*ple75+6i538i@%lj5(z+f=+_n&1djsc99nil'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -129,46 +183,9 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
 
 
-AUTH_USER_MODEL = 'auth.OEMUser'
 
-
-ROOT_URLCONF = 'openecomaps.urls'
-
-# Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'openecomaps.wsgi.application'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join( BASE_DIR, 'templates' ),
-)
-
-
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
-    'apps.oem',
-)
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
