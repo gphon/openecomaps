@@ -85,8 +85,12 @@ function init( bounds, location, zoom ) {
     
     selectControl = new OpenLayers.Control.SelectFeature(
         [
+            layerFilterLebensmittel,
             layerFilterPapier,
-            layerFilterLebensmittel
+            layerFilterTextilien,
+            layerFilterKosmetik,
+            layerFilterMobilitaet,
+            layerFilterSonstiges,
         ],
         {
             onSelect : onFeatureSelect,
