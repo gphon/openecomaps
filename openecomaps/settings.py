@@ -14,11 +14,6 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 
-TEMPLATE_DIRS = (
-    os.path.join( BASE_DIR, 'templates' ),
-)
-
-
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -47,6 +42,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+
+TEMPLATE_DIRS = (
+    os.path.join( BASE_DIR, 'templates' ),
 )
 
 
@@ -176,15 +176,15 @@ STATICFILES_FINDERS = (
 )
 
 
+
+"""
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
-
-
-
+"""
 
 
 # A sample logging configuration. The only tangible logging
