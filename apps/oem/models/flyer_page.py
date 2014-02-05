@@ -14,6 +14,13 @@ class FlyerPage( models.Model ):
     user = models.ForeignKey( OEMUser )
     category = models.ForeignKey( Category )
     
+    def get_text( self ):
+        text = self.text.replace( '\n', '<br>')
+        text = text.replace( '[b]', '<b>' ).replace( '[/b]', '</b>' )
+        text = text.replace( '[i]', '<i>' ).replace( '[/i]', '</i>' )
+        text = text.replace( '[u]', '<u>' ).replace( '[/u]', '</u>' )
+        return text
+    
     def print_thumbnail( self ):
         return '''
             <a href="%(flyer_url)s">
