@@ -26,11 +26,11 @@
             <ul>
                 <li class="title">
                     {% ifequal view 'category' %}
-                    <a href="">
+                    <a href="/pages/category/{{ selected.id }}/{{ page.id }}">
                         {{ page.user.group_name }}
                     </a>
                     {% else %}
-                    <a href="/pages/filter/{{ selected.id }}/{{ page.id }}">
+                    <a href="/pages/seals/{{ selected.id }}/{{ page.id }}">
                         {{ page }}
                     </a>
                     {% endifequal %}
