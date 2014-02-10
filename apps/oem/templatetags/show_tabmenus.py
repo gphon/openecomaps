@@ -10,11 +10,6 @@ from apps.oem.models.seal_page import SealPage
 register = template.Library()
 
 
-@register.inclusion_tag('templatetags/tabmenu_for_infopage.html')
-def show_tabmenu_for_infopage( selected ):
-    return {'selected' : selected}
-
-
 @register.inclusion_tag('templatetags/tabmenu_for_overview.html')
 def show_tabmenu_for_overview( tabmenu, selected ):
     if   tabmenu == 'category':

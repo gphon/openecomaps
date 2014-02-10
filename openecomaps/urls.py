@@ -27,17 +27,15 @@ urlpatterns = patterns( '',
     
     
     # ex: /login
-    url( r'^login$',    login,  {'template_name':'auth/auth.html'} ),
+    url( r'^login$',    login,  {'template_name' : 'login.html',
+                                 'extra_context' : {'selected':'login'} } ),
     # ex: /logout
     url( r'^logout$',   logout, {'next_page':'/home'} ),
     
-    
     # ex: /about
-    url( r'^about$',     TemplateView.as_view( template_name='about.html' ) ),
-    # ex: /copyrights
-    url( r'^copyright$', TemplateView.as_view( template_name='copyright.html' ) ),
+    url( r'^(?P<selected>about)$',      TemplateView.as_view( template_name='about.html' ) ),
     # ex: /impressum
-    url( r'^impressum$', TemplateView.as_view( template_name='impressum.html' ) ),
+    url( r'^(?P<selected>impressum)$',  TemplateView.as_view( template_name='impressum.html' ) ),
     
     
     # ex: /init

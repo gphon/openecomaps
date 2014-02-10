@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block main_content %}
+    <div id="tabs">
+        
+        <h1>&nbsp;</h1>
+        
+        <ul>
+            <li>
+                {% if user.is_authenticated %}
+                <a href="/logout">
+                    Logout
+                </a>
+                {% else %}
+                <a href="/login"{% ifequal selected 'login' %} class="active"{% endifequal %}>
+                    Login
+                </a>
+                {% endif %}
+            </li>
+            <li>
+                <a href="/about"{% ifequal selected 'about' %} class="active"{% endifequal %}>
+                    Über das Projekt
+                </a>
+            </li>
+            <li>
+                <a href="/impressum"{% ifequal selected 'impressum' %} class="active"{% endifequal %}>
+                    Impressum
+                </a>
+            </li>
+        </ul>
+        
+        <a href="/" class="button">&larr;zurück zur Karte</a>
+    </div>
+    
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}

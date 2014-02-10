@@ -1,4 +1,5 @@
-{% extends "auth/auth.html" %}
+{% extends "main_content_intern.html" %}
+
 
 {% block content %}
     <form action="/overview/settings" method="post">
@@ -6,7 +7,7 @@
         <table>
             {{ form.as_table }}
             <tr>
-                <td></td>
+                <td><a href="/overview/settings/password_change">change password</a></td>
                 <td>
                     <input type="submit" value="OK">
                 </td>

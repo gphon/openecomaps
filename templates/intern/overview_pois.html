@@ -1,4 +1,4 @@
-{% extends "auth/auth.html" %}
+{% extends "main_content_intern.html" %}
 
 
 {% block content %}
@@ -7,7 +7,9 @@
             <th>Name</th>
             <th>PLZ / Ort</th>
             <th>Stra&szlig;e</th>
-            <th>Annotation</th>
+            <th>Öffnungszeiten</th>
+            <th>Webseite</th>
+            <th>Beschreibung</th>
             <th>Filter</th>
             <th>verified</th>
             <th>verification date</th>
@@ -18,6 +20,8 @@
             <td>{{ poi.name }}</td>
             <td>{{ poi.zip_code }}<br>{{ poi.city }}</td>
             <td>{{ poi.street }}</td>
+            <td>{{ poi.opening_time }}</td>
+            <td>{% autoescape off %}{{ poi.website_link }}{% endautoescape %}</td>
             <td>{{ poi.text }}</td>
             <td>
                 {% for f in poi.filters.all %}
@@ -27,12 +31,7 @@
             <td>
                 <form action="/poi/verify/{{ poi.id }}" method="post">
                     {% csrf_token %}
-                    {% if poi.verified %}
-                    <input type="submit" value="true">
-                    {% else %}
-                    <input type="submit" value="false">
-                    {# hier noch eine extra variable ubergeben mit den poi id #}
-                    {% endif %}
+                    <input type="submit" value="{% if poi.verified %}yes{% else %}no{% endif %}">
                 </form>
             </td>
             <td>{{ poi.verification_date|date:"d.m.Y" }}</td>

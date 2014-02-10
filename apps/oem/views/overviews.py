@@ -51,9 +51,9 @@ def overview_pois( request ):
     
     context = {
         'pois' : pois,
-        'selected_page' : 'poi_overview',
+        'selected' : 'poi_overview',
     }
-    return render_to_response( 'auth/overview_pois.html', context,
+    return render_to_response( 'intern/overview_pois.html', context,
                                     context_instance=RequestContext(request) )
 
 
@@ -72,10 +72,13 @@ def overview_pages( request ):
     
     context = {
         'entries' : entries,
-        'selected_page' : 'pages_overview',
+        'selected' : 'pages_overview',
     }
-    return render_to_response( 'auth/overview_pages.html', context,
+    return render_to_response( 'intern/overview_pages.html', context,
                                     context_instance=RequestContext(request) )
+
+
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 @login_required(login_url="/login")
@@ -87,31 +90,16 @@ def overview_settings( request ):
         form = ChangeSettingsForm( request.POST, instance=user )
         
         if form.is_valid():
-            user = form.save( commit=False )
-            password = form.cleaned_data['password']
-            if password:
-                if user.check_password( password ):
-                    password1 = form.cleaned_data['password1']
-                    if password1:
-                        new_password = form.clean_password2()
-                        user.set_password( new_password )
-                        user.save()
-                    else:
-                        form.errors['password1'] = ['New password must not be empty']
-                    #end if
-                else:
-                    form.errors['password'] = ['Password incorrect']
-                #end if
-            #end if
+            user = form.save()
         #end if
     else:
         form = ChangeSettingsForm( instance=user )
     
     context = {
         'form' : form,
-        'selected_page' : 'settings_overview',
+        'selected' : 'settings',
     }
-    return render_to_response( 'auth/overview_settings.html', context,
+    return render_to_response( 'intern/overview_settings.html', context,
                                     context_instance=RequestContext(request) )
 
 

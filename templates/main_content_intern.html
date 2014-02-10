@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+{% block main_content %}
+    <div id="tabs">
+        
+        <h1>{{ user.group_name }}</h1>
+        
+        <ul>
+            <li>
+                <a href="/overview/poi"{% ifequal selected 'poi_overview' %} class="active"{% endifequal %}>
+                    POI Übersicht
+                </a>
+            </li>
+            <li>
+                <a href="/overview/pages"{% ifequal selected 'pages_overview' %} class="active"{% endifequal %}>
+                    Eigene Seiten
+                </a>
+            </li>
+            <li>
+                <a href="/overview/settings"{% ifequal selected 'settings' %} class="active"{% endifequal %}>
+                    Settings
+                </a>
+            </li>
+        </ul>
+        
+        <a href="/" class="button">&larr;zurück zur Karte</a>
+    </div>
+    
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}

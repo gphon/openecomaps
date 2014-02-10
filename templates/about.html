@@ -1,87 +1,81 @@
-{% extends "base.html" %}
-
-{% load show_tabmenus %}
+{% extends "main_content.html" %}
 
 
-{% block main_content %}
-    {% show_tabmenu_for_infopage 'about' %}
+{% block content %}
+    <h1>Was ist OpenEcoMaps?</h1>
     
-    <div id="content">
-        <h1>Was ist OpenEcoMaps?</h1>
-        
-        <p>Bedingt durch Studium oder Arbeit ziehen Menschen häufig um in eine
-        andere Stadt. In der Regel kennen sie dann nur sehr wenig bis gar
-        nichts dort. Wo befindet sich der nächste Bioladen?
-        Wo gibt es Recycling-Papier oder mit dem FSC-Siegel zertifiziertes
-        Holz? Oder wo kann Fisch gekauft werden, der nicht schon überfischt ist?
-        Auf die erste Frage haben
-        Plattformen wie Google-Maps schnell eine Antwort parat. Bei den
-        nachfolgenden wird es schon schwieriger. Und aus diesem Grunde gibt es
-        OpenEcoMaps.</p>
-        <br>
-        <p>OpenEcoMaps ist insofern open (frei), als dass jeder User
-        sogenannte POI's (Point of Interest)
-        auf der Karte eintragen kann. Diese werden von einer Greepeace-Ortsgruppe,
-        sofern es eine in der Nähe gibt und diese die nötigen Kapazitäten hat, geprüft
-        und verifiziert. Des Weiteren kann diese Ortgruppe einen regionalen
-        Ratgeber, sofern sie einen hat, zum Download anbieten. Dort sind dann
-        alle Gewerbe zu einem bestimmten Thema zusammengefasst.</p>
-        
-        <h1>ToDo's</h1>
-        
-        <h3>Map:</h3>
-        <ul>
-            <li>bei erneutem Besuch der Seite den Karten-Fokus wieder in "meiner" Stadt</li>
-            <li>nach Hinzufügen von POIs wieder zum Eingabe-Formular zurückkehren</li>
-            <li>sollten mehrere mögliche POIs gefunden werden, muss der User auswählen</li>
-            <li>Fehler, wenn beim Hinzufügen kein POI gefunden</li>
-        </ul>
-        
-        <h3>Interner Bereich:</h3>
-        <ul>
-            <li>Export der POI's einer Stadt samt Kartenausschnitt in ein PDF</li>
-            <li>Import einer comma-separated Datei für POI's</li>
-        </ul>
-        
-        <h3>Navigation:</h3>
-        <ul>
-            <li>Bread-Crumes Pfad</li>
-            <li>Haupt-Menü als aufklappbares Menü mit den verschiedenen Städten in der jeweiligen Kategorie</li>
-        </ul>
-        
-        <h3>sonstiges:</h3>
-        <ul>
-            <li>Tests</li>
-            <li>Smartphone-App</li>
-        </ul>
-        
-        <h1>Projekt-Team</h1>
-        <table>
-            <tr><th>Tätigkeit</th><th>Name</th></tr>
-            <tr>
-                <td>Projektleiter</td>
-                <td>Stefan Bunde (Potsdam)</td>
-            </tr>
-            <tr>
-                <td>stellv. Projektleiter</td>
-                <td>Konstantin (Bonn)</td>
-            </tr>
-            <tr>
-                <td>Design</td>
-                <td>Amos (Dresden)</td>
-            </tr>
-            <tr>
-                <td>Entwicklung Backend</td>
-                <td>Stefan Bunde (Potsdam)</td>
-            </tr>
-            <tr>
-                <td>Entwicklung Frontend</td>
-                <td>Jens (Düsseldorf), Martin (Würzburg)</td>
-            </tr>
-            <tr>
-                <td>Redaktion</td>
-                <td>Annika (Düsseldorf), Frederik (Jena), Jana (Leipzig), Konstantin (Bonn)</td>
-            </tr>
-        </table>
-    </div>
+    <p>Bedingt durch Studium oder Arbeit ziehen Menschen häufig um in eine
+    andere Stadt. In der Regel kennen sie dann nur sehr wenig bis gar
+    nichts dort. Wo befindet sich der nächste Bioladen?
+    Wo gibt es Recycling-Papier oder mit dem FSC-Siegel zertifiziertes
+    Holz? Oder wo kann Fisch gekauft werden, der nicht schon überfischt ist?
+    Auf die erste Frage haben
+    Plattformen wie Google-Maps schnell eine Antwort parat. Bei den
+    nachfolgenden wird es schon schwieriger. Und aus diesem Grunde gibt es
+    OpenEcoMaps.</p>
+    <br>
+    <p>OpenEcoMaps ist insofern open (frei), als dass jeder User
+    sogenannte POI's (Point of Interest)
+    auf der Karte eintragen kann. Diese werden von einer Greepeace-Ortsgruppe,
+    sofern es eine in der Nähe gibt und diese die nötigen Kapazitäten hat, geprüft
+    und verifiziert. Des Weiteren kann diese Ortgruppe einen regionalen
+    Ratgeber, sofern sie einen hat, zum Download anbieten. Dort sind dann
+    alle Gewerbe zu einem bestimmten Thema zusammengefasst.</p>
+    
+    <h1>ToDo's</h1>
+    
+    <h3>Map:</h3>
+    <ul>
+        <li>bei erneutem Besuch der Seite den Karten-Fokus wieder in "meiner" Stadt</li>
+        <li>nach Hinzufügen von POIs wieder zum Eingabe-Formular zurückkehren</li>
+        <li>sollten mehrere mögliche POIs gefunden werden, muss der User auswählen</li>
+        <li>Fehler, wenn beim Hinzufügen kein POI gefunden</li>
+    </ul>
+    
+    <h3>Interner Bereich:</h3>
+    <ul>
+        <li>Export der POI's einer Stadt samt Kartenausschnitt in ein PDF</li>
+        <li>Import einer comma-separated Datei für POI's</li>
+    </ul>
+    
+    <h3>Navigation:</h3>
+    <ul>
+        <li>Bread-Crumes Pfad</li>
+        <li>Haupt-Menü als aufklappbares Menü mit den verschiedenen Städten in der jeweiligen Kategorie</li>
+    </ul>
+    
+    <h3>sonstiges:</h3>
+    <ul>
+        <li>Tests</li>
+        <li>Smartphone-App</li>
+    </ul>
+    
+    <h1>Projekt-Team</h1>
+    <table>
+        <tr><th>Tätigkeit</th><th>Name</th></tr>
+        <tr>
+            <td>Projektleiter</td>
+            <td>Stefan Bunde (Potsdam)</td>
+        </tr>
+        <tr>
+            <td>stellv. Projektleiter</td>
+            <td>Konstantin (Bonn)</td>
+        </tr>
+        <tr>
+            <td>Design</td>
+            <td>Amos (Dresden)</td>
+        </tr>
+        <tr>
+            <td>Entwicklung Backend</td>
+            <td>Stefan Bunde (Potsdam)</td>
+        </tr>
+        <tr>
+            <td>Entwicklung Frontend</td>
+            <td>Jens (Düsseldorf), Martin (Würzburg)</td>
+        </tr>
+        <tr>
+            <td>Redaktion</td>
+            <td>Annika (Düsseldorf), Frederik (Jena), Jana (Leipzig), Konstantin (Bonn)</td>
+        </tr>
+    </table>
 {% endblock %}

@@ -1,6 +1,7 @@
 from functools import reduce
 
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponse
@@ -29,6 +30,7 @@ def add( request ):
                 'address' : poi.street + ',' + poi.zip_code + ',' + poi.city,
                 'sensor' : 'false',
             }
+            """
             data = get_data_from_google_api( values )
             
             results = data['results']
@@ -61,7 +63,8 @@ def add( request ):
                 poi.filters.add( poi_filter )
             for seal in form.cleaned_data['seals']:
                 poi.seals.add( seal )
-            
+            """
+            form.errors['name'] = 'Eintragung erfolgreich'
             return HttpResponseRedirect( '/poi/add' )
         #end if ( if form.is_valid() )
     else:
@@ -99,6 +102,23 @@ def edit( request, poi_id ):
                                     context_instance=RequestContext(request) )
 
 
+DESCRIPTION = '''
+<table>
+    <tr>
+        <td>Öffnungszeiten:</td>
+        <td>%(opening_time)s</td>
+        <td rowspan="3"></td>
+    </tr>
+    <tr>
+        <td>Webseite:</td>
+        <td>%(website)s</td>
+    </tr>
+    <tr>
+        <td>Beschreibung:</td>
+        <td>%(description)s</td>
+    </tr>
+</table>\t'''
+
 def get_layer( request, layer ):
     try:
         koords = request.GET.get( 'bbox', '' )
@@ -113,9 +133,16 @@ def get_layer( request, layer ):
     out = 'lat\tlon\ttitle\tdescription\ticon\ticonSize\ticonOffset\n'
     for poi in POI.objects.filter( qset ):
         if layer in [ poi_layer.name.lower() for poi_layer in poi.filters.all() ]:
+            description_data = {
+                'opening_time' : poi.opening_time,
+                'website' : poi.website,
+                'description' : poi.text.replace( '\n', '<br>' )
+            }
+            description = DESCRIPTION % description_data
+            
             out += '%s\t%s\t' % ( poi.lat, poi.lon )
             out += '%s\t' % poi.name
-            out += '%s\t' % poi.text.replace( '\n', '<br>' )
+            out += description.replace( '\n', '' )
             out += '/static/img/icons/%s.png\t' % layer # icon
             out += '25,25\t'                # iconSize
             out += '0,-16\n'                # iconOffset

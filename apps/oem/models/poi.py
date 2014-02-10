@@ -16,6 +16,9 @@ class POI( models.Model ):
     
     text = models.CharField( max_length=500, blank=True )
     
+    opening_time = models.CharField( max_length=100, blank=True )
+    website = models.URLField( blank=True )
+    
     # location data
     lat = models.FloatField()
     lon = models.FloatField()
@@ -26,6 +29,10 @@ class POI( models.Model ):
     
     filters = models.ManyToManyField( POIFilter )
     seals = models.ManyToManyField( SealPage, blank=True )
+    
+    def print_website_link( self ):
+        return '<a href="%(url)s">%(url)s</a>' % {'url':self.website}
+    website_link = property( print_website_link )
     
     def __str__( self ):
         return '%s - (%s)' % (self.name, self.city)
