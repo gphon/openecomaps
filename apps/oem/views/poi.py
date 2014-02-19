@@ -94,7 +94,7 @@ def edit( request, poi_id ):
         'form' : form,
         'selected_page' : 'poi_overview',
     }
-    return render_to_response( 'auth/edit_poi.html', context,
+    return render_to_response( 'intern/edit_poi.html', context,
                                     context_instance=RequestContext(request) )
 
 
