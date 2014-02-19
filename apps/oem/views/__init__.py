@@ -1,14 +1,21 @@
-import urllib.request
+import urllib
 
 
 GOOGLE_API_URL = 'http://maps.googleapis.com/maps/api/geocode/json?'
 
 
-def get_data_from_google_api( values ):
-    data = urllib.parse.urlencode( values )
+def fetch_bounds_with_google_api( address ):
+    data = urllib.parse.urlencode( { 'address' : address, 'sensor' : 'false' } )
     url = GOOGLE_API_URL + data
-    resp = urllib.request.urlopen( url )
-    html = resp.read()
-    html = html.replace( b': true', b': True' )
-    data = eval( html )
-    return data
+    
+    try:
+        resp = urllib.request.urlopen( url ).read()
+        resp = resp.replace( b': true', b': True' )
+        json = eval( resp )
+    except:
+        return {}
+    
+    bounds = json['results'][0]['geometry']['bounds']
+    location = json['results'][0]['geometry']['location']
+    
+    return location
