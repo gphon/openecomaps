@@ -1,7 +1,6 @@
 from functools import reduce
 
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponse
@@ -14,7 +13,7 @@ from apps.oem.forms.poi import AddPOIForm
 from apps.oem.forms.poi import EditPOIForm
 from apps.oem.models.oem_user import OEMUser
 from apps.oem.models.poi import POI
-from apps.oem.views import get_data_from_google_api
+from apps.oem.views import fetch_poi_data_with_google_api
 
 import datetime
 import operator
@@ -26,12 +25,9 @@ def add( request ):
         if form.is_valid():
             poi = form.save( commit=False )
             
-            values = {
-                'address' : poi.street + ',' + poi.zip_code + ',' + poi.city,
-                'sensor' : 'false',
-            }
-            """
-            data = get_data_from_google_api( values )
+            address = poi.street + ',' + poi.zip_code + ',' + poi.city
+            
+            data = fetch_poi_data_with_google_api( address )
             
             results = data['results']
             if not len( results ) == 1:
@@ -63,7 +59,7 @@ def add( request ):
                 poi.filters.add( poi_filter )
             for seal in form.cleaned_data['seals']:
                 poi.seals.add( seal )
-            """
+            
             form.errors['name'] = 'Eintragung erfolgreich'
             return HttpResponseRedirect( '/poi/add' )
         #end if ( if form.is_valid() )

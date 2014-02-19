@@ -31,7 +31,7 @@ class POI( models.Model ):
     seals = models.ManyToManyField( SealPage, blank=True )
     
     def print_website_link( self ):
-        return '<a href="%(url)s">%(url)s</a>' % {'url':self.website}
+        return '<a href="%(url)s" target="_blank">%(url)s</a>' % {'url':self.website}
     website_link = property( print_website_link )
     
     def __str__( self ):
